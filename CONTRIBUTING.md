@@ -23,6 +23,12 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
 
 ## Publish to NPM
   * Remember to bump version # appropriately
+  * Build your package (usually will build to `lib/`)
+
+```
+yarn build
+```
+
   * Since this is a scoped package, we need to specify public access
 ```
 npm login
