@@ -1,0 +1,21 @@
+{
+  "name": "@boatnet/bn-util",
+  "version": "0.1.1",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "author": "FRAM Data Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwfsc-fram/boatnet-module.git"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.2"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
+}
