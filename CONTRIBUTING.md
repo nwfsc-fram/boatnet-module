@@ -19,7 +19,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
   ```
   import { myTestFunction } from '@boatnet/bn-my-fancy-boatnet'
   ```
-  * You will want to break this npm link when you publish your library [TODO how exactly?]
+  * You will want to break this npm link when you publish your library via `npm unlink`
 
 ## Publish to NPM
   * Remember to bump version # appropriately
