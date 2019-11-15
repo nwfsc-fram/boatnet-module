@@ -718,6 +718,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@boatnet/bn-models@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.1.1.tgz#8f0bb24c2b08089f52b4e314ca27128e0f7522a3"
+  integrity sha512-wwmvCmsdFdJU1xtAsaHVvNndoqUypSsnqgOBq6MbMpvskImK1ww3VymFNzyqIDiR6jFKY7bPqYZ4BePviaiP6Q==
+  dependencies:
+    geojson "^0.5.0"
+
 "@boatnet/bn-test-example@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@boatnet/bn-test-example/-/bn-test-example-1.0.0.tgz#925b752a7a4e252c981add10b42821a429e01bef"
@@ -4599,6 +4606,11 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+geojson@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/geojson/-/geojson-0.5.0.tgz#3cd6c96399be65b56ee55596116fe9191ce701c0"
+  integrity sha1-PNbJY5m+ZbVu5VWWEW/pGRznAcA=
 
 get-caller-file@^1.0.1:
   version "1.0.3"
