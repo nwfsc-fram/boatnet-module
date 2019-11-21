@@ -6,7 +6,6 @@ export * from './bird-band';
 export * from './body-length';
 export * from './brd-lookups';
 export * from './catch-disposition';
-export * from './catch-content';
 export * from './confidence';
 export * from './contact-category';
 export * from './contact-type';
