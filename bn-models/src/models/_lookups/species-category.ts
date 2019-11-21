@@ -1,6 +1,5 @@
 import { BaseLookup } from '../_base';
 import { BoatnetDate } from '../_common';
-import { string } from 'postcss-selector-parser';
 import { Taxonomy } from './taxonomy';
 
 export const SpeciesCategoryTypeName = 'species-category';
