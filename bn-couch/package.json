@@ -1,0 +1,23 @@
+{
+  "name": "@boatnet/bn-couch",
+  "version": "0.1.1",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "author": "FRAM Data Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwfsc-fram/boatnet-module.git"
+  },
+  "dependencies": {
+    "davenport": "^2.8.2",
+    "vue": "^2.6.6",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  }
+}
