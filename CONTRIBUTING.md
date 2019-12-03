@@ -23,7 +23,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
 
 ## Publish to NPM
   * Remember to bump version # appropriately
-  * Build your package (usually will build to `lib/`)
+  * Build your package (usually will build to `lib/`, be sure to configure your tsconfig.json appropriately, see other @boatnet modules for examples.)
 
 ```
 yarn build
