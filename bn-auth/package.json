@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-auth",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
