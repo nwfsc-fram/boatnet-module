@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-pouch",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -30,8 +30,7 @@
     "pouchdb-live-find": "^0.4.0",
     "pouchdb-utils": "^7.0.0",
     "vue": "^2.6.6",
-    "vue-property-decorator": "^8.3.0",
-    "vuex-typescript-interface": "^1.0.3"
+    "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
     "@types/pouchdb-core": "^7.0.5",
