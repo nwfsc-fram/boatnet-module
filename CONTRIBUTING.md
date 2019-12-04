@@ -11,6 +11,16 @@ tsconfig --init
 * See `bn-test-example` for examples, and configure your `package.json` and `tsconfig.json` accordingly (this will build to `lib/`)
 
 ## Test by using npm link, before you publish
+* First, if your app is using the @boatnet module you intend to test/develop, you need to remove its node_modules first. Otherwise, you will get a "npm ERR! Refusing to delete" error.
+```
+rm -rf /c/git/boatnet-module/bn-MY-MODULE/node_modules/
+```
+* To be safe, I usually remove the package I'm testing as well
+```
+cd /c/my-test-app/
+yarn remove @boatnet/bn-MY-MODULE
+```
+* Then you should be able to link it like so:
 ```
 cd /c/my-test-app/
 npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
