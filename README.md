@@ -13,4 +13,11 @@ See CONTRIBUTING.md for info on building/updating Boatnet modules.
 * bn-models
    * Models used for storing records in CouchDB
    
-* TODO - others
+* bn-auth
+   * Client-side auth routines for getting CouchDB info etc from auth server. See also boatnet/dev-auth-server for example implementation.
+    
+* bn-pouch, bn-couch
+  * Types and routines for communicating to CouchDB and PouchDB, and handling sync
+  
+* test-boatnet-module
+  * Used for testing all of the above, via `yarn test:unit`
