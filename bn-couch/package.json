@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-couch",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "davenport": "^2.8.2",
-    "vue": "^2.6.6",
-    "vuex-typescript-interface": "^1.0.3"
+    "vue": "^2.6.6"
   },
   "devDependencies": {
     "typescript": "^3.7.2"
