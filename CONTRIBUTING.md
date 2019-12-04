@@ -52,5 +52,6 @@ npm publish --access public
 * The test-boatnet-module project is intended to be used for all testing purposes. It is a Vue app so you can add components to its UI.
 * E2E testing is not currently working correctly
 * Unit testing
-  `yarn test:unit`
+  * See tests/unit directory for examples.
+  * To run tests, `yarn test:unit`
 
