@@ -24,7 +24,7 @@ declare module 'vue/types/vue' {
   // Declare augmentation for Vue
   interface Vue {
     // @ts-ignore
-    $pouch: PublicPouchVueMethods; // optional if `PouchDB` is available on the global object
+    $pouch: any; //PublicPouchVueMethods; // optional if `PouchDB` is available on the global object
     $defaultDB: string; // the database to use if none is specified in the pouch setting of the vue component
   }
 }

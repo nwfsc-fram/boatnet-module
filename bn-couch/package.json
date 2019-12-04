@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-couch",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
