@@ -54,4 +54,6 @@ npm publish --access public
 * Unit testing
   * See tests/unit directory for examples.
   * To run tests, `yarn test:unit`
+  * It is recommended to keep the package.json up to date with your newest versions.
+  `yarn upgrade @boatnet/bn-MY-MODULE@latest`
 
