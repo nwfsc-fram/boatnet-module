@@ -47,4 +47,10 @@ npm publish --access public
 
 * Refresh your apps appropriately (lock files may point to previous versions, so your users will need to npm/yarn upgrade)
 
-## [TODO: Unit testing]
+## Unit Testing
+
+* The test-boatnet-module project is intended to be used for all testing purposes. It is a Vue app so you can add components to its UI.
+* E2E testing is not currently working correctly
+* Unit testing
+  `yarn test:unit`
+
