@@ -3,18 +3,16 @@
 /* tslint:disable:no-console  */
 /* tslint:disable:no-var-requires  */
 import { Component, Vue, Prop } from 'vue-property-decorator';
-// @ts-ignore
 import PouchDB from 'pouchdb-browser';
-// @ts-ignore
 import lf from 'pouchdb-find';
-// @ts-ignore
 import plf from 'pouchdb-live-find';
-// @ts-ignore
 import pa from 'pouchdb-authentication';
-// @ts-ignore
-import PouchVue, { PublicPouchVueMethods } from 'pouch-vue';
+import pups from 'pouchdb-upsert';
+import PouchVue from 'pouch-vue';
 
-// PouchDB plugins: pouchdb-find (included in the monorepo), LiveFind (external plugin), and couchdb auth
+// Awesome PouchDB plugins:
+// pouchdb-find, LiveFind (external plugin)
+// authentication, and upsert
 PouchDB.plugin(lf);
 PouchDB.plugin(plf);
 PouchDB.plugin(pa);
@@ -24,7 +22,7 @@ declare module 'vue/types/vue' {
   // Declare augmentation for Vue
   interface Vue {
     // @ts-ignore
-    $pouch: any; //PublicPouchVueMethods; // optional if `PouchDB` is available on the global object
+    $pouch: any; // PublicPouchVueMethods; // optional if `PouchDB` is available on the global object
     $defaultDB: string; // the database to use if none is specified in the pouch setting of the vue component
   }
 }
@@ -34,6 +32,7 @@ declare module 'vue/types/options' {
     pouch?: any; // this is where the database will be reactive
   }
 }
+PouchDB.plugin(pups);
 
 Vue.use(PouchVue, {
   pouch: PouchDB
@@ -56,19 +55,19 @@ class PouchService extends Vue {
     console.log('[PouchDB Service] Instantiated.');
   }
 
-  public get db() {
+  public get db(): any { // TODO Not sure what this type is, just using any for now
     return this.$pouch;
   }
 
   public get lookupsDBName() {
-    if (!this.currentCredentials ) {
+    if (!this.currentCredentials) {
       throw new Error('Please log out and back in again.');
     }
     return this.currentCredentials.dbInfo.lookupsDB;
   }
 
   public get userDBName() {
-    if (!this.currentCredentials ) {
+    if (!this.currentCredentials) {
       throw new Error('Please log out and back in again.');
     }
     return this.currentCredentials.dbInfo.userDB;
@@ -126,6 +125,11 @@ class PouchService extends Vue {
       credentialedUserDB,
       syncOptsInitial
     );
+    if (!initialSyncUser || !initialSyncUser.pull) {
+      console.log('[PouchDB Service] Error getting initial userDB sync.');
+      return;
+    }
+
     console.log(
       '[PouchDB Service] Initial',
       credentials.dbInfo.userDB,
@@ -138,6 +142,11 @@ class PouchService extends Vue {
       credentialedReadOnlyDB,
       syncOptsInitial
     );
+
+    if (!initialSyncRO || !initialSyncRO.pull) {
+      console.log('[PouchDB Service] Error getting initial ReadOnly DB sync.');
+      return;
+    }
     console.log(
       '[PouchDB Service] Initial',
       credentials.dbInfo.lookupsDB,
@@ -148,17 +157,9 @@ class PouchService extends Vue {
     this.$emit('syncCompleted', initialSyncRO);
 
     this.$pouch
-      .sync(credentials.dbInfo.userDB, credentialedUserDB, syncOptsLive)
-      .on('paused', (err: any) => {
-        // weird logic in pouch-vue, so handling this here
-        this.syncDeactive({});
-      });
+      .sync(credentials.dbInfo.userDB, credentialedUserDB, syncOptsLive);
     this.$pouch
-      .sync(credentials.dbInfo.lookupsDB, credentialedReadOnlyDB, syncOptsLive)
-      .on('paused', (err: any) => {
-        // weird logic in pouch-vue, so handling this here
-        this.syncDeactive({});
-      });
+      .sync(credentials.dbInfo.lookupsDB, credentialedReadOnlyDB, syncOptsLive);
 
     console.log('[PouchDB Service] Live sync enabled.');
   }
