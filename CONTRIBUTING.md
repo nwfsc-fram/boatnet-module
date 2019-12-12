@@ -21,7 +21,7 @@ yarn link
 cd /my-path/apps/ashop
 yarn link @boatnet/bn-models
 ```
-* Perform development, when complete,
+* Perform development (I believe you need to run `yarn build` between changes in your library) and when complete,
 ```
 yarn unlink @boatnet/bn-models
 ```
