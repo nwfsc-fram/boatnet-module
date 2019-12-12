@@ -10,7 +10,23 @@ tsconfig --init
 ```
 * See `bn-test-example` for examples, and configure your `package.json` and `tsconfig.json` accordingly (this will build to `lib/`)
 
-## Test by using npm link, before you publish
+## Test by using npm link or yarn link, before you publish
+### yarn link method
+* This seems to be easier, but if you have errors, try npm link below.
+* Example (bn-models library, and ashop client)
+```
+cd /my-path/bn-models
+yarn build
+yarn link
+cd /my-path/apps/ashop
+yarn link @boatnet/bn-models
+```
+* Perform development, when complete,
+```
+yarn unlink @boatnet/bn-models
+```
+
+### npm link method
 * First, if your app is using the @boatnet module you intend to test/develop, you need to remove its node_modules first. Otherwise, you will get a "npm ERR! Refusing to delete" error.
 ```
 rm -rf /c/git/boatnet-module/bn-MY-MODULE/node_modules/
