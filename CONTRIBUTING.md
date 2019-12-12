@@ -13,12 +13,12 @@ tsconfig --init
 ## Test by using npm link or yarn link, before you publish
 ### yarn link method
 * This seems to be easier, but if you have errors, try npm link below.
-* Example (bn-models library, and ashop client)
+* Example using bn-models library, and ashop client)
 ```
-cd /my-path/bn-models
+cd /my-git-path/boatnet-module/bn-models
 yarn build
 yarn link
-cd /my-path/apps/ashop
+cd /my-git-path/boatnet/apps/ashop
 yarn link @boatnet/bn-models
 ```
 * Perform development (I believe you need to run `yarn build` between changes in your library) and when complete,
