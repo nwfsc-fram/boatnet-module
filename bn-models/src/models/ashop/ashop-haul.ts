@@ -54,9 +54,13 @@ export interface AshopHaul extends BaseOperation {
   tribalDelivery?: string; // TODO name of tribe LOOKUP
   sampleDesignType?: string; // TODO lookup
 
+  vesselType?: VesselType;
   samples?: AshopCatch[];  // column
 
   legacy?: {
+    cruiseNum?: number;
+    permit?: number;
+    tripSeq?: number;
     haulSeq?: number;
     deliveryVesselAdfg?: string;
     locationCode?: string; // R (Retrieval) or N (Noon)

@@ -15,7 +15,7 @@ CatchGrouping Type
 
 export interface CatchGrouping extends BaseLookup {
   name: string;
-  code?: number;
+  code?: number | string; // arbitrary code by which this is known by from various programs/systems
   members?: TaxonomyAlias[] | MarineDebris[]; // Could be an empty member list (e.g. sharks)
   parentTaxonomy?: TaxonomyAlias;
   definition?: GroupDefinition;
