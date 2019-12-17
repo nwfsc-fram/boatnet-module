@@ -3,6 +3,7 @@ import { LocationEvent, Measurement, CouchID } from '../_common/index';
 import { GearType } from '../_lookups/index';
 import { BaseOperation, BaseCatch } from '../_base/index';
 import { AshopCatch } from './ashop-catch';
+import { Ternary } from '../_common/ternary';
 
 export const AshopHaulTypeName = 'ashop-haul';
 
@@ -49,7 +50,7 @@ export interface AshopHaul extends BaseOperation {
   gearType?: GearType;
   gearPerformance?: AshopGearPerformance; // TODO Lookup
   mammalMonitorPercent?: number; // 0 or 100
-  isBirdShortwired?: boolean;
+  isBirdShortwired?: Ternary;
   isGearLost?: boolean;
   tribalDelivery?: string; // TODO name of tribe LOOKUP
   sampleDesignType?: string; // TODO lookup
