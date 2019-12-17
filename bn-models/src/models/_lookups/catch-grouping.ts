@@ -27,6 +27,7 @@ export interface CatchGrouping extends BaseLookup {
   legacy?: {
     // ETL Note - Only for multi-species catch categories
     wcgopCatchCategoryCode?: string;
+    wcgopCatchCategoryId?: number;
   };
 }
 
