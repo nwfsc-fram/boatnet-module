@@ -3,11 +3,25 @@ import { LocationEvent, Measurement, CouchID } from '../_common/index';
 import { GearType } from '../_lookups/index';
 import { BaseOperation, BaseCatch } from '../_base/index';
 import { AshopCatch } from './ashop-catch';
-import { Ternary } from '../_common/ternary';
+import { Ternary, MonitoringSystem } from '../_common/enums';
 
 export const AshopHaulTypeName = 'ashop-haul';
 
 declare type AshopGearPerformance = string; // TODO
+
+enum NonFlowScaleReason {
+  CVDiscard,
+  Spilled,
+  PreSorted,
+  TooLarge
+}
+
+interface NonFlowScaleCatch {
+  measurement: Measurement; // kg
+  weightMethod: string; // TODO lookup AshopWeightMethod
+  reason: NonFlowScaleReason;
+}
+
 interface EstimatedDiscard {
   measurement: Measurement; // kg
   weightMethod: string; // TODO lookup AshopWeightMethod
@@ -32,10 +46,12 @@ export interface AshopHaul extends BaseOperation {
     weightMethod: string; // TODO lookup AshopWeightMethod
   };
 
-  vesselEstimatedCatch?: {  // column
+  flowScaleCatch?: {  // column
     measurement: Measurement; // MT
     weightMethod: string; // TODO lookup AshopWeightMethod
   };
+
+  nonFlowScaleCatch?: NonFlowScaleCatch[];
 
   officialTotalCatch?: Measurement; // column
   // Calculated -
@@ -46,6 +62,9 @@ export interface AshopHaul extends BaseOperation {
 
   // Calculated- sum of observerEstimatedDiscards
   totalEstimatedDiscard?: Measurement;  // column
+
+  catcherVesselName?: string;
+  catcherVesselMonitoringSystem?: MonitoringSystem;
 
   gearType?: GearType;
   gearPerformance?: AshopGearPerformance; // TODO Lookup
