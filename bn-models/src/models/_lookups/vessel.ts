@@ -3,7 +3,6 @@ import { Port } from './port';
 import { Base, BaseLookup } from '../_base';
 import { VesselType } from './vessel-type';
 import { BoatnetDate, Measurement, CouchID } from '../_common/index';
-import { Person, VesselCaptain } from './person';
 import { Media } from './media';
 import { Permit } from './permit';
 import { Fishery } from './fishery';
@@ -35,12 +34,12 @@ export interface Vessel extends BaseLookup {
   stateRegulationNumber?: string;
   registeredLength?: Measurement;
   vesselStatus?: string; // lookup value - Active, Inactive, Retired, Sank, Byback
-  captains?: VesselCaptain[];
   safetyMeasures?: SafetyMeasure[]; // 30+ items
   media?: Media[];
   isActive?: boolean;
   emHardware?: string;
   thirdPartyReviewer?: string;
+  passCode?: string // user must supply correct vessel passcode to gain access to vessel.
 
   // TODO store crew at Vessel level?
   legacy?: {

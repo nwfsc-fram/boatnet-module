@@ -7,12 +7,12 @@ import {
   BrdConfiguration
 } from '../_common/index';
 
-import { Person, Fishery, VesselType } from '../_lookups/index';
+import { PersonAlias, Fishery, VesselType } from '../_lookups/index';
 
 export const AshopTripTypeName = 'ashop-trip';
 
 // unique A-SHOP Observer/ Debriefer
-declare type AshopContact = Person;
+declare type AshopContact = PersonAlias;
 
 interface LostHours {
   hours?: number;

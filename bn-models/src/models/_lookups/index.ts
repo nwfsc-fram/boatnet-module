@@ -33,9 +33,11 @@ export * from './marine-debris';
 export * from './measurement-device';
 export * from './media';
 export * from './observer-activity-type';
+export * from './vessel-permissions';
 export * from './ots-target-type';
 export * from './permit';
 export * from './person';
+export * from './person-alias';
 export * from './phone-number-type';
 export * from './port';
 export * from './port-group';
@@ -59,5 +61,3 @@ export * from './vessel-type';
 export * from './vessel';
 export * from './waiver-type';
 export * from './weight-method';
-
-

@@ -11,13 +11,13 @@ import {
 import { WcgopFishTicket } from './index';
 import { BrdConfiguration } from '../_common/brd-configuration';
 import { Program } from 'typescript';
-import { Person, Fishery, FirstReceiver, VesselLogbookType, TripStatus, GearType } from '../_lookups/index';
+import { PersonAlias, Fishery, FirstReceiver, VesselLogbookType, TripStatus, GearType } from '../_lookups/index';
 
 export const WcgopTripTypeName = 'wcgop-trip';
 
 export interface WcgopTrip extends BaseTrip {
   gearType?: string;
-  observer?: Person; // formerly User ID, TODO Specifics
+  observer?: PersonAlias; // formerly User ID, TODO Specifics
   program?: Program;
   isPartialTrip?: boolean;
   fishingDays?: number;
@@ -29,7 +29,7 @@ export interface WcgopTrip extends BaseTrip {
   observerLogbookNum?: number;
   isFishProcessed?: boolean;
   tripStatus?: TripStatus;
-  debriefer?: Person;
+  debriefer?: PersonAlias;
   isSelected?: boolean;
 
   sightingEvents?: SightingEvent[];
