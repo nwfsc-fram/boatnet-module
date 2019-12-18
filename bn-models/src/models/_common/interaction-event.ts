@@ -4,7 +4,6 @@ import { Media } from '../_lookups/media';
 import {
   Beaufort,
   SpecimenTag,
-  Species,
   Person,
   Confidence,
   Protocol,
@@ -12,7 +11,8 @@ import {
   InteractionType,
   BodyLength,
   SightingCondition,
-  Behavior
+  Behavior,
+  TaxonomyAlias
 } from '../_lookups';
 import { Deterrent } from '../_lookups/deterrent';
 import { BoatnetDate } from './boatnet-date';
@@ -31,7 +31,7 @@ export interface InteractionEvent extends Base {
   catchSpecies?: CouchID[]; // tied to Species Comp/ Specimen Record
   // TODO: Verify behavior of syntax for specimens:
   specimens?: WcgopSpecimen[] | Specimen[] | CouchID[];
-  species?: Species;
+  species?: TaxonomyAlias;
 
   date?: BoatnetDate;
   location?: Point;

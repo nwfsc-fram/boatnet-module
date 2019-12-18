@@ -15,7 +15,7 @@ CatchGrouping Type
 
 export interface CatchGrouping extends BaseLookup {
   name: string;
-  code?: number;
+  code?: string; // arbitrary code by which this is known by from various programs/systems
   members?: TaxonomyAlias[] | MarineDebris[]; // Could be an empty member list (e.g. sharks)
   parentTaxonomy?: TaxonomyAlias;
   definition?: GroupDefinition;
@@ -27,6 +27,7 @@ export interface CatchGrouping extends BaseLookup {
   legacy?: {
     // ETL Note - Only for multi-species catch categories
     wcgopCatchCategoryCode?: string;
+    wcgopCatchCategoryId?: number;
   };
 }
 

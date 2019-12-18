@@ -48,7 +48,7 @@ export interface Taxonomy extends Base {
     ashopSpeciesId?: number; // NORPAC ID
     obsAnalystCode?: string; // ToDo - Kayleigh spreadsheet
     edcCode?: number;
-    dwId?: number;
+    dwId?: number[]; // multiple warehouse records may refer to the same taxonomy due to structural changes in taxonomy data from ITIS
     raceBaseCodeNW?: number; // AFSC RaceBase code + 1 digit
   };
 }
