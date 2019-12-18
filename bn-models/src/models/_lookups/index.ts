@@ -63,5 +63,3 @@ export * from './vessel';
 export * from './viability';
 export * from './waiver-type';
 export * from './weight-method';
-
-
