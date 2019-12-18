@@ -1,9 +1,9 @@
 import { BaseLookup } from '../_base';
 import { BoatnetDate } from '../_common';
 
-export const MaturityTypeName = 'maturity';
+export const ViabilityTypeName = 'viability';
 
-export interface Maturity extends BaseLookup {
+export interface Viability extends BaseLookup {
   legacy?: {
     programId?: number;
     active?: boolean;
