@@ -41,17 +41,17 @@ export interface AshopHaul extends BaseOperation {
   // ETL units from DEPTH_METER_FATHOM
   // TODO Keep units in Fathoms - convert from Meters if needed
 
-  observerEstimatedCatch?: {  // column
-    measurement: Measurement; // kg
-    weightMethod: string; // TODO lookup AshopWeightMethod
-  };
-
   flowScaleCatch?: {  // column
     measurement: Measurement; // MT
     weightMethod: string; // TODO lookup AshopWeightMethod
   };
 
   nonFlowScaleCatch?: NonFlowScaleCatch[];
+
+  vesselEstimatedCatch?: {  // column
+    measurement: Measurement; // MT
+    weightMethod: string; // TODO lookup AshopWeightMethod
+  };
 
   officialTotalCatch?: Measurement; // column
   // Calculated -
@@ -77,10 +77,10 @@ export interface AshopHaul extends BaseOperation {
   samples?: AshopCatch[];  // column
 
   legacy?: {
-    vesselEstimatedCatch?: { // column
-      measurement: Measurement; // MT
+    observerEstimatedCatch?: {  // column
+      measurement: Measurement; // kg
       weightMethod: string; // TODO lookup AshopWeightMethod
-    }
+    };
     haulSeq?: number;
     deliveryVesselAdfg?: string;
     locationCode?: string; // R (Retrieval) or N (Noon)
