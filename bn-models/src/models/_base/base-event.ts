@@ -5,9 +5,9 @@ import { Point } from 'geojson'; // GeoJSON https://tools.ietf.org/html/rfc7946
 import { Base } from './base';
 
 export enum Format {
-    DD,
-    DMS,
-    DMM
+    DD = 'DD',
+    DMS = 'DMS',
+    DMM = 'DMM'
 }
 
 export interface BaseEvent extends Base  {
