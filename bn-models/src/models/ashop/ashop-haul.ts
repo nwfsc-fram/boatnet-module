@@ -77,6 +77,10 @@ export interface AshopHaul extends BaseOperation {
   samples?: AshopCatch[];  // column
 
   legacy?: {
+    vesselEstimatedCatch?: { // column
+      measurement: Measurement; // MT
+      weightMethod: string; // TODO lookup AshopWeightMethod
+    }
     haulSeq?: number;
     deliveryVesselAdfg?: string;
     locationCode?: string; // R (Retrieval) or N (Noon)
