@@ -48,7 +48,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
   * You will want to break this npm link when you publish your library via `npm unlink`
 
 ## Publish to NPM
-  * Remember to bump version # appropriately
+  * Remember to bump version # appropriately in package.json.
   * Build your package (usually will build to `lib/`, be sure to configure your tsconfig.json appropriately, see other @boatnet modules for examples.)
 
 ```
