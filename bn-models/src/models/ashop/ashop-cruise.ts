@@ -22,3 +22,28 @@ export interface AshopCruise extends Base {
   debriefer?: AshopContact; // After cruise is done
   nonFishingDays?: NonFishingDay[];
 }
+
+/* Example doc 
+{
+  "_id": "b3a7b71d1f22ba639a1edd20d318b264",
+  "_rev": "1-769b0bedc6fe9e7c6b877b5f4e362571",
+  "type": "ashop-cruise",
+  "cruiseNum": "101",
+  "vessel": {
+    "vesselName": "Candi B"
+  },
+  "trips": ["55c04a898a1d021776390cf1e474b6bd"],
+  "debriefer": {
+    "firstName": "Marnie",
+    "lastName": "McgGraw"
+  }
+  "nonFishingDays": [{
+    "date": "2019-10-16T08:57:54-07:00",
+    "reason": "Weather",
+    "location": {
+      "format": "DD",
+      "rawInputLocation": [77.5083, 164.1598]
+    }
+  }]
+}
+*/
