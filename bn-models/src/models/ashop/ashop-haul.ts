@@ -10,10 +10,10 @@ export const AshopHaulTypeName = 'ashop-haul';
 declare type AshopGearPerformance = string; // TODO
 
 enum NonFlowScaleReason {
-  CVDiscard,
-  Spilled,
-  PreSorted,
-  TooLarge
+  CVDiscard = 'CV DISCARD',
+  Spilled = 'SPILLED',
+  PreSorted = 'PRESORTED',
+  TooLarge = 'TOO LARGE'
 }
 
 interface NonFlowScaleCatch {

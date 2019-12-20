@@ -1,10 +1,10 @@
 export enum Ternary {
-    True,
-    False,
-    Unknown
+    True = 'T',
+    False = 'F',
+    Unknown = 'U'
 }
 
 export enum MonitoringSystem {
-    EM,
-    Observer
+    EM = 'EM',
+    Observer = 'OBSERVER'
 }
