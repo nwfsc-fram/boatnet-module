@@ -1,6 +1,6 @@
 export enum Ternary {
-    True = 'T',
-    False = 'F',
+    True = 'Y',
+    False = 'N',
     Unknown = 'U'
 }
 
