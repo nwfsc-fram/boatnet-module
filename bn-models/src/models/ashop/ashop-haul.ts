@@ -1,6 +1,6 @@
 // Ashop Haul
 import { LocationEvent, Measurement, CouchID } from '../_common/index';
-import { GearType } from '../_lookups/index';
+import { GearType, VesselType } from '../_lookups/index';
 import { BaseOperation, BaseCatch } from '../_base/index';
 import { AshopCatch } from './ashop-catch';
 import { Ternary, MonitoringSystem } from '../_common/enums';

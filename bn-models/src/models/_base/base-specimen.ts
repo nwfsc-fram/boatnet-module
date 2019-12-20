@@ -14,7 +14,7 @@ declare type Viability = string;
 declare type LifeStage = string;
 declare type Population = string;
 declare type MaturityTable = string; // TODO Lookup - description
-export interface Maturity {
+interface Maturity {
   maturityTable?: MaturityTable;
   sex?: Sex;
   stage?: string;

@@ -17,6 +17,6 @@ export interface Base {
   dataSource?: string; // hostname available?
   isDeleted?: boolean; // hide from user, show to Beth :)
   legacy?: any; // Other legacy data from original database import
-  changeLog?: any //optional change history log
+  changeLog?: any; // optional change history log
   [key: string]: any; // allows model to be indexed by string
 }
