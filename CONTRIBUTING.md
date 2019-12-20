@@ -63,6 +63,7 @@ npm publish --access public
 ```
 
 * Refresh your apps appropriately (lock files may point to previous versions, so your users will need to npm/yarn upgrade)
+yarn add @boatnet/bn-pouch@latest
 
 ## Unit Testing
 
