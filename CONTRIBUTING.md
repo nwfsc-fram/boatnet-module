@@ -55,7 +55,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
 yarn build
 ```
 
-  * Since this is a scoped package, we need to specify public access
+  * Since this is a scoped package, we need to specify public access (only required when creating a package the first time, but OK to specify always)
 ```
 npm login
 npm publish --access public
@@ -65,7 +65,8 @@ npm publish --access public
 
 ## Unit Testing
 
-* The test-boatnet-module project is intended to be used for all testing purposes. It is a Vue app so you can add components to its UI.
+* The test-boatnet-module project is intended to be used for all @boatnet module testing purposes. It is a Vue app so you can add components to its UI.
+* Unit tests are not yet required, but it's a near-term goal to get these into our build process.
 * E2E testing is not currently working correctly
 * Unit testing
   * See tests/unit directory for examples.
