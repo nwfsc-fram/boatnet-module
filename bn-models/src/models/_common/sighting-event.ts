@@ -9,8 +9,10 @@ import {
   Species,
   BodyLength,
   SightingCondition,
-  Behavior
+  Behavior,
+  TaxonomyAlias
 } from '../_lookups/index';
+import { CouchID } from './couch-id';
 
 declare type DescriptorIcon = any; // TODO Pick-list images of Cetacea and Pinniped Descriptions (Silhouettes)
 
@@ -27,7 +29,8 @@ interface GearPresentComment {
 export declare const SightingEventTypeName = 'sighting-event';
 
 export interface SightingEvent extends Base {
-  species?: Species;
+  species?: TaxonomyAlias;
+  operationIDs?: CouchID[];
   confidentOfSpecies?: Confidence; // Y/N/? Might be useful?
   sightingDate?: BoatnetDate;
   location?: Point;
