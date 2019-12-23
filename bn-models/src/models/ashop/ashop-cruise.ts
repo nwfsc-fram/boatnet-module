@@ -1,13 +1,13 @@
 // A-SHOP Trip
 import { Base } from '../_base';
 import { AshopTrip } from './ashop-trip';
-import { Person, Vessel } from '../_lookups/index';
+import { PersonAlias, Vessel } from '../_lookups/index';
 import { CouchID } from '../_common/index';
 import { BoatnetDate, LocationEvent } from '../_common/index';
 
 export const AshopCruiseTypeName = 'ashop-cruise';
 
-declare type AshopContact = Person;
+declare type AshopContact = PersonAlias;
 
 interface NonFishingDay {
   date?: BoatnetDate;
