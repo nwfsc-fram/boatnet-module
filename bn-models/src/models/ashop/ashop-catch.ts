@@ -1,6 +1,7 @@
 // A-SHOP Catch
 import { BaseCatch } from '../_base/base-catch';
-import { Measurement, CouchID, Specimen } from '../_common/index';
+import { Measurement, CouchID } from '../_common/index';
+import { AshopSpecimen } from './ashop-specimen';
 
 export const AshopCatchTypeName = 'ashop-catch';
 
@@ -38,10 +39,11 @@ export interface AshopCatch extends BaseCatch {
 
   children?: AshopCatch[];
 
-  specimens?: Specimen[];
+  specimens?: AshopSpecimen[];
 
   legacy?: {
     sampleSequence?: number;
+    speciesCompSequence?: number;
     parentSequence?: number;
     cruiseNum?: number;
     permit?: string;

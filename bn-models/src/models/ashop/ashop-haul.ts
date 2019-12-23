@@ -1,12 +1,27 @@
 // Ashop Haul
 import { LocationEvent, Measurement, CouchID } from '../_common/index';
-import { GearType } from '../_lookups/index';
+import { GearType, VesselType } from '../_lookups/index';
 import { BaseOperation, BaseCatch } from '../_base/index';
 import { AshopCatch } from './ashop-catch';
+import { Ternary, MonitoringSystem } from '../_common/enums';
 
 export const AshopHaulTypeName = 'ashop-haul';
 
 declare type AshopGearPerformance = string; // TODO
+
+enum NonFlowScaleReason {
+  CVDiscard = 'CV DISCARD',
+  Spilled = 'SPILLED',
+  PreSorted = 'PRESORTED',
+  TooLarge = 'TOO LARGE'
+}
+
+interface NonFlowScaleCatch {
+  measurement: Measurement; // kg
+  weightMethod: string; // TODO lookup AshopWeightMethod
+  reason: NonFlowScaleReason;
+}
+
 interface EstimatedDiscard {
   measurement: Measurement; // kg
   weightMethod: string; // TODO lookup AshopWeightMethod
@@ -26,10 +41,12 @@ export interface AshopHaul extends BaseOperation {
   // ETL units from DEPTH_METER_FATHOM
   // TODO Keep units in Fathoms - convert from Meters if needed
 
-  observerEstimatedCatch?: {  // column
-    measurement: Measurement; // kg
+  flowScaleCatch?: {  // column
+    measurement: Measurement; // MT
     weightMethod: string; // TODO lookup AshopWeightMethod
   };
+
+  nonFlowScaleCatch?: NonFlowScaleCatch[];
 
   vesselEstimatedCatch?: {  // column
     measurement: Measurement; // MT
@@ -46,17 +63,28 @@ export interface AshopHaul extends BaseOperation {
   // Calculated- sum of observerEstimatedDiscards
   totalEstimatedDiscard?: Measurement;  // column
 
+  catcherVesselName?: string;
+  catcherVesselMonitoringSystem?: MonitoringSystem;
+
   gearType?: GearType;
   gearPerformance?: AshopGearPerformance; // TODO Lookup
   mammalMonitorPercent?: number; // 0 or 100
-  isBirdShortwired?: boolean;
+  isBirdShortwired?: Ternary;
   isGearLost?: boolean;
   tribalDelivery?: string; // TODO name of tribe LOOKUP
   sampleDesignType?: string; // TODO lookup
 
+  vesselType?: VesselType;
   samples?: AshopCatch[];  // column
 
   legacy?: {
+    observerEstimatedCatch?: {  // column
+      measurement: Measurement; // kg
+      weightMethod: string; // TODO lookup AshopWeightMethod
+    };
+    cruiseNum?: number;
+    permit?: number;
+    tripSeq?: number;
     haulSeq?: number;
     deliveryVesselAdfg?: string;
     locationCode?: string; // R (Retrieval) or N (Noon)

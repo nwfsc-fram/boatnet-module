@@ -1,6 +1,6 @@
 # Brief Guide: Developing new Boatnet Modules
 
-## Create your module
+## Creating a new generic module
 * Naming convention for boatnet modules is `@boatnet/bn-xyz`
 ```
 mkdir bn-my-boatnet-module
@@ -9,6 +9,7 @@ yarn init -y
 tsconfig --init
 ```
 * See `bn-test-example` for examples, and configure your `package.json` and `tsconfig.json` accordingly (this will build to `lib/`)
+* Note that modules with Vue support is more complex, still working on docs for that. See existing examples.
 
 ## Test by using npm link or yarn link, before you publish
 ### yarn link method
@@ -48,24 +49,26 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
   * You will want to break this npm link when you publish your library via `npm unlink`
 
 ## Publish to NPM
-  * Remember to bump version # appropriately
+  * Remember to bump version # appropriately in package.json.
   * Build your package (usually will build to `lib/`, be sure to configure your tsconfig.json appropriately, see other @boatnet modules for examples.)
 
 ```
 yarn build
 ```
 
-  * Since this is a scoped package, we need to specify public access
+  * Since this is a scoped package, we need to specify public access (only required when creating a package the first time, but OK to specify always)
 ```
 npm login
 npm publish --access public
 ```
 
 * Refresh your apps appropriately (lock files may point to previous versions, so your users will need to npm/yarn upgrade)
+yarn add @boatnet/bn-pouch@latest
 
 ## Unit Testing
 
-* The test-boatnet-module project is intended to be used for all testing purposes. It is a Vue app so you can add components to its UI.
+* The test-boatnet-module project is intended to be used for all @boatnet module testing purposes. It is a Vue app so you can add components to its UI.
+* Unit tests are not yet required, but it's a near-term goal to get these into our build process.
 * E2E testing is not currently working correctly
 * Unit testing
   * See tests/unit directory for examples.

@@ -14,7 +14,7 @@ declare type Viability = string;
 declare type LifeStage = string;
 declare type Population = string;
 declare type MaturityTable = string; // TODO Lookup - description
-export interface Maturity {
+interface Maturity {
   maturityTable?: MaturityTable;
   sex?: Sex;
   stage?: string;
@@ -50,7 +50,7 @@ export interface BaseSpecimen extends Base {
   isAdiposePresent?: boolean; // Hatchery v. Wild
 
   biostructures?: Biostructure[];
-  tags: Tag[];
+  tags?: Tag[];
 
   numSpecimensInBag?: number; // TODO ?? We think this is a bag of specimens
   location?: LocationEvent; // where was the boat when the specimen was collected
