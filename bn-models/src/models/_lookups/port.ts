@@ -8,8 +8,8 @@ export const PortTypeName = 'port';
 export interface Port extends BaseLookup {
   name?: string;  // PORT_NAME from OBSPROD PORTS table
   state?: string; // STATE from PORTS table
-  pacfinPortCode: string; // PORT_CODE from PORTS table
-  pacfinPortGroupCode: string; // PCGROUP from PORT_DECODER table
+  pacfinPortCode?: string; // PORT_CODE from PORTS table
+  pacfinPortGroupCode?: string; // PCGROUP from PORT_DECODER table
   wcgopPortGroup?: string; // PORT_GROUP from PORTS table
 
   legacy?: {
