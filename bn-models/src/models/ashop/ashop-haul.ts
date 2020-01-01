@@ -42,7 +42,7 @@ export interface AshopHaul extends BaseOperation {
   // TODO Keep units in Fathoms - convert from Meters if needed
 
   flowScaleCatch?: {  // column
-    measurement: Measurement; // MT
+    measurement: Measurement; // kg
     weightMethod: string; // TODO lookup AshopWeightMethod
   };
 

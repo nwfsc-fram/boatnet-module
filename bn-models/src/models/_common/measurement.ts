@@ -6,3 +6,17 @@ export interface Measurement {
   value?: number | string;
   units?: string;
 }
+
+export class MeasurementImpl implements Measurement {
+  public measurementType: string;
+  public units: string;
+
+  constructor(measurementType: string, units: string) {
+      this.measurementType = measurementType;
+      this.units = units;
+  }
+}
+
+export function initMeasurement(type: string, units: string): Measurement {
+  return new MeasurementImpl(type, units);
+}
