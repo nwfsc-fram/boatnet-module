@@ -8,5 +8,5 @@ export interface Measurement {
 }
 
 export function initMeasurement(measurementType: string, units: string): Measurement {
-  return {measurementType: measurementType, units: units};
+  return {measurementType, units};
 }
