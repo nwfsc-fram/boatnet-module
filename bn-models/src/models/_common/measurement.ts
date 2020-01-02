@@ -7,16 +7,6 @@ export interface Measurement {
   units?: string;
 }
 
-export class MeasurementImpl implements Measurement {
-  public measurementType: string;
-  public units: string;
-
-  constructor(measurementType: string, units: string) {
-      this.measurementType = measurementType;
-      this.units = units;
-  }
-}
-
-export function initMeasurement(type: string, units: string): Measurement {
-  return new MeasurementImpl(type, units);
+export function initMeasurement(measurementType: string, units: string): Measurement {
+  return {measurementType: measurementType, units: units};
 }
