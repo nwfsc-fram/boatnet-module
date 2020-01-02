@@ -6,3 +6,7 @@ export interface Measurement {
   value?: number | string;
   units?: string;
 }
+
+export function initMeasurement(measurementType: string, units: string): Measurement {
+  return {measurementType, units};
+}

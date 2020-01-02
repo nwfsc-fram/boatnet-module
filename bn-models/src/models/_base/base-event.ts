@@ -12,7 +12,7 @@ export enum GPSFormat {
 
 export interface BaseEvent extends Base  {
     type?: string;
-    rawInputLocation?: Point;
+    rawInputLocation?: string[];
     rawInputFormat?: GPSFormat;
     ddLocation?: Point;
     depth?: Measurement;
