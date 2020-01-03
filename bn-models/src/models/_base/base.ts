@@ -7,7 +7,7 @@ export interface Base {
   _id?: CouchID; // UUID, couchDB compatible
   _rev?: string; // Couch revision
   type?: string; // current pattern is to declare a xxxTypeName, see wcgop-haul
-  createdBy?: string; // Username
+  createdBy?: BoatnetUserName; // Username
   createdDate?: BoatnetDate; // ISO 8601 date
   updatedBy?: BoatnetUserName; // Username
   updatedDate?: BoatnetDate; // ISO 8601 date
