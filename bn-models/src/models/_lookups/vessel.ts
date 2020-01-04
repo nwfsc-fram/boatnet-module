@@ -39,7 +39,7 @@ export interface Vessel extends BaseLookup {
   isActive?: boolean;
   emHardware?: string;
   thirdPartyReviewer?: string;
-  passCode?: string // user must supply correct vessel passcode to gain access to vessel.
+  passCode?: string; // user must supply correct vessel passcode to gain access to vessel.
 
   // TODO store crew at Vessel level?
   legacy?: {

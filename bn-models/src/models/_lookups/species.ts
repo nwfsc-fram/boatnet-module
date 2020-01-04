@@ -20,6 +20,6 @@ export interface Species extends BaseLookup {
     prioritySpecies?: boolean; // Y or NULL
     bsSpecies?: boolean; // Y or NULL
     formRequired?: boolean; // Y or NULL
-    obsprodLoadDate: BoatnetDate
+    obsprodLoadDate: BoatnetDate;
   };
 }

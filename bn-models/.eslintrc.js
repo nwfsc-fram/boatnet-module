@@ -7,7 +7,7 @@ module.exports = {
         "eslint:recommended",
         "plugin:vue/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        '@vue/typescript/recommended'
+        '@vue/typescript/recommended',
     ],
     "globals": {
         "Atomics": "readonly",
@@ -24,6 +24,7 @@ module.exports = {
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "max-len": ["error", {"code": 120, "ignoreUrls": true}]
     }
 };
