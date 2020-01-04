@@ -7,12 +7,17 @@ export const VesselAuthorizationTypeName = 'vessel-authorization';
 
 export interface VesselAuthorization extends BaseLookup {
     vesselIdNum: string; // Coast Guard Number or Stete Regulation Number
-    authorizedPeople?: CouchID[]; // ids of personAlias docs - the thinking here is that a given vessel will have a small number of autorized users, so it shouldn't be a big deal to look up the person-alias (stored in lookups) details by _id - the vesselPermissions doc will be dramatically smaller as a result.
+    authorizedPeople?: CouchID[]; /* ids of personAlias docs -
+     the thinking here is that a given vessel will have a small number
+     of autorized users, so it shouldn't be a big deal to look up the
+     person-alias (stored in lookups) details by _id -
+     the vesselPermissions doc will be dramatically smaller as a result.
+    */
 }
 
 export interface VesselPermissions extends Base {
     // uses changeLog from Base
-    vesselsAuthorizations: VesselAuthorization[]
+    vesselsAuthorizations: VesselAuthorization[];
 }
 
 // NOTES: *  Vessel no longer stores captains

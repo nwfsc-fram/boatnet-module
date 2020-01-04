@@ -20,7 +20,7 @@ export interface TrawlSurveyCatch extends BaseCatch {
   
   legacy?: {
     size?: Size; // Hake Large v. Hake Small - only for 2 years
-  }
+  };
 }
 
 /*

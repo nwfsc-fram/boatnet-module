@@ -28,7 +28,7 @@ export interface Equipment {
 }
 declare type Transect = {
   code: number;
-  polyline: MultiLineString
+  polyline: MultiLineString;
 }
 
 declare type TomWeights = string; // TODO - 200lbs, 250lbs, 500lbs, 750lbs
@@ -48,7 +48,7 @@ export interface HakeSurveyOperation extends BaseOperation {
   distanceFished: Measurement; // Derived - nautical miles
   stratum: InfpcSubArea; // INFPC - TODO ETL - check if EQ_LATITUDE is in INFPC area
       // update the stratum as needed
-  averageBottomDepth?: Measurement // meters
+  averageBottomDepth?: Measurement; // meters
   gearType?: GearType; // AWT (Aleutian Wing Trawl)
   doorType?: DoorType; //
   tomWeights?: TomWeights; // e.g. 250 lbs (historical data) up to 750 lbs (currently)

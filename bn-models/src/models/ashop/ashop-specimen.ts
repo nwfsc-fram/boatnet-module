@@ -30,5 +30,5 @@ export interface AshopSpecimen extends BaseSpecimen {
         haulSeq?: number;
         offloadSeq?: number;
         lengthSeq?: number;
-    }
+    };
 }
