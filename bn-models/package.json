@@ -5,7 +5,7 @@
   "types": "lib",
   "scripts": {
     "lint": "eslint ./src --ext .ts",
-    "build": "lint && tsc -p ."
+    "build": "yarn lint && tsc -p ."
   },
   "author": "FRAM Data Team",
   "license": "ISC",
