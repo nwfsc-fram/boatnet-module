@@ -66,6 +66,8 @@ npm publish --access public
 * Refresh your apps appropriately (lock files may point to previous versions, so your users will need to npm/yarn upgrade)
 yarn add @boatnet/bn-pouch@latest
 
+* Kick off a full Jenkins Dev build, which will pull down the newest modules and verify your changes work. Next production build should be a full build too (not FAST build)
+
 ## Unit Testing
 
 * The test-boatnet-module project is intended to be used for all @boatnet module testing purposes. It is a Vue app so you can add components to its UI.
