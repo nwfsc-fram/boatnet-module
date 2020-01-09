@@ -50,6 +50,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
 
 ## Publish to NPM
   * Remember to bump version # appropriately in package.json.
+  * Run ```yarn build``` to perform lint checking before final merging of your code.
   * **Be sure to push and merge your (preferably code reviewed) changes to master before npm publishing.**
   * Build your package (usually will build to `lib/`, be sure to configure your tsconfig.json appropriately, see other @boatnet modules for examples.)
 
@@ -57,7 +58,7 @@ npm link /c/<your path to your library>/boatnet-module/bn-my-fancy-boatnet
 yarn build
 ```
 
-  * Since this is a scoped package, we need to specify public access (only required when creating a package the first time, but OK to specify always)
+  * Since this is a "@" (scoped) package, we need to specify ```--access public``` (only required when creating a package the first time, but OK to specify always)
 ```
 npm login
 npm publish --access public
