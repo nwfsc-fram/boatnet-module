@@ -64,8 +64,8 @@ npm login
 npm publish --access public
 ```
 
-* Refresh your apps appropriately (users will have to re-run yarn install or lerna boostrap)
-yarn add @boatnet/bn-pouch@latest
+* Refresh your apps appropriately (users will have to re-run yarn install or lerna boostrap),
+e.g. ```yarn add @boatnet/bn-pouch@latest```
 
 * Kick off a full Jenkins Dev build, which will pull down the newest modules and verify your changes work. Next production build should be a full build too (not FAST build)
 
