@@ -16,8 +16,9 @@ enum NonFlowScaleReason {
   TooLarge = 'TOO LARGE'
 }
 
-interface NonFlowScaleCatch {
-  measurement: Measurement; // kg
+export interface NonFlowScaleCatch {
+  rawInputMeasurement: Measurement; // kg or lbs
+  officialMeasurement: Measurement; //kg
   weightMethod: string; // TODO lookup AshopWeightMethod
   reason: NonFlowScaleReason;
 }
@@ -68,7 +69,7 @@ export interface AshopHaul extends BaseOperation {
 
   gearType?: GearType;
   gearPerformance?: AshopGearPerformance; // TODO Lookup
-  mammalMonitorPercent?: number; // 0 or 100
+  isMarineMammalMonitored?: boolean;
   isBirdShortwired?: Ternary;
   isGearLost?: boolean;
   tribalDelivery?: string; // TODO name of tribe LOOKUP
