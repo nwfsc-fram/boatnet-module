@@ -7,11 +7,12 @@ export const OLEVesselTypeName = 'ole-vessel';
 export interface Declaration extends Base {
   declarationId?: number; // OLE declaration code (three digit for now)
   observerStatus?: string; // type of observer coverage
-  efpStatus?: Boolean; // boolean, if declaration is under an EFP
+  efpStatus?: boolean; // boolean, if declaration is under an EFP
   activityDescrip?: string; // if 69 chosen, further description of declaration
   confrimationNum?: number; // once declaration is in the system it is assigned a confirmation number
   transactionDate?: BoatnetDate; // effective declaration start date
-  transactionType?: string; // tbd, but probably going to use it for keeping track of how the declaration was provided (app, phone, etc)
+  transactionType?: string; // tbd, but probably going to use it for keeping track of
+                            // how the declaration was provided (app, phone, etc)
   staffComments?: string;
   userComments?: string;
 }
@@ -40,7 +41,7 @@ export interface OLEVessel extends Base {
       vesselZip: number;
       vesselPhone: string;
       vesselEmail: string;
-    }
+    };
   }
 
 

@@ -2,8 +2,7 @@ import { BaseLookup } from '../_base';
 
 export const nonFlowScaleReasonCode = 'non-flow-scale-reason';
 
-export interface nonFlowScaleReasonCode extends BaseLookup {
-}
+export type nonFlowScaleReasonCode = BaseLookup;
 
 /* Example doc 
 {
