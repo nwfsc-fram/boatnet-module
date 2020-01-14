@@ -17,6 +17,7 @@ tsconfig --init
 * Example using bn-models library, and ashop client)
 ```
 cd /my-git-path/boatnet-module/bn-models
+[yarn install if you need to]
 yarn build
 yarn link
 cd /my-git-path/boatnet/apps/ashop
