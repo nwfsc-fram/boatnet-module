@@ -12,7 +12,7 @@ export interface TribalDeliveryReasonCode extends BaseLookup {
   "_rev": "1-769b0bedc6fe9e7c6b877b5f4e362571",
   "type": "tribal-delivery-reason-code",
   "cdqCode": "M01",
-  "description": "Makah Tribe Whiting Association",
+  "lookupValue": "Makah Tribe Whiting Association",
   "isAshop": true
 }
 */
