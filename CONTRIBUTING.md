@@ -14,6 +14,7 @@ tsconfig --init
 ## Test by using npm link or yarn link, before you publish
 ### yarn link method
 * Official documentation: https://yarnpkg.com/en/docs/cli/link
+  * Not mentioned in the docs is the Windows yarn link tracking dir, C:\Users<user name>\AppData\Local\Yarn\Data\link
 * This seems to be easier, but if you have errors, try npm link below.
 * Example using bn-models library, and ashop client)
 ```
