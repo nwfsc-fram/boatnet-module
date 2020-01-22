@@ -1,6 +1,5 @@
-// A-SHOP Trip
+// A-SHOP Cruise
 import { Base } from '../_base';
-import { AshopTrip } from './ashop-trip';
 import { PersonAlias, Vessel } from '../_lookups/index';
 import { CouchID } from '../_common/index';
 import { BoatnetDate, LocationEvent } from '../_common/index';
@@ -13,6 +12,7 @@ interface NonFishingDay {
   date?: BoatnetDate;
   reason?: string;
   location?: LocationEvent;
+  tripNum?: number;
   tripId?: string;
 }
 
@@ -23,6 +23,8 @@ export interface AshopCruise extends Base {
   debriefer?: AshopContact; // After cruise is done
   observers?: AshopContact[];
   nonFishingDays?: NonFishingDay[];
+  startDate?: BoatnetDate;
+  endDate?: BoatnetDate;
 }
 
 /* Example doc 
@@ -52,7 +54,11 @@ export interface AshopCruise extends Base {
     "location": {
       "format": "DD",
       "rawInputLocation": [77.5083, 164.1598]
-    }
-  }]
+    },
+    "tripNum": 1,
+    "tripId": "55c04a898a1d021776390cf1e474b6bd"
+  }],
+  "startDate": "2019-10-23T08:57:54-07:00",
+  "endDate": "2019-10-28T08:57:54-07:00"
 }
 */
