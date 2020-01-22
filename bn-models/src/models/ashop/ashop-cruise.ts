@@ -13,6 +13,7 @@ interface NonFishingDay {
   date?: BoatnetDate;
   reason?: string;
   location?: LocationEvent;
+  tripId?: string;
 }
 
 export interface AshopCruise extends Base {
@@ -20,6 +21,7 @@ export interface AshopCruise extends Base {
   vessel?: Vessel;
   trips?: CouchID[]; // Trip/ Set UUID's
   debriefer?: AshopContact; // After cruise is done
+  observers?: AshopContact[];
   nonFishingDays?: NonFishingDay[];
 }
 
@@ -36,7 +38,14 @@ export interface AshopCruise extends Base {
   "debriefer": {
     "firstName": "Marnie",
     "lastName": "McgGraw"
-  }
+  },
+  "observers": [{
+    "firstName": "Russel",
+    "lastName": "Adams"
+  }, {
+    "firstName": "Nathan",
+    "lastName": "Bennett"
+  }]
   "nonFishingDays": [{
     "date": "2019-10-16T08:57:54-07:00",
     "reason": "Weather",
