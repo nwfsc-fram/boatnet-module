@@ -20,12 +20,6 @@ interface LostHours {
   code?: string;
 }
 
-interface ObserverRange {
-  observer?: AshopContact;
-  startDate?: BoatnetDate;
-  endDate?: BoatnetDate;
-}
-
 export interface AshopTrip extends BaseTrip {
 
   /*  From BaseTrip, show the following columns:
@@ -34,7 +28,6 @@ export interface AshopTrip extends BaseTrip {
       departureDate
       returnDate
   */
-  observers?: ObserverRange[];
   fishingDays?: number; // calculated
   fishery?: Fishery; // default to A-SHOP
   crewSize?: number;
