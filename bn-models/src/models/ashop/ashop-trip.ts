@@ -4,7 +4,8 @@ import {
   BoatnetDate,
   SightingEvent,
   InteractionEvent,
-  BrdConfiguration
+  BrdConfiguration,
+  NonFishingDay
 } from '../_common/index';
 
 import { PersonAlias, Fishery, VesselType } from '../_lookups/index';
@@ -19,12 +20,6 @@ interface LostHours {
   code?: string;
 }
 
-interface ObserverRange {
-  observer?: AshopContact;
-  startDate?: BoatnetDate;
-  endDate?: BoatnetDate;
-}
-
 export interface AshopTrip extends BaseTrip {
 
   /*  From BaseTrip, show the following columns:
@@ -33,7 +28,6 @@ export interface AshopTrip extends BaseTrip {
       departureDate
       returnDate
   */
-  observers?: ObserverRange[];
   fishingDays?: number; // calculated
   fishery?: Fishery; // default to A-SHOP
   crewSize?: number;
@@ -41,6 +35,7 @@ export interface AshopTrip extends BaseTrip {
 
   sightingEvents?: SightingEvent[];
   ineractionEvents?: InteractionEvent[]; // todo
+  nonFishingDays?: NonFishingDay[];
 
   brd?: BrdConfiguration[];
   // TODO include Bird Detterence?

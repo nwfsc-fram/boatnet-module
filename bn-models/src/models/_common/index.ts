@@ -11,6 +11,7 @@ export * from './lineal-measurement';
 export * from './location-event';
 export * from './measurement';
 export * from './message';
+export * from './non-fishing-day';
 export * from './sighting-event';
 export * from './specimen';
 export * from './vessel-selection-result';
