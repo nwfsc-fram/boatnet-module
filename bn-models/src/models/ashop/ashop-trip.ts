@@ -4,7 +4,8 @@ import {
   BoatnetDate,
   SightingEvent,
   InteractionEvent,
-  BrdConfiguration
+  BrdConfiguration,
+  NonFishingDay
 } from '../_common/index';
 
 import { PersonAlias, Fishery, VesselType } from '../_lookups/index';
@@ -41,6 +42,7 @@ export interface AshopTrip extends BaseTrip {
 
   sightingEvents?: SightingEvent[];
   ineractionEvents?: InteractionEvent[]; // todo
+  nonFishingDays?: NonFishingDay[];
 
   brd?: BrdConfiguration[];
   // TODO include Bird Detterence?
