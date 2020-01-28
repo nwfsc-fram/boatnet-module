@@ -1,11 +1,20 @@
 // A-SHOP Cruise
 import { Base } from '../_base';
 import { PersonAlias, Vessel } from '../_lookups/index';
-import { BoatnetDate, CouchID, NonFishingDay } from '../_common/index';
+import { BoatnetDate, CouchID, LocationEvent } from '../_common/index';
 
 export const AshopCruiseTypeName = 'ashop-cruise';
 
 declare type AshopContact = PersonAlias;
+
+interface NonFishingDay {
+  date?: BoatnetDate;
+  reason?: string;
+  notes?: string;
+  location?: LocationEvent;
+  tripNum?: number;
+  tripId?: CouchID;
+}
 
 export interface AshopCruise extends Base {
   cruiseNum?: number; // friendly cruiseId
@@ -41,11 +50,14 @@ export interface AshopCruise extends Base {
   }],
   "nonFishingDays": [{
     "date": "2019-10-16T08:57:54-07:00",
-    "reason": "Weather",
+    "reason": "Other (notes)",
+    "notes": "Too much rain",
     "location": {
       "format": "DD",
       "rawInputLocation": [77.5083, 164.1598]
-    }
+    },
+    "tripNum": 1,
+    "tripId": "784c4a014bbf175ce136b4bac3069828"
   }],
   "startDate": "2019-10-23T08:57:54-07:00",
   "endDate": "2019-10-28T08:57:54-07:00"
