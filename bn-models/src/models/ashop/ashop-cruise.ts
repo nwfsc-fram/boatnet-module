@@ -13,7 +13,7 @@ interface NonFishingDay {
   notes?: string;
   location?: LocationEvent;
   tripNum?: number;
-  tripId?: string;
+  tripId?: CouchID;
 }
 
 export interface AshopCruise extends Base {
