@@ -57,7 +57,12 @@ class AuthService {
 
     if (userResponse) {
       const user = userResponse.data;
-      const verified: any = jsonwebtoken.verify(user.token, pubKey!); // ! is the non-null assertion operator
+      if(!pubKey) {
+        throw new Error(
+          'Unable to load public key. Internet connection required.'
+        );
+      }
+      const verified: any = jsonwebtoken.verify(user.token, pubKey);
       verified.sub = JSON.parse(verified.sub); // parse JSON encoded sub
       this.setCurrentUser({...verified.sub,
         jwtToken: user.token});
