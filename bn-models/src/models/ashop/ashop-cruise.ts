@@ -12,7 +12,7 @@ interface NonFishingDay {
   reason?: string;
   notes?: string;
   location?: LocationEvent;
-  tripNum?: number;
+  inTrip?: boolean;
   tripId?: CouchID;
 }
 
