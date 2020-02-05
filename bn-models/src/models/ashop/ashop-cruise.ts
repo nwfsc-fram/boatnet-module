@@ -12,8 +12,8 @@ interface NonFishingDay {
   reason?: string;
   notes?: string;
   location?: LocationEvent;
-  occuredInTrip?: boolean;
-  tripNum?: number;
+  inTrip?: boolean;
+  tripId?: CouchID;
 }
 
 export interface AshopCruise extends Base {
