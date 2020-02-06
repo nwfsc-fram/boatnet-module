@@ -109,8 +109,9 @@ const getters: GetterTree<PouchDBState, any> = {
       ? getState.syncStatus.dbInfo.info
       : undefined;
     const db = getState.syncStatus.dbInfo ? getState.syncStatus.dbInfo.db : undefined;
-    if (info) {
+    if (info && info.change) {
       // return info.direction + ': ' + info.change.docs_read + ' Pending: ' + info.change.pending;
+      // eslint-disable-next-line @typescript-eslint/camelcase
       return {docs_read: info.change.docs_read, pending: info.change.pending, db};
     }
   }

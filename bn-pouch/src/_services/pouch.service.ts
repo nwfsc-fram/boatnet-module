@@ -10,14 +10,7 @@ import pa from 'pouchdb-authentication';
 import pups from 'pouchdb-upsert';
 import PouchVue from 'pouch-vue';
 
-// Awesome PouchDB plugins:
-// pouchdb-find, LiveFind (external plugin)
-// authentication, and upsert
-PouchDB.plugin(lf);
-PouchDB.plugin(plf);
-PouchDB.plugin(pa);
-
-// https://vuejs.org/v2/guide/typescript.html#Augmenting-Types-for-Use-with-Plugins
+// // https://vuejs.org/v2/guide/typescript.html#Augmenting-Types-for-Use-with-Plugins
 declare module 'vue/types/vue' {
   // Declare augmentation for Vue
   interface Vue {
@@ -32,6 +25,14 @@ declare module 'vue/types/options' {
     pouch?: any; // this is where the database will be reactive
   }
 }
+
+// Awesome PouchDB plugins:
+// pouchdb-find, LiveFind (external plugin)
+// authentication, and upsert
+PouchDB.plugin(lf);
+PouchDB.plugin(plf);
+PouchDB.plugin(pa);
+
 PouchDB.plugin(pups);
 
 Vue.use(PouchVue, {
@@ -100,6 +101,7 @@ class PouchService extends Vue {
     const syncOptsInitial = {
       live: false,
       retry: true,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       back_off_function: (delay: number) => {
         if (delay === 0) {
           return 1000;
@@ -110,6 +112,7 @@ class PouchService extends Vue {
     const syncOptsLive = {
       live: true,
       retry: true,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       back_off_function: (delay: number) => {
         if (delay === 0) {
           return 1000;
@@ -225,8 +228,8 @@ class PouchService extends Vue {
         '[PouchDB Service] Sync: ',
         dbInfo.db,
         dbInfo.info.direction,
-        dbInfo.info.change.docs_read,
-        dbInfo.info.change.pending
+        'read:' + dbInfo.info.change.docs_read,
+        'pending: ' + dbInfo.info.change.pending
       );
       const syncStatus: PouchDBSyncStatus = { syncActive: true, dbInfo };
       this.$emit('syncProgress', syncStatus);
