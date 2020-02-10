@@ -55,9 +55,9 @@ class AuthService {
         // Else - possibly offline - Continue
       });
 
-    if (userResponse) {
+    if (userResponse && pubKey) {
       const user = userResponse.data;
-      const verified: any = jsonwebtoken.verify(user.token, pubKey!); // ! is the non-null assertion operator
+      const verified: any = jsonwebtoken.verify(user.token, pubKey);
       verified.sub = JSON.parse(verified.sub); // parse JSON encoded sub
       this.setCurrentUser({...verified.sub,
         jwtToken: user.token});
@@ -124,6 +124,13 @@ class AuthService {
       dbInfo: this.currentUser.couchDBInfo,
       userCredentials: this.currentCredentials
     };
+  }
+
+  public getTripsApiUrl(): string | undefined {
+    if (!this.currentUser || !this.currentUser.tripsApi) {
+      return undefined;
+    }
+    return this.currentUser.tripsApi.apiUrl;
   }
 
   private setCurrentUser(user: BoatnetUser) {

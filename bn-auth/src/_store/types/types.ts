@@ -6,7 +6,7 @@ export interface AuthState {
     isLoggedIn?: boolean;
     error?: {
       message: string;
-    }
+    };
   };
   user: BoatnetUser | null;
 }
