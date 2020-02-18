@@ -12,7 +12,8 @@ import { CouchDBCredentials } from '@boatnet/bn-couch';
 import { DBConfig } from '../models/dbconfig.model';
 import { encode64 } from '../_util/auth_util';
 
-import { version } from '../../package.json';
+// This changes tsc output path if enabled. Hardcoding for now.
+//import { version } from '../../package.json';
 
 class AuthService {
   private dbConfig: DBConfig = {};
@@ -51,7 +52,7 @@ class AuthService {
     const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
     const userResponse = await axios
       .post(apiUrl + '/api/v1/login', { username, password,
-        encodeCouchPassword: true, clientVersion: "Auth v" + version })
+        encodeCouchPassword: true, clientVersion: "Auth v1"})
       .catch((err: any) => {
         if (err.response && err.response.status === 401) {
           console.error('[Auth Service]', err.response);
