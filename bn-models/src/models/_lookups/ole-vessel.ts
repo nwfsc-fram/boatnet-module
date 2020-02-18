@@ -5,9 +5,10 @@ export const DeclarationTypeName = 'ole-declaration';
 export const OLEVesselTypeName = 'ole-vessel';
 
 export interface Declaration extends Base {
-  declarationId?: number; // OLE declaration code (three digit for now)
-  observerStatus?: string; // type of observer coverage
-  efpStatus?: boolean; // boolean, if declaration is under an EFP
+  declarationCode: number; // OLE declaration code (three digit for now)
+  declarationDescrip: string; // Carrying declaration code description for app
+  observerStatus: string; // type of observer coverage
+  efpStatus?: string; // string, if declaration is under an EFP (not finalized
   activityDescrip?: string; // if 69 chosen, further description of declaration
   confrimationNum?: number; // once declaration is in the system it is assigned a confirmation number
   transactionDate?: BoatnetDate; // effective declaration start date
@@ -26,9 +27,9 @@ export interface OLEVessel extends Base {
     lepOpenAcess?: string; // additional permit information
     vmsTech?: string; // vtracks employee assigned to vessel
     ifqAcct?: string; // additional permit information
-    activeDeclarations?: [Declaration]; // array of currently active declarations
-    closedDeclarations?: [Declaration]; // array of past declarations
-    cartDeclarations?: [Declaration]; // declarations in cart, not yet activated
+    activeDeclarations?: Declaration[]; // array of currently active declarations
+    closedDeclarations?: Declaration[]; // array of past declarations
+    cartDeclarations?: Declaration[]; // declarations in cart, not yet activated
 
     // Legacy
     // We still need to decide how/if we're going to keep this information
@@ -64,7 +65,7 @@ export interface OLEVessel extends Base {
       "type": "ole-declaration",
       "declarationCode": 221,
       "observerStatus": "N/A",
-      "efpStatus": true,
+      "efpStatus": "yes",
       "activityDescrip": "",
       "confirmationNumber": 19824,
       "transactionDate": "2000-01-03T13:54:59-08:00",

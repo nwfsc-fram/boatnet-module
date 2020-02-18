@@ -60,7 +60,7 @@ class AuthService {
         // Else - possibly offline - Continue
       });
 
-    if (userResponse) {
+    if (userResponse && pubKey) {
       const user = userResponse.data;
       if (!pubKey) {
         throw new Error(
@@ -141,6 +141,13 @@ class AuthService {
       dbInfo: this.currentUser.couchDBInfo,
       userCredentials: couchCreds
     };
+  }
+
+  public getTripsApiUrl(): string | undefined {
+    if (!this.currentUser || !this.currentUser.tripsApi) {
+      return undefined;
+    }
+    return this.currentUser.tripsApi.apiUrl;
   }
 
   private setCurrentUser(user: BoatnetUser) {
