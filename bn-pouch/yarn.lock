@@ -710,10 +710,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@boatnet/bn-auth@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-auth/-/bn-auth-0.1.7.tgz#ee8247afb0061551431940916b99dcf9f01da3e1"
-  integrity sha512-tXdLpiaHkLyXYXkTiNN/uOUClkZrug3H81LX2pAvaKs9Jvf20WSXbsFSOG32eHpVmiLHgsPYxSbQYZ3EMMaWzg==
+"@boatnet/bn-auth@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-auth/-/bn-auth-0.1.9.tgz#09f7ce0c42f1a9887e8a3c8dededc40227feb5e4"
+  integrity sha512-S5AcmQKupow9716vF2DJBysr6lYSZ1WwtQ7pYU2J4/k3MU4YOsKuWm9UXmn91hswx9pO+CGxJlrZTZIvNWaC5g==
   dependencies:
     "@boatnet/bn-couch" "^0.1.3"
     axios "^0.18.1"
