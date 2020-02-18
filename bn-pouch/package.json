@@ -4,9 +4,11 @@
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
-    "build": "tsc -p .",
     "build-vue": "vue-cli-service build --target lib --inline-vue --dest lib",
-    "comment": "note: build-vue not currently used, but might be useful later for minimization"
+    "comment": "note: build-vue not currently used, but might be useful later for minimization",
+    "fix-lint": "eslint ./src --ext .ts --fix",
+    "lint": "eslint ./src --ext .ts",
+    "build": "yarn lint && tsc -p ."
   },
   "author": "FRAM Data Team",
   "license": "ISC",
@@ -46,6 +48,13 @@
     "@vue/cli-plugin-babel": "^4.1.1",
     "@vue/cli-plugin-typescript": "^4.1.1",
     "@vue/cli-service": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.1.2",
     "typescript": "^3.7.2",
     "vue-template-compiler": "^2.6.10"
   }

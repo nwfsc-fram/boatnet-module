@@ -10,11 +10,15 @@ import pemjwk from 'pem-jwk';
 import { BoatnetUserToken, BoatnetUser } from '../models/auth.model';
 import { CouchDBCredentials } from '@boatnet/bn-couch';
 import { DBConfig } from '../models/dbconfig.model';
+import { encode64 } from '../_util/auth_util';
+
+import { version } from '../../package.json';
 
 class AuthService {
   private dbConfig: DBConfig = {};
   private currentUser: BoatnetUser | null = null;
-  private currentCredentials!: { username: string; password: string };
+  // do not store in currentCredentials in localStorage
+  private currentCredentials!: { username: string; password: string; couchPassword: string };
 
   constructor() {
     console.log('[Auth Service] Initialized.');
@@ -46,7 +50,8 @@ class AuthService {
     const pubKey = await this.getPubKey();
     const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
     const userResponse = await axios
-      .post(apiUrl + '/api/v1/login', { username, password })
+      .post(apiUrl + '/api/v1/login', { username, password,
+        encodeCouchPassword: true, clientVersion: "Auth v" + version })
       .catch((err: any) => {
         if (err.response && err.response.status === 401) {
           console.error('[Auth Service]', err.response);
@@ -57,10 +62,17 @@ class AuthService {
 
     if (userResponse && pubKey) {
       const user = userResponse.data;
+      if (!pubKey) {
+        throw new Error(
+          'Unable to load public key. Internet connection required.'
+        );
+      }
       const verified: any = jsonwebtoken.verify(user.token, pubKey);
       verified.sub = JSON.parse(verified.sub); // parse JSON encoded sub
-      this.setCurrentUser({...verified.sub,
-        jwtToken: user.token});
+      this.setCurrentUser({
+        ...verified.sub,
+        jwtToken: user.token
+      });
       this.setCredentials(username, password);
       return verified.sub;
     } else {
@@ -101,7 +113,7 @@ class AuthService {
     const userStored = localStorage.getItem('user');
     let user: BoatnetUser | null;
     if (userStored) {
-      console.log('[Auth Service] Auto-login using stored user.');
+      console.log('[Auth Service] Auto login using stored credentials.');
       user = JSON.parse(userStored);
     } else {
       user = null;
@@ -120,9 +132,14 @@ class AuthService {
     if (!this.currentUser) {
       return undefined;
     }
+    // Rewrite creds object to use couchPassword as password
+    const couchCreds = {
+      username: this.currentCredentials.username,
+      password: this.currentCredentials.couchPassword
+    }
     return {
       dbInfo: this.currentUser.couchDBInfo,
-      userCredentials: this.currentCredentials
+      userCredentials: couchCreds
     };
   }
 
@@ -141,7 +158,8 @@ class AuthService {
 
   private setCredentials(username: string, password: string) {
     // For CouchDB access (TODO cookie or JWT for couch)
-    this.currentCredentials = { username, password }; // Not stored in local storage.
+    const couchPassword = encode64(password);
+    this.currentCredentials = { username, password, couchPassword }; // Not stored in local storage.
   }
 
   private async getPubKey() {
