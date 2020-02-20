@@ -11,4 +11,5 @@ export interface PersonAlias extends BaseLookup {
     personDocId?: CouchID;
     userName?: string; // email address
     roles?: string[]; // observer, captain, observer-staff, delegate, etc.
+    debriefer?: CouchID;
 }
