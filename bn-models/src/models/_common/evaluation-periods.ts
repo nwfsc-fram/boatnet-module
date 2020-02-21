@@ -3,17 +3,13 @@ import { Base } from '../_base';
 import { CouchID } from './couch-id';
 import { EvaluationPeriodTypes } from './enums';
 
-export const EvaluationPeriodTypeName = 'observer-evaluation-periods';
+export const EvaluationPeriodTypeName = 'evaluation-periods';
 
-interface EvaluationPeriod {
+export interface EvaluationPeriods extends Base {
+    observer?: CouchID;
     debriefer?: CouchID;
     type?: EvaluationPeriodTypes;
     startDate?: BoatnetDate;
     endDate?: BoatnetDate;
     tripIds?: CouchID[];
-}
-
-export interface ObserverEvaluationPeriods extends Base {
-    observer?: CouchID;
-    evaluationPeriods?: EvaluationPeriod[];
 }
