@@ -1,0 +1,33 @@
+{
+  "name": "@boatnet/bn-rules",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "fix-lint": "eslint ./src --ext .ts --fix",
+    "lint": "eslint ./src --ext .ts",
+    "build": "yarn lint && tsc -p ."
+  },
+  "author": "FRAM Data Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwfsc-fram/boatnet-module.git"
+  },
+  "dependencies": {
+    "davenport": "^2.8.2",
+    "core-js": "2",
+    "vue": "^2.6.6",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "typescript": "^3.7.2"
+  }
+}
