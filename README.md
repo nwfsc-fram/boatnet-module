@@ -2,9 +2,9 @@
 
 A collection of libraries used for the Boatnet project. 
 
-See README.md in individual folders for more details.
+See [README.md](README.md) in individual folders for more details.
 
-See CONTRIBUTING.md for info on building/updating Boatnet modules.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for info on building/updating Boatnet modules.
 
 * bn-test-example
     * A basic module used to test npm publish
