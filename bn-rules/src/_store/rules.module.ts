@@ -23,7 +23,7 @@ const mutations: MutationTree<RulesState> = {
   }
 };
 
-export const baseRules: Module<RulesState, any> = {
+export const rulesState: Module<RulesState, any> = {
   namespaced: true,
   state,
   actions,
