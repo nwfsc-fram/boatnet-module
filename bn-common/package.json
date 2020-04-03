@@ -1,0 +1,52 @@
+{
+  "name": "@boatnet/bn-common",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "fix-lint": "eslint ./src --ext .ts --fix",
+    "lint": "eslint ./src --ext .ts",
+    "build": "yarn lint && tsc -p ."
+  },
+  "author": "FRAM Data Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwfsc-fram/boatnet-module.git"
+  },
+  "dependencies": {
+    "@boatnet/bn-auth": "^0.1.11",
+    "@boatnet/bn-models": "^0.2.3",
+    "@boatnet/bn-pouch": "^0.2.6",
+    "coordinate-parser": "^1.0.2",
+    "moment": "^2.24.0",
+    "quasar": "1.8.5",
+    "regenerator-runtime": "^0.13.5",
+    "vue": "^2.6.6",
+    "vue-class-component": "^6.0.0",
+    "vue-property-decorator": "^7.0.0",
+    "vuelidate": "^0.7.5",
+    "vuex": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.7",
+    "@types/lodash": "^4.14.149",
+    "@types/request": "^2.48.4",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "@vue/cli-plugin-babel": "^3.4.0",
+    "@vue/cli-plugin-typescript": "^3.4.0",
+    "@vue/cli-service": "^3.4.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "coordinate-parser": "^1.0.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "fibers": "^4.0.2",
+    "sass": "^1.16.0",
+    "sass-loader": "^7.1.0",
+    "typescript": "^3.7.2",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
