@@ -1,7 +1,7 @@
 {
   "name": "@boatnet/bn-common",
-  "version": "0.1.5",
-  "main": "lib/index.js",
+  "version": "0.1.6",
+  "main": "lib/main.js",
   "types": "lib",
   "scripts": {
     "fix-lint": "eslint ./src --ext .ts --fix",
