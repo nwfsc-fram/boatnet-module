@@ -1,29 +1,43 @@
 # bn-common
 
-## Project setup
+Common Components for Boatnet Applications
+
+## Building
+
+* This module does not follow conventions for universal (rollup) deployment of vue modules.
+* (It packages actual .vue files)
+* It manually copies the following directories to lib/ (containing the .vue files)
+  * components
+  * layouts
+  * views
+
+## Development
+
+* For development, use ```yarn link``` and perform ```yarn build``` to apply your changes to the running app
+* e.g.
+
 ```
-yarn install
+cd /c/git/boatnet-module/bn-common
+yarn build
+yarn link
+cd /c/git/boatnet/apps/ashop
+yarn link @boatnet/bn-common
+```
+and then, as you make updates to bn-common,
+
+```
+yarn build
 ```
 
-### Compiles and hot-reloads for development
+and your changes should be applied.
+
+## Publishing
+
 ```
-yarn run serve
+<commit your changes>
+yarn build
+yarn publish
+<enter incremental number when prompted>
 ```
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* Increment version #'s in your client's ```package.json```

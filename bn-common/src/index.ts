@@ -1,4 +1,5 @@
 import Vue from 'vue';
+
 import BoatnetAddSpeciesDialog from './components/BoatnetAddSpeciesDialog.vue';
 import BoatnetButtonToggle from './components/BoatnetButtonToggle.vue';
 import BoatnetButtonToggleComp from './components/BoatnetButtonToggleComp.vue';
