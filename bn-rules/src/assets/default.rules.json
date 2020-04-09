@@ -1,0 +1,10 @@
+{
+    "rules": [
+        {
+            "ruleId": "default-test",
+            "name" : "Default: Test",
+            "description": "For testing. Do not remove."
+        }
+    ]
+
+}

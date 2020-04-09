@@ -3,10 +3,17 @@ import { BoatnetBaseRule } from '@boatnet/bn-rules';
 
 describe('@boatnet/bn-rules', () => {
   it('has a functional service', () => {
-    const testService = rules.rulesService
+    const testService = rules.rulesService;
     expect(testService).toBeTruthy();
   });
+  it('loads default rules', () => {
+    const testService = rules.rulesService;
+    expect(testService.getRule('default-test').description).toEqual('For testing. Do not remove.');
+    expect(testService.getRule('default-test').name).toEqual('Default: Test');
+  });
 });
+
+
 
 // describe('@boatnet/bn-couch', () => {
 //   it('throws the correct errors if not initialized', () => {
