@@ -40,6 +40,7 @@ export interface WcgopTrip extends BaseTrip {
   certificates?: Certificate[]; // Permits and Licenses
   waiver?: Waiver[];
   intendedGearType?: GearType; // only for when there is no Haul data (no fishing activity)
+  tripScore?: boolean // defaults to pass (true) and debriefer can change it to fail (false)
   legacy?: {
     tripId?: number;
     otcKp?: number;
