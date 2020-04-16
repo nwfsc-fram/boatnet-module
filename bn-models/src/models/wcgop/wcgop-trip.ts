@@ -12,6 +12,7 @@ import { WcgopFishTicket } from './index';
 import { BrdConfiguration } from '../_common/brd-configuration';
 import { PersonAlias, Fishery, FirstReceiver, VesselLogbookType,
   TripStatus, GearType, Program } from '../_lookups/index';
+import { Score } from '../_common/enums';
 
 export const WcgopTripTypeName = 'wcgop-trip';
 
@@ -40,7 +41,7 @@ export interface WcgopTrip extends BaseTrip {
   certificates?: Certificate[]; // Permits and Licenses
   waiver?: Waiver[];
   intendedGearType?: GearType; // only for when there is no Haul data (no fishing activity)
-  tripScore?: boolean // defaults to true (passed) and debriefer can change it to false (failed)
+  tripScore?: Score // defaults to true (passed) and debriefer can change it to false (failed)
   legacy?: {
     tripId?: number;
     otcKp?: number;
