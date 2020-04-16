@@ -8,3 +8,9 @@ export enum MonitoringSystem {
     EM = 'EM',
     Observer = 'OBSERVER'
 }
+
+export enum Score {
+    PASS = 'PASS',
+    FAIL = 'FAIL'
+  }
+  

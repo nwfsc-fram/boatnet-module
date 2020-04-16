@@ -8,6 +8,7 @@ import {
 import { WcgopCatch } from './wcgop-catch';
 import { WeightMethod, GearType, GearPerformance } from '../_lookups';
 import { FishingLocation } from '../_common/fishing-location';
+import { Score } from '../_common/enums';
 
 export const WcgopOperationTypeName = 'wcgop-operation';
 
@@ -56,6 +57,7 @@ export interface WcgopOperation extends BaseOperation {
   sinkersUsed?: boolean; // Longline + Snap gear types only
   weightPerSinker?: Measurement; // oz or lbs - Longline + Snap gear types only
   avgNumSinkersPerSegment?: number; // Longline + Snap gear types only
+  haulScore?: Score;
 
   legacy?: {
     fishingActivityId?: number;
