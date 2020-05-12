@@ -36,6 +36,7 @@ export * from './measurement-device';
 export * from './media';
 export * from './observer-activity-type';
 export * from './vessel-permissions';
+export * from './ole-efps';
 export * from './ole-vessel';
 export * from './ots-target-type';
 export * from './permit';
