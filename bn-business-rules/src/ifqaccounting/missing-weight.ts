@@ -87,12 +87,16 @@ Shortspine/Longspine Thornyheads 0.000016061 3.16 9
 
 */
 
-export function weightFromSpeciesTotal(count: number, totalWeight: number ) {
+export function weightFromSpeciesTotal(count: number, totalWeight: number ): number {
     return totalWeight/count;
 }
 
-export function weightFromLength(pacfinSpeciesCode: string, length: number, count?: number) {
-    const values: any = {
+interface IWeightFromLength {
+    [key: string]: {a: number, b:number}
+}
+
+export function weightFromLength(pacfinSpeciesCode: string, length: number, count?: number): string | number {
+    const values: IWeightFromLength = {
         'PHLB': {a: 0.000009209, b: 3.24},
         'DOVR': {a: 0.000008952, b: 3.2494},
         'EGLS': {a: 0.000009216, b: 3.227938},
