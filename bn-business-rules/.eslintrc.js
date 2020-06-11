@@ -1,20 +1,18 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "es2020": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/recommended",
+        "plugin:vue/base",
+        "plugin:vue/essential",
         "plugin:@typescript-eslint/eslint-recommended",
-        '@vue/typescript/recommended',
+        "plugin:@typescript-eslint/recommended"
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "parser": "vue-eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 11,
         "parser": "@typescript-eslint/parser",
         "sourceType": "module"
     },
@@ -23,8 +21,5 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "max-len": ["error", {"code": 120, "ignoreUrls": true}]
     }
 };
