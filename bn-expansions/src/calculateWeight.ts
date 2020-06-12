@@ -1,28 +1,43 @@
-import { BaseCatch } from '@boatnet/bn-models';
+import { BaseCatch, WeightMethodValue } from '@boatnet/bn-models';
 
 export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
-    if (weightMethod === 3) {
-        // TODO
-    } else if (weightMethod === 5) {
-        // TODO
-    } else if (weightMethod === 6) {
-        // TODO
-    } else if (weightMethod === 7) {
-        // TODO
-    } else if (weightMethod === 8) {
-        // TODO
-    } else if (weightMethod === 9) {
-        // TODO
-    } else if (weightMethod === 14) {
-        // TODO
-    } else if (weightMethod === 15) {
-        // TODO
-    } else if (weightMethod === 19) {
-        // TODO
-    } else if (weightMethod === 20) {
-        return getWholeWeight(catchVal);
-    } else if (weightMethod === 21) {
-        // TODO
+    switch(weightMethod) {
+        case WeightMethodValue.basketWeightDetermination: {
+            // TODO
+        }
+        case WeightMethodValue.OTCRetained: {
+            // TODO
+        }
+        case WeightMethodValue.other: {
+            // TODO
+        }
+        case WeightMethodValue.vesselEstimatedRetainedOnly: {
+            // TODO
+        }
+        case WeightMethodValue.extrapolation: {
+            // TODO
+        }
+        case WeightMethodValue.pacificHalibutLengthWeightConveresion: {
+            // TODO
+        }
+        case WeightMethodValue.visualExperience: {
+            // TODO
+        }
+        case WeightMethodValue.visualSpatial: {
+            // TODO
+        }
+        case WeightMethodValue.pacificHalibutLengthWeightExtrapolation: {
+            // TODO
+        }
+        case WeightMethodValue.actualWeightWholeHaul: {
+            return getWholeWeight(catchVal);
+        }
+        case WeightMethodValue.actualWeightSubsample: {
+            // TODO
+        }
+        default: {
+            console.log('error: weight method not found')
+        }
     }
 }
 
