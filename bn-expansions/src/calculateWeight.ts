@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { BaseCatch, WeightMethodValue } from '@boatnet/bn-models';
 
 export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
@@ -39,33 +38,6 @@ export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
         default: {
             console.log('error: weight method not found')
         }
-=======
-import { BaseCatch } from '@boatnet/bn-models';
-
-export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
-    if (weightMethod === 3) {
-        // TODO
-    } else if (weightMethod === 5) {
-        // TODO
-    } else if (weightMethod === 6) {
-        // TODO
-    } else if (weightMethod === 7) {
-        // TODO
-    } else if (weightMethod === 8) {
-        // TODO
-    } else if (weightMethod === 9) {
-        // TODO
-    } else if (weightMethod === 14) {
-        // TODO
-    } else if (weightMethod === 15) {
-        // TODO
-    } else if (weightMethod === 19) {
-        // TODO
-    } else if (weightMethod === 20) {
-        return getWholeWeight(catchVal);
-    } else if (weightMethod === 21) {
-        // TODO
->>>>>>> 2e2b72c598691a8a3a7b37da8f50947a64315f57
     }
 }
 
