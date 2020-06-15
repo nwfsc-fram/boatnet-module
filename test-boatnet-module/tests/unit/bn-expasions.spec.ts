@@ -1,14 +1,96 @@
 import { updateCatchWeight } from '@boatnet/bn-expansions';
+import { WeightMethodValue } from '@boatnet/bn-models';
 
 describe('@boatnet/bn-expansions', () => {
-    it('total catch weight calculation works', () => {
+    it('basket weight determination calculation works', () => {
         const expectedCatchObj = JSON.parse(JSON.stringify(catchObj));
+        expectedCatchObj.weight.value = 968;
+        expectedCatchObj.children[0].weight.value = 947;
+        expect(updateCatchWeight(WeightMethodValue.basketWeightDetermination, catchObj)).toEqual(expectedCatchObj);
+    })
+})
+
+describe('@boatnet/bn-expansions', () => {
+    it('actual weight whooe haul calculation works', () => {
+        const expectedCatchObj = JSON.parse(JSON.stringify(catchObjWithoutBaskets));
         expectedCatchObj.weight.value = 41;
-        expect(updateCatchWeight(20, catchObj)).toEqual(expectedCatchObj);
+        expect(updateCatchWeight(WeightMethodValue.actualWeightWholeHaul, catchObjWithoutBaskets)).toEqual(expectedCatchObj);
+    })
+})
+
+describe('@boatnet/bn-expansions', () => {
+    it('actual weight subsample calculation works', () => {
+        const expectedCatchObj = JSON.parse(JSON.stringify(catchObj));
+        expectedCatchObj.weight.value = 208;
+        expectedCatchObj.children[0].weight.value = 187;
+        expect(updateCatchWeight(WeightMethodValue.actualWeightSubsample, catchObj)).toEqual(expectedCatchObj);   
     })
 })
 
 const catchObj: any = {
+    expansionsData: {
+        fullBasketCount: 10,
+        partialBasketWt: 12
+    },
+    weight: {
+        measurementType: 'weight',
+        value: 100,
+        units: 'lbs'
+    },
+    children: [
+        {
+            commonNames: [
+                'Arrowtooth Flounder'
+            ],
+            weight: {
+                measurementType: 'weight',
+                value: 20,
+                units: 'lbs'
+
+            },
+            baskets: [
+                {
+                    weight: {
+                        measurementType: 'weight',
+                        value: 88,
+                        units: 'lbs'
+        
+                    }
+                },
+                {
+                    weight: {
+                        measurementType: 'weight',
+                        value: 99,
+                        units: 'lbs'
+        
+                    }
+                }
+            ]
+        },
+        {
+            commonNames: [
+                'Longnose Skate'
+            ],
+            weight: {
+                measurementType: 'weight',
+                value: 21,
+                units: 'lbs'
+
+            }
+        },
+        {
+            commonNames: [
+                'Crab'
+            ]
+        }
+    ]
+}
+
+const catchObjWithoutBaskets: any = {
+    expansionsData: {
+        fullBasketCount: 10,
+        partialBasketWt: 12
+    },
     weight: {
         measurementType: 'weight',
         value: 100,
@@ -43,5 +125,4 @@ const catchObj: any = {
             ]
         }
     ]
-
 }

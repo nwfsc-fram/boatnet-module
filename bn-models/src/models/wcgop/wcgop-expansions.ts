@@ -1,7 +1,7 @@
 export type WcgopExpansions = BasketWtDetermination 
-    | Extrapolations 
-    | VisualSpatial 
-    | PacificHalibulLengthWidthExtrapolation;
+    & Extrapolations 
+    & VisualSpatial 
+    & PacificHalibutLengthWidthExtrapolation;
 
 // WM 3
 interface BasketWtDetermination {
@@ -21,6 +21,6 @@ interface VisualSpatial {
 }
 
 // WM 19
-interface PacificHalibulLengthWidthExtrapolation {
+interface PacificHalibutLengthWidthExtrapolation {
     totalPHLB?: number;
 }
