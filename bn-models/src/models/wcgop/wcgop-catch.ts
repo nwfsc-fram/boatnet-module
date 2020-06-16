@@ -4,6 +4,7 @@
 import { BaseCatch } from '../_base/base-catch';
 import { Measurement, BoatnetDate, CouchID, Basket } from '../_common/index';
 import { WcgopDiscardReason } from './wcgop-discard-reason';
+import { WcgopExpansions } from './wcgop-expansions';
 import { WcgopSpecimen } from './wcgop-specimen';
 import { CatchDisposition } from '../_lookups/catch-disposition';
 import { WeightMethod, Species } from '../_lookups';
@@ -15,6 +16,7 @@ export interface WcgopCatch extends BaseCatch {
   disposition?: CatchDisposition;
   weightMethod?: WeightMethod;
   weight?: Measurement; // Could be species or higher level
+  expansionsData?: WcgopExpansions;
   count?: number; // Could be at species or higher level
   sampleWeight?: Measurement;
   sampleCount?: number;
