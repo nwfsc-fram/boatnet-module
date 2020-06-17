@@ -755,29 +755,22 @@
     vue "^2.6.6"
     vuex "^3.1.2"
 
-"@boatnet/bn-expansions@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-expansions/-/bn-expansions-0.0.3.tgz#24c6d4765ffd484138c38c8dc4c8eb8dc2f297a3"
-  integrity sha512-AF072Z1udl3oYxvpHP2wl4VK8v06Pry8F/nbt9Ql1bePkhixstHx4qWKTpG9xVnVi7fYoiKKor4UhvyT2SFE7A==
+"@boatnet/bn-expansions@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-expansions/-/bn-expansions-0.0.5.tgz#c6c2ea7732c39ba2f4b69fdcdcea48b2f4a33463"
+  integrity sha512-UkUI8jpHmfDtTakioYBFIjb3ktELiEN1eJwcX6tGBDZTbYQ9cGSw2Lz6SO3fP/WU0kwr3g7uQyn8UdHBOdrYdg==
   dependencies:
-    "@boatnet/bn-models" "^0.2.9"
+    "@boatnet/bn-models" "^0.3.0"
     core-js "2"
     davenport "^2.8.2"
     geojson "^0.5.0"
     vue "^2.6.6"
     vuex "^3.1.2"
 
-"@boatnet/bn-models@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.1.4.tgz#464a1b68eeabfca95d66bf0f4f5f20322077de35"
-  integrity sha512-bZLRhpiEPFB1rBXDpFGKh0u9ieatDtds2ZOjLXzwHcMThzR6dMJIy3J0suOsWWkYZ183fCgmCu7kwHGI/YYRcQ==
-  dependencies:
-    geojson "^0.5.0"
-
-"@boatnet/bn-models@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.2.9.tgz#509953159f5c3ae5f50c7f3053dbc83eaf3d3e5d"
-  integrity sha512-vu7k15EXLgXQ6j/rcxlhuI6Yxiw6zvO8atBpx7r9pn/arw8mxbtNcCEgWc6yE8tqoRiPNl8fiS5GT9v5Es/qFQ==
+"@boatnet/bn-models@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.3.0.tgz#120430f60fb7c95744e8762f85811b0e48ee0ad6"
+  integrity sha512-cAbpe1KXcAieEGqQxjusgVUqF1Eafy8ieZKqoU3geshDBxUsvZgcqH5otoOkT0l4C8fJcdXqr/wr8uo0gGBLdQ==
   dependencies:
     geojson "^0.5.0"
 
