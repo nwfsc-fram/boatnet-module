@@ -3,7 +3,7 @@ import { BaseCatch, WeightMethodValue, Basket, WcgopExpansions } from '@boatnet/
 export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
     switch (weightMethod) {
         case WeightMethodValue.basketWeightDetermination: {
-            return updateCatchWt(catchVal, getBasketWeightDetermination)
+            return updateCatchWt(catchVal, getBasketWeightDetermination);
         }
         case WeightMethodValue.OTCRetained: {
             // TODO
