@@ -48,6 +48,7 @@ export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
         }
         default: {
             console.log('error: weight method not found');
+            return catchVal;
             break;
         }
     }
