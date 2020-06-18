@@ -4,7 +4,6 @@ export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
     switch (weightMethod) {
         case WeightMethodValue.basketWeightDetermination: {
             return updateCatchWt(catchVal, getBasketWeightDetermination);
-            break;
         }
         case WeightMethodValue.OTCRetained: {
             break;
@@ -40,16 +39,13 @@ export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
         }
         case WeightMethodValue.actualWeightWholeHaul: {
             return updateCatchWt(catchVal, {});
-            break;
         }
         case WeightMethodValue.actualWeightSubsample: {
             return updateCatchWt(catchVal, sumBaskets);
-            break;
         }
         default: {
-            console.log('error: weight method not found');
+            console.log('error: weight method not found returning original value ' + JSON.stringify(catchVal));
             return catchVal;
-            break;
         }
     }
 }
