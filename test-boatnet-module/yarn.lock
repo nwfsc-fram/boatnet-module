@@ -755,10 +755,10 @@
     vue "^2.6.6"
     vuex "^3.1.2"
 
-"@boatnet/bn-expansions@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-expansions/-/bn-expansions-0.0.5.tgz#c6c2ea7732c39ba2f4b69fdcdcea48b2f4a33463"
-  integrity sha512-UkUI8jpHmfDtTakioYBFIjb3ktELiEN1eJwcX6tGBDZTbYQ9cGSw2Lz6SO3fP/WU0kwr3g7uQyn8UdHBOdrYdg==
+"@boatnet/bn-expansions@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-expansions/-/bn-expansions-0.0.8.tgz#d8574dc60ed36af1ce8617aa7b26c986749c2297"
+  integrity sha512-i8qIzu3moMdUPPejwMwddSi47MlBLav5LealQQuJEsT/o6FC0IMzy69TslrdfctRSS9qSDmg24g8r9unj7+Seg==
   dependencies:
     "@boatnet/bn-models" "^0.3.0"
     core-js "2"
