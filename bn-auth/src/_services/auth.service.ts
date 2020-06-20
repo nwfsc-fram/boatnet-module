@@ -75,6 +75,9 @@ class AuthService {
         jwtToken: user.token
       });
       this.setCredentials(username, password);
+      // TODO: Offline auth, call storeUserToken here
+      // This used to work, not sure when it got removed. Maybe a flag here to allow offline login.
+
       return verified.sub;
     } else {
       console.log('[Auth Service] Auth is Offline: Trying cached credentials');
@@ -174,7 +177,7 @@ class AuthService {
         const jwkKeyLoaded = result.data.keys[0]; // assuming our key is first
         // TODO If we add multiple keys, we would use 'kid' property for matching
         const pemKey = pemjwk.jwk2pem(jwkKeyLoaded);
-        localStorage.setItem('jwk-pub-key', JSON.stringify(jwkKeyLoaded));
+        this.storePubKey(jwkKeyLoaded);
         return pemKey;
       }
     } catch (err) {
