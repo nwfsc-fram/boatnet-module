@@ -761,10 +761,10 @@
   dependencies:
     geojson "^0.5.0"
 
-"@boatnet/bn-pouch@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-pouch/-/bn-pouch-0.2.7.tgz#4fd4cab6d89e8e96ce4b7bf46ea4f3ca8fd69ca6"
-  integrity sha512-M96AUPEYESuKVBCFGAodhIj1X5wn4It3dVnbAl5S560bSKxanTmztNXf730lNq6RvTiXaOHpz5adZpx0UUpwSw==
+"@boatnet/bn-pouch@^0.2.8":
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-pouch/-/bn-pouch-0.2.8.tgz#aa421da83405004faad250df4be27d0660c6db28"
+  integrity sha512-GZx9o/JVr4yuHP37bzC8TO/7hxYrfEX2r+U/BGxRrKAX75w3R1Q7hrpsYwDYzwx2ZCb06rl+W/8IdE+PG2UIlA==
   dependencies:
     "@boatnet/bn-auth" "^0.1.14"
     "@boatnet/bn-couch" "^0.1.7"
