@@ -22,7 +22,7 @@ class AuthService {
   private currentCredentials!: { username: string; password: string; couchPassword: string };
 
   constructor() {
-    console.log('[Auth Service] Initialized.');
+    console.log('[AUTH Service] Initialized.');
     this.currentUser = this.getCurrentUser();
   }
 
@@ -101,7 +101,8 @@ class AuthService {
   }
 
   public logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user'); // if left over from legacy bn-auth
+    sessionStorage.removeItem('user');
     this.currentUser = null;
     delete this.currentCredentials;
   }
@@ -111,7 +112,7 @@ class AuthService {
       return this.currentUser;
     }
 
-    const userStored = localStorage.getItem('user');
+    const userStored = sessionStorage.getItem('user');
     let user: BoatnetUser | null;
     if (userStored) {
       console.log('[Auth Service] Auto login using stored credentials.');
@@ -124,7 +125,7 @@ class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    const logged = localStorage.getItem('user');
+    const logged = sessionStorage.getItem('user');
     return !!logged;
   }
 
@@ -154,7 +155,7 @@ class AuthService {
   private setCurrentUser(user: BoatnetUser) {
     // store user details and jwt token in local storage to keep user logged in between page refreshes
     this.currentUser = user;
-    localStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   private setCredentials(username: string, password: string) {
