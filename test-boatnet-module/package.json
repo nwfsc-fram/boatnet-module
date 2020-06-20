@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@boatnet/bn-auth": "^0.1.13",
+    "@boatnet/bn-auth": "^0.1.14",
     "@boatnet/bn-couch": "^0.1.7",
     "@boatnet/bn-expansions": "^0.0.8",
     "@boatnet/bn-models": "^0.3.0",
