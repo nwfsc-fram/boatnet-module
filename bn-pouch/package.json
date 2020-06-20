@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-pouch",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -17,7 +17,7 @@
     "url": "https://github.com/nwfsc-fram/boatnet-module.git"
   },
   "dependencies": {
-    "@boatnet/bn-auth": "^0.1.17",
+    "@boatnet/bn-auth": "^0.1.18",
     "@boatnet/bn-couch": "^0.1.7",
     "@boatnet/bn-util": "^0.1.1",
     "axios": "^0.18.1",
