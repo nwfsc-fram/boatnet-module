@@ -1,6 +1,6 @@
 // Boatnet Base interface, all stored data should inherit this.
 
-import { BoatnetDate, CouchID } from '../_common/index';
+import { BoatnetDate, CouchID, ChangeLog } from '../_common/index';
 
 type BoatnetUserName = string;
 export interface Base {
@@ -17,6 +17,6 @@ export interface Base {
   dataSource?: string; // hostname available?
   isDeleted?: boolean; // hide from user, show to Beth :)
   legacy?: any; // Other legacy data from original database import
-  changeLog?: any; // optional change history log
+  changeLog?: ChangeLog; // optional change history log
   [key: string]: any; // allows model to be indexed by string
 }
