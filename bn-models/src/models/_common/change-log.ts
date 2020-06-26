@@ -6,7 +6,7 @@ export interface ChangeLog {
     updatedBy: BoatnetUserName;
     updateDate: BoatnetDate;
     property: string;
-    oldVal: string;
+    oldVal?: string;
     newVal: string;
     app: string;  // Boatnet app the change was made in
   }
