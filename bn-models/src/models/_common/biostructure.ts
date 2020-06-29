@@ -21,6 +21,7 @@ declare type SamplingStrategy = string; // TODO Lookups
 export interface Biostructure extends Base {
   structureType?: BiostructureType;
   label?: string; // Barcode Value
+  isReceived?: boolean;
   // protocol?: Protocol; // sampling strategy / lab results possibilities
 
   legacy?: {
