@@ -10,6 +10,7 @@ export enum WeightMethodValue {
   vesselEstimatedRetainedOnly = 7,
   extrapolation = 8,
   pacificHalibutLengthWeightConveresion = 9,
+  tallySample = 13,
   visualExperience = 14,
   visualSpatial = 15,
   pacificHalibutLengthWeightExtrapolation = 19,
