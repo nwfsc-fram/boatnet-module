@@ -19,10 +19,11 @@ export interface WcgopCatchNew extends BaseCatch {
         //  protocols?: Protocol[]; // Include sampling strategy (randomly selected, etc.)
     */
 
-    weight?: Measurement;
+    measuredWeight?: Measurement;
+    calculatedWeight?: Measurement; // should this value be stored, or always calculated?
     count?: number;
-    sampleWeight?: Measurement;
-    sampleCount?: number;
+    sampleWeight?: Measurement;  // still needed?
+    sampleCount?: number;  // still needed?
     expansionData?: WcgopExpansions;  // do expansion results get stored here?  In another doc?
     gearSegmentsSampled?: number;
 

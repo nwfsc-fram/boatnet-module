@@ -11,14 +11,12 @@ export const DispWMGroupTypeName = 'disp-wm-group';
 export interface DispWMGroup extends Base {
     disposition: CatchDisposition;
     weightMethod: WeightMethod;
-    weight?: Measurement;
+    measuredWeight?: Measurement;
+    calculatedWeight?: Measurement; // should this value be stored, or always calculated?
     count?: number;
     expansionData?: WcgopExpansions;  // do any expansions get performed on the entire wm/disp?
 
-    ratio?: {
-        numerator: number,
-        denominator: number
-    }
+    ratio?: number; // decimal representation
 
     catchItems: WcgopCatchNew[]
 
