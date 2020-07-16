@@ -13,6 +13,7 @@ export interface BaseCatch extends Base {
   catchNum?: number; // Unique per Operation sequential
   // Lookups - TaxonomyAlias, UnsortedCatch (Codend, Pocket Net, Mix, Submix), CatchGrouping, Debris
   catchType?: CatchType;
+  selectedName?: String // (The Scientific Name, Group Name, or Specific Common name chosen by user)
   catchContent?: CatchContent;
   baskets?: Basket[];
   protocols?: Protocol[]; // Include sampling strategy (randomly selected, etc.)
