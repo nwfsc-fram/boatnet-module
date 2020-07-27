@@ -718,10 +718,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@boatnet/bn-auth@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-auth/-/bn-auth-0.1.14.tgz#1c29d1d1a65edfbb5cd94da93cd8f403299d9c7c"
-  integrity sha512-Gz+NuRJpSB3MY6ulC0LFkxvm/lBzuvJFz1BrbHYBUrBl6SvexYY35pZHDkbaR1IPfVtGqBNCQWxZxQtLhtjXlA==
+"@boatnet/bn-auth@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-auth/-/bn-auth-0.1.15.tgz#fb52a1ad969c1a8f90ea55a7780182c4859ddc6c"
+  integrity sha512-K2lwBJSCEyc3g8UpV+IikFg6rGx1qgKIbQCMQVB5GAuGzOv0+S8glMOLg+qgtEiUcpp+7HbWlShGwD22eMElKQ==
   dependencies:
     "@boatnet/bn-couch" "^0.1.3"
     axios "^0.18.1"
@@ -761,12 +761,12 @@
   dependencies:
     geojson "^0.5.0"
 
-"@boatnet/bn-pouch@^0.2.8":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-pouch/-/bn-pouch-0.2.8.tgz#aa421da83405004faad250df4be27d0660c6db28"
-  integrity sha512-GZx9o/JVr4yuHP37bzC8TO/7hxYrfEX2r+U/BGxRrKAX75w3R1Q7hrpsYwDYzwx2ZCb06rl+W/8IdE+PG2UIlA==
+"@boatnet/bn-pouch@^0.2.9":
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-pouch/-/bn-pouch-0.2.9.tgz#59f57fa6125c92c9621d4b72ec24d0b731f68bf4"
+  integrity sha512-rHByt2RKWt10H+HZYha2Xl++fNNh7EOUXEcZGiRMOBAyC7jn5+Qg5n+3xm3lGD2nNAdnLhPUvhXY9/B69cmmpw==
   dependencies:
-    "@boatnet/bn-auth" "^0.1.14"
+    "@boatnet/bn-auth" "^0.1.15"
     "@boatnet/bn-couch" "^0.1.7"
     "@boatnet/bn-util" "^0.1.1"
     axios "^0.18.1"
