@@ -7,7 +7,7 @@ export const IfqAreaTypeName = 'ifq-area';
 export interface IfqArea extends Base {
   upperLatitude?: number; // upper lat. bound for grouping, replaces FISHING_AREA code
   lowerLatitude?: number; // upper lat. bound for grouping, replaces FISHING_AREA code
-  groupings?: CatchGrouping[]; // array w. all related groupings
+  catchGroupings?: CatchGrouping[]; // array w. all related groupings
   taxonomies?: Taxonomy[]; // array w. all related taxonomies
   legacy?: {
     fishingAreaIds: number[];
