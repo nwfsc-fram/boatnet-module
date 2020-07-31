@@ -1,15 +1,18 @@
 # Brief Guide: Developing new Boatnet Modules
 
-## Creating a new generic module
+## Creating a totally new generic module
 * Naming convention for boatnet modules is `@boatnet/bn-xyz`
+* The Hard way:
 ```
 mkdir bn-my-boatnet-module
 cd bn-my-boatnet-module
 yarn init -y
 tsconfig --init
 ```
+* The Easier way:
+  * It is probably easiest to just copy an existing boatnet-module and then make modifications to the files to match the new module's name.
 * See `bn-test-example` for examples, and configure your `package.json` and `tsconfig.json` accordingly (this will build to `lib/`)
-* Note that modules with Vue support is more complex, still working on docs for that. See existing examples.
+
 
 ## Test by using npm link or yarn link, before you publish
 ### yarn link method
