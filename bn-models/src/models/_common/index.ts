@@ -15,5 +15,6 @@ export * from './sighting-event';
 export * from './specimen';
 export * from './vessel-selection-result';
 export * from './waiver';
+export * from './ifq-area';
+export * from './ifq-grouping';
 export * from './change-log';
-
