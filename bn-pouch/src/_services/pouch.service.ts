@@ -53,7 +53,7 @@ class PouchService extends Vue {
 
     this.attachListeners();
 
-    console.log('[PouchDB Service] Instantiated.');
+    console.log('[PouchDB Service NL] Instantiated.');
   }
 
   public get db(): any { // TODO Not sure what this type is, just using any for now
@@ -74,8 +74,10 @@ class PouchService extends Vue {
     return this.currentCredentials.dbInfo.userDB;
   }
 
-  public async connect(credentials: CouchDBCredentials) {
+
+  public async connect(credentials: CouchDBCredentials, performLookupsSync=true) {
     console.log('[PouchDB Service] Connecting.');
+    console.log('[PouchDB Service] performLookupsSync: ' + performLookupsSync);
     this.isConnectCalled = true;
 
     this.currentCredentials = credentials; // TODO: Remove if not used later
@@ -140,29 +142,34 @@ class PouchService extends Vue {
       initialSyncUser.pull.start_time
     );
 
-    const initialSyncRO = await this.$pouch.sync(
-      credentials.dbInfo.lookupsDB,
-      credentialedReadOnlyDB,
-      syncOptsInitial
-    );
+    if (performLookupsSync) {
+      const initialSyncRO = await this.$pouch.sync(
+        credentials.dbInfo.lookupsDB,
+        credentialedReadOnlyDB,
+        syncOptsInitial
+      );
 
-    if (!initialSyncRO || !initialSyncRO.pull) {
-      console.log('[PouchDB Service] Error getting initial ReadOnly DB sync.');
-      return;
+      if (!initialSyncRO || !initialSyncRO.pull) {
+        console.log('[PouchDB Service] Error getting initial ReadOnly DB sync.');
+        return;
+      }
+
+      console.log(
+        '[PouchDB Service] Initial',
+        credentials.dbInfo.lookupsDB,
+        'sync completed.',
+        initialSyncRO.pull.start_time
+      );
+      this.$emit('syncCompleted', initialSyncRO);
     }
-    console.log(
-      '[PouchDB Service] Initial',
-      credentials.dbInfo.lookupsDB,
-      'sync completed.',
-      initialSyncRO.pull.start_time
-    );
-
-    this.$emit('syncCompleted', initialSyncRO);
 
     this.$pouch
       .sync(credentials.dbInfo.userDB, credentialedUserDB, syncOptsLive);
-    this.$pouch
-      .sync(credentials.dbInfo.lookupsDB, credentialedReadOnlyDB, syncOptsLive);
+
+      if (performLookupsSync) {
+      this.$pouch
+        .sync(credentials.dbInfo.lookupsDB, credentialedReadOnlyDB, syncOptsLive);
+    }
 
     console.log('[PouchDB Service] Live sync enabled.');
   }

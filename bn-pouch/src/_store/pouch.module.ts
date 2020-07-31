@@ -39,6 +39,10 @@ const actions: ActionTree<PouchDBState, any> = {
     activateSyncListener(commit);
     commit('connectRequest', credentials);
   },
+  async connectNoLookupsSync({ commit }: any, credentials: CouchDBCredentials) {
+    activateSyncListener(commit);
+    commit('connectRequestNoSync', credentials);
+  },
   async reconnect({ commit }: any) {
     // will fail if credentials not already set
     activateSyncListener(commit);
@@ -58,7 +62,11 @@ const actions: ActionTree<PouchDBState, any> = {
 const mutations: MutationTree<PouchDBState> = {
   // Mutations must by synchronous
   connectRequest(newState: PouchDBState, credentials: CouchDBCredentials) {
-    pouchService.connect(credentials);
+    pouchService.connect(credentials, true);
+    newState.credentials = credentials;
+  },
+  connectRequestNoSync(newState: PouchDBState, credentials: CouchDBCredentials) {
+    pouchService.connect(credentials, false);
     newState.credentials = credentials;
   },
   reconnectRequest(newState: PouchDBState) {

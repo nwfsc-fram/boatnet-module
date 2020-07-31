@@ -22,7 +22,7 @@ class AuthService {
   private currentCredentials!: { username: string; password: string; couchPassword: string };
 
   constructor() {
-    console.log('[Auth Service] Initialized.');
+    console.log('[AUTH Service] Initialized.');
     this.currentUser = this.getCurrentUser();
   }
 
@@ -75,6 +75,9 @@ class AuthService {
         jwtToken: user.token
       });
       this.setCredentials(username, password);
+      // TODO: Offline auth, call storeUserToken here
+      // This used to work, not sure when it got removed. Maybe a flag here to allow offline login.
+
       return verified.sub;
     } else {
       console.log('[Auth Service] Auth is Offline: Trying cached credentials');
@@ -101,7 +104,8 @@ class AuthService {
   }
 
   public logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('user'); // if left over from legacy bn-auth
+    sessionStorage.removeItem('user');
     this.currentUser = null;
     delete this.currentCredentials;
   }
@@ -111,7 +115,7 @@ class AuthService {
       return this.currentUser;
     }
 
-    const userStored = localStorage.getItem('user');
+    const userStored = sessionStorage.getItem('user');
     let user: BoatnetUser | null;
     if (userStored) {
       console.log('[Auth Service] Auto login using stored credentials.');
@@ -124,7 +128,7 @@ class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    const logged = localStorage.getItem('user');
+    const logged = sessionStorage.getItem('user');
     return !!logged;
   }
 
@@ -154,7 +158,7 @@ class AuthService {
   private setCurrentUser(user: BoatnetUser) {
     // store user details and jwt token in local storage to keep user logged in between page refreshes
     this.currentUser = user;
-    localStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   private setCredentials(username: string, password: string) {
@@ -173,7 +177,7 @@ class AuthService {
         const jwkKeyLoaded = result.data.keys[0]; // assuming our key is first
         // TODO If we add multiple keys, we would use 'kid' property for matching
         const pemKey = pemjwk.jwk2pem(jwkKeyLoaded);
-        localStorage.setItem('jwk-pub-key', JSON.stringify(jwkKeyLoaded));
+        this.storePubKey(jwkKeyLoaded);
         return pemKey;
       }
     } catch (err) {
