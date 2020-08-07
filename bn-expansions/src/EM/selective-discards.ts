@@ -3,6 +3,7 @@ import { Trips } from '../../../bn-models/src/models/trips-api/trips';
 import { Catches } from '../../../bn-models/src/models/trips-api/catches';
 import { ResponseCatch } from '../../../bn-models/src/models/trips-api/response-catch';
 
+/* TODO implement */
 class selectiveDiscards implements emExpansions {
     rulesExpansion(trip: Trips, catches: Catches): ResponseCatch {
         console.log('hello')
