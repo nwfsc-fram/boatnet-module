@@ -51,12 +51,12 @@ export function updateCatchWeight(weightMethod: number, catchVal: BaseCatch) {
 }
 
 function getBasketWeightDetermination(baskets: Basket[], exapansionData: WcgopExpansions) {
-    const sumBasketWt = sumBaskets(baskets);
+   /* const sumBasketWt = sumBaskets(baskets);
     const avgBasketWt = sumBasketWt / baskets.length;
     const fullBasketCount = exapansionData && exapansionData.fullBasketCount ? exapansionData.fullBasketCount : 0;
     const partialBasketWt = exapansionData && exapansionData.partialBasketWt ? exapansionData.partialBasketWt : 0;
     const result = fullBasketCount * avgBasketWt + partialBasketWt;
-    return result;
+    return result;*/
 }
 
 function sumBaskets(baskets: Basket[]) {
