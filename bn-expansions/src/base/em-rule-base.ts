@@ -3,7 +3,7 @@ import { ResponseCatch } from '../../../bn-models/src/models/trips-api/response-
 import { Catches } from '../../../bn-models/src/models/trips-api/catches';
 
 export interface emExpansions {
-    rulesExpansion(catches: Catches) : Catches;
+    rulesExpansion(logBook: Catches, thirdPartyReview: Catches) : Catches;
 }
 
 export interface logbookExpansion {

@@ -1,14 +1,5 @@
 export const groupingsToSpeciesDummyMap = {
-    "5000": [
-        {
-            speciesCode: "107",
-            name: "Dover Sole"
-        },
-        {
-            speciesCode: "108",
-            name: "English Sole"
-        }
-    ],
+    "5000": ["DOVR", "EFLS"],
     "shak": [
         {
             speciesCode: "21",
