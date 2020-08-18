@@ -71,5 +71,5 @@ export interface WcgopCatchNew extends BaseCatch {
         catchSampleMethod?: string;
         basketNumber?: number;
         // obsprodLoadDate?: BoatnetDate;
-    }
+    };
 }

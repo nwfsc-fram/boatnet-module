@@ -16,5 +16,6 @@ export interface IfqGrouping extends Base {
   regulationYear?: number; // groupings will be refreshed each year, possible they can change
   regulationAreas?: IfqArea[];
   isOverFished?: boolean; // not entirely sure how this is used, but including for now
-  speciesGroupId?: number; // may be important for relating to IFQ VAS system (OBSPROD.IFQ_SPECIE_GROUPINGS.IFQ_SPECIES_GROUP_ID)
+  speciesGroupId?: number; // may be important for relating to IFQ VAS 
+                           // system (OBSPROD.IFQ_SPECIE_GROUPINGS.IFQ_SPECIES_GROUP_ID)
 }

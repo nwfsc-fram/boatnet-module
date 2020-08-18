@@ -3,9 +3,9 @@ import { ResponseCatch } from '../../../bn-models/src/models/trips-api/response-
 import { Catches } from '../../../bn-models/src/models/trips-api/catches';
 
 export interface emExpansions {
-    rulesExpansion(trip: Trips, catches: Catches) : ResponseCatch;
+    rulesExpansion(logBook: Catches, thirdPartyReview: Catches) : Catches;
 }
 
 export interface logbookExpansion {
-    logbookExpansion(trips: Trips) : ResponseCatch;
+    logbookExpansion(trips: Trips) : Catches;
 }

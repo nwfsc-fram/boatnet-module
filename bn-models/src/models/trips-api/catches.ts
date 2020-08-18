@@ -22,8 +22,7 @@ export interface Catches extends Base {
     buyers?: string[];
     isSigned?: boolean;
     skipperName?: string;
-    fishTicketNumber?: string[];
-    fishTicketDate?: BoatnetDate;
+    fishTickets?: FishTicket[];
     comment?: string;
     submissionDateTime?: BoatnetDate;
     resubmission?: boolean;
@@ -31,6 +30,11 @@ export interface Catches extends Base {
     reviewerName?: string;
     totalReviewTime?: string;
     hauls?: Haul[];
+  }
+
+  interface FishTicket {
+    fishTicketNumber?: string;
+    fishTicketDate?: string;
   }
   
 interface Haul {

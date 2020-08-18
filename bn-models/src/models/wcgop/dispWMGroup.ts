@@ -18,7 +18,7 @@ export interface DispWMGroup extends Base {
 
     ratio?: number; // decimal representation
 
-    catchItems: WcgopCatchNew[]
+    catchItems: WcgopCatchNew[];
 
     legacy?: {
         catchCategoryId?: number;
@@ -27,5 +27,5 @@ export interface DispWMGroup extends Base {
         catchPurity?: string;
 
         obsProdLoadDate?: BoatnetDate;
-    }
+    };
 }
