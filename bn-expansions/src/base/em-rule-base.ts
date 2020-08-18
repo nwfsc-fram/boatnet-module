@@ -7,5 +7,5 @@ export interface emExpansions {
 }
 
 export interface logbookExpansion {
-    logbookExpansion(trips: Trips) : Catches;
+    logbookExpansion(logbook: Catches) : Catches;
 }

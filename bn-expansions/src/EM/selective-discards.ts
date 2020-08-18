@@ -1,9 +1,7 @@
 import { emExpansions } from '../base/em-rule-base';
 import { Catches } from '../../../bn-models/src/models/trips-api/catches';
-import { ResponseCatch } from '../../../bn-models/src/models/trips-api/response-catch';
 import { flattenDeep, get, intersection, remove, set, uniqBy } from 'lodash';
 import { groupingsToSpeciesDummyMap } from './helpers/maps';
-import { ExcursionPlanTypeName } from '@boatnet/bn-models/lib';
 
 export class selectiveDiscards implements emExpansions {
     rulesExpansion(logbook: Catches, thirdPartyReview: Catches): Catches {

@@ -53,6 +53,7 @@ interface Haul {
     endLatitude?: number;
     endLongitude?: number;
     codendCapacity?: number;
+    isCodendLost?: boolean;
     comments?: string;
     targetStrategy?: string;
     systemPerformance?: number;
