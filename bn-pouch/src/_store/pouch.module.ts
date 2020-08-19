@@ -48,6 +48,11 @@ const actions: ActionTree<PouchDBState, any> = {
     activateSyncListener(commit);
     commit('reconnectRequest');
   },
+  async reconnectNoLookupsSync({ commit }: any) {
+    // will fail if credentials not already set
+    activateSyncListener(commit);
+    commit('reconnectRequestNoSync');
+  },
   async disconnect({ commit }: any) {
     pouchService.$off('syncChanged');
     pouchService.$off('syncCompleted');
@@ -74,6 +79,13 @@ const mutations: MutationTree<PouchDBState> = {
       throw new Error('Please log out and back in for DB connection.');
     } else {
       pouchService.connect(newState.credentials);
+    }
+  },
+  reconnectRequestNoSync(newState: PouchDBState) {
+    if (!newState.credentials) {
+      throw new Error('Please log out and back in for DB connection.');
+    } else {
+      pouchService.connect(newState.credentials, false);
     }
   },
   disconnect(newState: PouchDBState) {
