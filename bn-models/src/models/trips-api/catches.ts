@@ -1,9 +1,16 @@
 import { Base } from '../_base/base';
 import { BoatnetDate } from '../_common/index';
+import { Disposition } from '../_common/enums'
+
+export enum souceType {
+  logbook = 'logbook',
+  thirdPartyReview = 'thirdPartyReview',
+  nwfscAudit = 'nwfscAudit'
+}
 
 export interface Catches extends Base {
     tripNum?: number;
-    source?: string;
+    source?: souceType;
     logbookPageNumber?: number;
     fisherySector?: string;
     year?: string;
@@ -63,7 +70,7 @@ interface Haul {
 
 interface Catch {
   catchId?: number;
-  disposition?: string;
+  disposition?: Disposition;
   fate?: string;
   speciesCode?: string;
   weight?: number;
