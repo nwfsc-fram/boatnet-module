@@ -1,19 +1,16 @@
 import { emExpansions, aggCatchBySpecies } from '../base/em-rule-base';
 import { flattenDeep, get, set } from 'lodash';
 import { groupingsToSpeciesDummyMap } from './helpers/maps';
-import { Catches, CatchResults, souceType, Disposition, ExpansionType } from '@boatnet/bn-models';
-import { formatLogbookAndThirdPartyReviewResponse } from './helpers/formatters';
+import { Catches, Disposition, sourceType } from '@boatnet/bn-models';
 
 const expansionCatchIds = ['5000']; //TODO maybe get this from some couch view or keep as a hardcoded value
 const jp = require('jsonpath');
 
 export class selectiveDiscards implements emExpansions {
-    rulesExpansion(logbook: Catches, thirdPartyReview: Catches): CatchResults {
+    rulesExpansion(logbook: Catches, thirdPartyReview: Catches): Catches {
         const logbookAggCatches: any[] = aggCatchBySpecies(logbook);
         const ratioHolder = getRatiosForGroupings(logbookAggCatches, thirdPartyReview);
-        const expandedCatches = applyRatios(logbook, thirdPartyReview, ratioHolder);
-        const result: CatchResults = formatLogbookAndThirdPartyReviewResponse(logbook, expandedCatches, ExpansionType.selectiveDiscards);
-        return result;
+        return applyRatios(logbook, thirdPartyReview, ratioHolder)
     }
 }
 

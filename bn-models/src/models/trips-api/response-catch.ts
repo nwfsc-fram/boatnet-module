@@ -28,6 +28,8 @@ interface CommonRecord {
     haulNum?: number;
     weight?: number;
     count?: number;
+    createDate?: BoatnetDate;
+    updateDate?: BoatnetDate;
 }
 
 interface Record extends CommonRecord {
@@ -43,10 +45,6 @@ interface Record extends CommonRecord {
     gearType?: string;
     fisherySector?: string;
     fishery?: string;
-    ifqSpeciesGroupName?: string;
-    fishingArea?: string;
-    createDate?: BoatnetDate;
-    updateDate?: BoatnetDate;
 }
 
 interface DebitSourceRecord extends CommonRecord{
@@ -54,6 +52,8 @@ interface DebitSourceRecord extends CommonRecord{
 }
 
 interface IfqTripLevelRecord {
+    fishingArea?: string;
+    ifqSpeciesGroupName?: string;
     ifqGrouping?: string;
     disposition?: Disposition;
     weight?: number;

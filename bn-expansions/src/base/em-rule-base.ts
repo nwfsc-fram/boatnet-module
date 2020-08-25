@@ -1,15 +1,15 @@
 import { flattenDeep, uniqBy } from 'lodash';
-import { Catches, CatchResults } from '@boatnet/bn-models';
+import { Catches } from '@boatnet/bn-models';
 
 
 const jp = require('jsonpath');
 
 export interface emExpansions {
-    rulesExpansion(logBook: Catches, thirdPartyReview: Catches) : CatchResults;
+    rulesExpansion(logBook: Catches, thirdPartyReview: Catches) : Catches;
 }
 
 export interface logbookExpansion {
-    logbookExpansion(logbook: Catches) : CatchResults;
+    logbookExpansion(logbook: Catches) : Catches;
 }
 
 export function aggCatchBySpecies(catchDoc: Catches) {

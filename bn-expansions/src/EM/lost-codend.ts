@@ -1,13 +1,12 @@
-import { Catches, CatchResults, souceType, Disposition, ExpansionType } from '@boatnet/bn-models';
+import { Catches } from '@boatnet/bn-models';
 import { logbookExpansion, aggCatchBySpecies } from '../base/em-rule-base';
-import { formatLogbookResponse } from './helpers/formatters';
 import { flattenDeep, set } from 'lodash';
 import moment from 'moment';
 
 const jp = require('jsonpath');
 
 export class lostCodend implements logbookExpansion {
-    logbookExpansion(logbook: Catches): CatchResults {
+    logbookExpansion(logbook: Catches): Catches {
         const speciesWeights: any[] = aggCatchBySpecies(logbook);
         const totalHours: number = getTotalHours(logbook);
 
@@ -32,9 +31,7 @@ export class lostCodend implements logbookExpansion {
             }
             haulIndex++;
         }
-        const result: CatchResults = formatLogbookResponse(logbook, ExpansionType.lostcodend);
-        console.log(JSON.stringify(result));
-        return result;
+        return logbook;
     }
 }
 

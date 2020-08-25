@@ -2,7 +2,7 @@ import { Base } from '../_base/base';
 import { BoatnetDate } from '../_common/index';
 import { Disposition } from '../_common/enums'
 
-export enum souceType {
+export enum sourceType {
   logbook = 'logbook',
   thirdPartyReview = 'thirdPartyReview',
   nwfscAudit = 'nwfscAudit'
@@ -10,7 +10,7 @@ export enum souceType {
 
 export interface Catches extends Base {
     tripNum?: number;
-    source?: souceType;
+    source?: sourceType;
     logbookPageNumber?: number;
     fisherySector?: string;
     year?: string;
