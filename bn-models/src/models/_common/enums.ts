@@ -14,3 +14,7 @@ export enum Score {
     FAIL = 'FAIL'
   }
   
+export enum Disposition {
+    RETAINED = 'Retained',
+    DISCARDED = 'Discarded'
+}
