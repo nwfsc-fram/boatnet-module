@@ -1,13 +1,60 @@
 import { Base } from '../_base/base';
+import { Disposition } from '../_common/enums'
+import { BoatnetDate } from '../_common/index';
 
-/*
-TODO implement similar to catches doc just add weigh expansions field
-*/
-export interface ResponseCatch extends Base {
-    catches: DebitRecord[];
+export const ResponseCatchTypeName = 'trip-expansions';
+
+export enum ExpansionType {
+    selectiveDiscards = 'selectiveDiscards',
+    lostcodend = 'lostcodend'
 }
 
-interface DebitRecord {
+export enum WeightType {
+    expansion = 'expasion',
+    none = 'none'
+}
+
+export interface CatchResults extends Base {
+    tripNum?: number;
+    logbookCatch?: Record[];
+    thirdPartyReviewCatch?: Record[];
+    nwfscAuditCatch?: Record[];
+    debitSourceCatch?: DebitSourceRecord[];
+    ifqTripReporting?: IfqTripLevelRecord[];
+}
+
+interface CommonRecord {
+    disposition?: Disposition;
+    haulNum?: number;
+    weight?: number;
+    count?: number;
+    createDate?: BoatnetDate;
+    updateDate?: BoatnetDate;
+}
+
+interface Record extends CommonRecord {
     speciesCode?: string;
+    calcWeightType?: string;
+    expansionType?: ExpansionType;
+    startDepth?: number;
+    startLatitude?: number;
+    startLongitude?: number;
+    endDepth?: number;
+    endLatitude?: number;
+    endLongitude?: number;
+    gearType?: string;
+    fisherySector?: string;
+    fishery?: string;
+}
+
+interface DebitSourceRecord extends CommonRecord{
+    ifqGrouping?: string;
+}
+
+interface IfqTripLevelRecord {
+    fishingArea?: string;
+    ifqSpeciesGroupName?: string;
+    ifqGrouping?: string;
+    disposition?: Disposition;
     weight?: number;
 }

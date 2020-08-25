@@ -18,3 +18,4 @@ export * from './waiver';
 export * from './ifq-area';
 export * from './ifq-grouping';
 export * from './change-log';
+export * from './enums';
