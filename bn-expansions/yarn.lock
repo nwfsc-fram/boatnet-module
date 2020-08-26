@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@boatnet/bn-models@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.3.0.tgz#120430f60fb7c95744e8762f85811b0e48ee0ad6"
-  integrity sha512-cAbpe1KXcAieEGqQxjusgVUqF1Eafy8ieZKqoU3geshDBxUsvZgcqH5otoOkT0l4C8fJcdXqr/wr8uo0gGBLdQ==
+"@boatnet/bn-models@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.3.3.tgz#49131c838c1606761bc08d714d149bf131dce758"
+  integrity sha512-sQsOm2lBimAVPcUMtDkbYFE5nanpQ+ZLUge90xl1ZZpbv1J0Kp5XRDxduoNGikOHsCjBwR+58bdqfNzi11ju8w==
   dependencies:
     geojson "^0.5.0"
 
