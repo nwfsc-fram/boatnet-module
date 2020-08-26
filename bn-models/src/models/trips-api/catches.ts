@@ -43,7 +43,7 @@ export interface Catches extends Base {
     fishTicketNumber?: string;
     fishTicketDate?: string;
   }
-  
+
 interface Haul {
     haulNum?: number;
     deliveryDate?: BoatnetDate;

@@ -1,8 +1,6 @@
 import { emExpansions } from '../base/em-rule-base';
-import { FishTicketRow, Catches } from '../../../bn-models/src/models/trips-api/';
-import { ResponseCatch } from '../../../bn-models/src/models/trips-api/';
+import { Catches, FishTicketRow } from '@boatnet/bn-models';
 import { flattenDeep, uniq, cloneDeep } from 'lodash';
-import * as jp from 'jsonpath';
 
 export class unsortedCatch implements emExpansions {
     rulesExpansion(tripCatch: Catches, fishTickets: FishTicketRow[]): Catches {
@@ -16,7 +14,7 @@ export class unsortedCatch implements emExpansions {
 
         // get unique species from fish tickets
         const specieses = uniq(fishTickets.map( (row: any) => row.PACFIN_SPECIES_CODE));
-        const speciesWeights = {};
+        const speciesWeights: any = {};
         for (const species of specieses) {
             const speciesWeight = fishTickets.reduce((acc: number, val: any) => {
                 if (val.PACFIN_SPECIES_CODE === species) { // need to convert wcgop code to PFSC for reviews
@@ -29,22 +27,28 @@ export class unsortedCatch implements emExpansions {
             speciesWeights[species] = {speciesWeight, percentOfTotal}
         }
 
-        for (const haul of tripCatch.hauls) {
+        for (const haul of tripCatch.hauls!) {
+            if (!haul.catch) {
+                haul.catch = [];
+            }
             let haulUNSTLbs = 0;
             for (const row of haul.catch) {
-                if (['UNST', 999].includes(row.speciesCode)) {
-                    haulUNSTLbs += row.weight;
+                if (row.speciesCode && ['UNST', 999].includes(row.speciesCode)) {
+                    if (row.weight) {
+                        haulUNSTLbs += row.weight;
+                    }
                     haul.catch.splice(haul.catch.indexOf(row), 1);
                 }
             }
 
             for (const species of Object.keys(speciesWeights)) {
+                const disposition: any = 'Discarded'
                 haul.catch.push(
                     {
                         speciesCode: species,
                         weight: (haulUNSTLbs * speciesWeights[species].percentOfTotal),
                         calcWeightType: 'CalcField',
-                        disposition: 'Discarded',
+                        disposition,
                         comments: "calculated by unsorted catch (net bleed) expansion"
                     }
                 )
