@@ -4,7 +4,7 @@ import { Disposition } from '../_common/enums'
 
 export enum sourceType {
   logbook = 'logbook',
-  thirdPartyReview = 'thirdPartyReview',
+  thirdParty = 'thirdParty',
   nwfscAudit = 'nwfscAudit'
 }
 
