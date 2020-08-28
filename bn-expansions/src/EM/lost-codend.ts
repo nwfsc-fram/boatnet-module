@@ -23,6 +23,7 @@ export class lostCodend implements logbookExpansion {
                     let weight = ratio * duration;
                     weight = Math.round(weight);
                     catches.push({
+                        disposition: speciesWeight.disposition,
                         speciesCode: speciesWeight.speciesCode,
                         weight
                     })

@@ -26,7 +26,7 @@ export function aggCatchBySpecies(catchDoc: Catches) {
         const totalWeight = speciesCatch.reduce((accumulator, currentValue) => {
             return accumulator + currentValue.weight
         }, initWeight);
-        aggCatch.push({ speciesCode: species.speciesCode, weight: totalWeight});
+        aggCatch.push({ speciesCode: species.speciesCode, weight: totalWeight, disposition: species.disposition});
     }
     return aggCatch;
 }

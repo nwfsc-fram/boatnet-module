@@ -12,8 +12,8 @@
   "dependencies": {
     "@boatnet/bn-auth": "^0.1.15",
     "@boatnet/bn-couch": "^0.1.7",
-    "@boatnet/bn-expansions": "^0.0.8",
-    "@boatnet/bn-models": "^0.3.0",
+    "@boatnet/bn-expansions": "^0.1.4",
+    "@boatnet/bn-models": "^0.3.4",
     "@boatnet/bn-pouch": "^0.2.9",
     "@boatnet/bn-rules": "^0.1.2",
     "@boatnet/bn-test-example": "^1.0.0",

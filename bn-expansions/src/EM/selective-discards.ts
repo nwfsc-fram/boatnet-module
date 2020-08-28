@@ -61,6 +61,8 @@ function applyRatios(logbook: Catches, review: Catches, ratioLookup: any) {
                         expandedCatches.push({
                             disposition: logbookCatch.disposition,
                             fate: logbookCatch.fate,
+                            // TODO this should be WCGOP species code.
+                            // utilize some mapper to convert from pacfin to wcgop species code
                             speciesCode: logbookCatch.speciesCode,
                             weight: expandedWeight
                         });
