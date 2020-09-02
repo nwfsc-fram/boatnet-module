@@ -33,7 +33,7 @@ export class unsortedCatch implements emExpansions {
             }
             let haulUNSTLbs = 0;
             for (const row of haul.catch) {
-                if (row.speciesCode && ['UNST', 999].includes(row.speciesCode)) {
+                if (row.speciesCode && ['UNST', '999'].includes(row.speciesCode.toString())) {
                     if (row.weight) {
                         haulUNSTLbs += row.weight;
                     }
