@@ -3,7 +3,7 @@ import { Catches, FishTicketRow } from '@boatnet/bn-models';
 import { flattenDeep, uniq, cloneDeep } from 'lodash';
 const jp = require('jsonpath');
 
-class missingWeight implements emExpansions {
+export class missingWeight implements emExpansions {
     rulesExpansion(tripCatch: Catches, fishTickets: FishTicketRow[], logbook: any=null): Catches {
 
         const equationValues: any = {
