@@ -1,3 +1,140 @@
+import { emExpansions } from '../base/em-rule-base';
+import { Catches, FishTicketRow } from '@boatnet/bn-models';
+import { flattenDeep, uniq, cloneDeep } from 'lodash';
+const jp = require('jsonpath');
+
+class missingWeight implements emExpansions {
+    rulesExpansion(tripCatch: Catches, fishTickets: FishTicketRow[], logbook: any=null): Catches {
+
+        const equationValues: any = {
+            'PHLB': {alpha: 0.000009209, beta: 3.24, citation: 'IPHC'},
+            'DOVR': {alpha: 0.000008952, beta: 3.2494, citation: 'Sampson DB, Wood C (2001) Stock Status of Dover Sole off the US West Coast in 2000. Report from Hatfield Marine Science Center, Oregon State University, Newport, OR.'},
+            'EGLS': {alpha: 0.000009216, beta: 3.227938, citation: 'Weinberg KL, Wilkins ME, Shaw FR, Zimmerman M (2002) The 2001 Pacific West Coast Bottom Trawl Survey of Groundfish Resources: Estimates of Distribution, Abundance, and Length and Age Composition. NOAA Tech. Memor. NMFS-AFSC-128.'},
+            'PTRL': {alpha: 0.000004299, beta: 3.49, citation: 'Turnock J, Wilkins M, Saelens M, Wood C (1993) Status of West Coast Petrale Sole in 1993. Report from Alaska Fisheries Science Center, Seattle, WA and Oregon Department of Fish and Wildlife, Newport, OR.'},
+            'ARTH': {alpha: 0.000009436, beta: 3.2101, citation: 'Rickey MH (1993) Status of the Coastal Arrowtooth Flounder Resource in 1993. Report from Washington Department of Fisheries, Olympia, WA.'},
+            'PCOD': {alpha: 0.000022937, beta: 2.9919, citation: 'Karp WA, Miller BS (1977) Pacific Cod (Gadus macrocephalus) Studies in Port Townsend Bay, Washington. Report from the Fisheries Research Institute, University of Washington to the US Navy.'},
+            'SABL': {alpha: 0.000003927, beta: 3.430072, citation: 'Parks NB, Shaw FR (1994) Relative abundance and size composition of sablefish (Anoplopoma fimbria) in the coastal waters of California and Southern Oregon, 1984-1991. NOAA Tech. Memo. NMFS-AFSC-35. 38p'},
+            'PWHT': {alpha: 0.000011394, beta: 3.060471, citation: 'Weinberg KL, Wilkins ME, Shaw FR, Zimmerman M (2002) The 2001 Pacific West Coast Bottom Trawl Survey of Groundfish Resources: Estimates of Distribution, Abundance, and Length and Age Composition. NOAA Tech. Memor. NMFS-AFSC-128.'},
+            'POP': {alpha: 0.000019842, beta: 3.133, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'BCAC': {alpha: 0.000035715, beta: 2.881, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'WDOW': {alpha: 0.000036156, beta: 2.942, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'DBRK': {alpha: 0.000065036, beta: 2.824, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'CNRY': {alpha: 0.000111113, beta: 2.664, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'SNOS': {alpha: 0.000042990, beta: 2.927, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'YTRK': {alpha: 0.000079146, beta: 2.745, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'YEYE': {alpha: 0.000016314, beta: 3.222, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'CLPR': {alpha: 0.000016755, beta: 3.12, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'SSPN': {alpha: 0.000008598, beta: 3.357, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'LSPN': {alpha: 0.000016061, beta: 3.16, citation: 'Haigh R, Olsen N, Starr P (2005) A Review of Longspine Thornyhead (Sebastolobus altivelis) along the Pacific Coast of Canada: biology, Distribution, and Abundance Trends. Research Document 2005/097 Fisheries and Oceans Canada.'},
+            'CWCD': {alpha: 0.000022267, beta: 3.093, citation: 'Love M, Yoklavich M, Thorsteinson L (2002) The Rockfishes of the Northeast Pacific. University of California Press.'},
+            'LCOD': {alpha: 0.000006298, beta: 3.30635, citation: 'Jagielo TH (1994) Assessment of Lingcod (Ophiodon elongatus) in the area north of 45° 46\' N (Cape Falcon) and South of 49° 00\' N in 1994. Report from Washington Department of Fish and Wildlife, Olympia, WA.'},
+            'THDS': {alpha: 0.000016061, beta: 3.16, citation: 'Haigh R, Olsen N, Starr P (2005) A Review of Longspine Thornyhead (Sebastolobus altivelis) along the Pacific Coast of Canada: biology, Distribution, and Abundance Trends. Research Document 2005/097 Fisheries and Oceans Canada.'}
+        }
+
+        const getTotalWeight = (speciesAverageWeight: any, missingWeightCatch: any) => {
+            if (speciesAverageWeight === "Insufficient Data") {
+                return "Insufficient Data";
+            } else {
+                if (missingWeightCatch.speciesCount) {
+                    return speciesAverageWeight * parseInt(missingWeightCatch.speciesCount, 10);
+                } else {
+                    return speciesAverageWeight;
+                }
+            }
+        }
+
+        tripCatch = cloneDeep(tripCatch);
+
+        // is tripCatch a logbook?
+        const isLogbook: boolean = tripCatch.source === 'logbook';
+
+        // get total retained weight per species from fishTickets
+
+        // get unique species from fish tickets
+        const ftSpecies = uniq(fishTickets.map( (row: any) => row.PACFIN_SPECIES_CODE));
+        // get sum of weight per species
+        const ftSpeciesWeights: any = {};
+        for (const species of ftSpecies) {
+            const speciesWeight = fishTickets.reduce((acc: number, val: any) => {
+                if (val.PACFIN_SPECIES_CODE === species && val.CONDITION_CODE === 'R') { // need to convert wcgop code to PFSC for reviews
+                    return acc + val.LANDED_WEIGHT_LBS
+                } else {
+                    return acc
+                }
+            }, 0);
+            ftSpeciesWeights[species] = speciesWeight
+        }
+
+        // get total retained count and weight per species from logbook
+        let flattenedLbCatch: any[] = jp.query(logbook, '$..catch');
+        flattenedLbCatch = flattenDeep(flattenedLbCatch);
+        const lbSpecies = uniq(flattenedLbCatch.map( (row: any) => row.speciesCode));
+        const lbRetainedSpeciesCountsWeights: any = {};
+        for ( const species of lbSpecies) {
+            const speciesCount = flattenedLbCatch.reduce( (acc: number, val: any) => {
+                if (val.speciesCode === species && val.disposition === 'Retained' && val.speciesCount) {
+                    return acc + parseInt(val.speciesCount, 10);
+                } else {
+                    return acc;
+                }
+            }, 0)
+            const speciesWeight = flattenedLbCatch.reduce( (acc: number, val: any) => {
+                if (val.speciesCode === species && val.disposition === 'Retained' && val.weight) {
+                    return acc + parseFloat(val.weight);
+                } else {
+                    return acc;
+                }
+            }, 0)
+            lbRetainedSpeciesCountsWeights[species] = {count: speciesCount, weight: speciesWeight};
+        }
+
+        for (const haul of tripCatch.hauls!) {
+            if (haul.catch) {
+                for (let i = haul.catch!.length - 1; i >= 0; i--) {
+                    if ((haul.catch[i].speciesCount || haul.catch[i].length) && !haul.catch[i].weight) {  // catch has a count and/or length, but no weight
+                        const missingWeightCatch: any = cloneDeep(haul.catch[i]);
+
+                        const haveSpeciesFtRetainedWeight: boolean = ftSpeciesWeights[missingWeightCatch.speciesCode] ? true : false;
+                        const haveSpeciesLogbookRetainedCount: boolean = lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode] && lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode].count ? true : false
+                        const haveSpeciesLogbookRetainedWeight: boolean = lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode] && lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode].weight ? true : false
+
+                        let speciesAverageWeight = null;
+                        switch(true) {
+                            case(haveSpeciesFtRetainedWeight && haveSpeciesLogbookRetainedCount):
+                                speciesAverageWeight = ftSpeciesWeights[missingWeightCatch.speciesCode] / lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode].count;
+                                break;
+                            case(haveSpeciesLogbookRetainedCount && haveSpeciesLogbookRetainedWeight):
+                                speciesAverageWeight = lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode].weight / lbRetainedSpeciesCountsWeights[missingWeightCatch.speciesCode].count;
+                                break;
+                            case(missingWeightCatch.length && missingWeightCatch.length !== ''): // have a length
+                                if (equationValues[missingWeightCatch.speciesCode]) {
+                                    speciesAverageWeight = equationValues[missingWeightCatch.speciesCode].alpha * Math.pow(missingWeightCatch.length, equationValues[missingWeightCatch.speciesCode].beta);
+                                } else {
+                                    console.log("missing equation values for species");
+                                    speciesAverageWeight = "Insufficient Data";
+                                }
+                                break;
+                            case(missingWeightCatch.speciesCount && !missingWeightCatch.length): // count but no length
+                                console.log("currently unable to handle a count with no length without retained fish ticket or logbook data");
+                                speciesAverageWeight = "Insufficient Data";
+                                break;
+                            default:
+                                console.log("this should not be possible");
+                                speciesAverageWeight = "Insufficient Data";
+                                break;
+                        }
+                        const speciesTotalWeight = getTotalWeight(speciesAverageWeight, missingWeightCatch);
+                        missingWeightCatch.weight = speciesTotalWeight;
+                        missingWeightCatch.calcWeightType = "from length";
+                        missingWeightCatch.comments = "calculated by missing weights expansion";
+                        haul.catch.splice(i, 1, missingWeightCatch);
+                    }
+                }
+            }
+        }
+        return tripCatch
+    }
+}
 /*
 Missing Weights
 
@@ -87,49 +224,49 @@ Shortspine/Longspine Thornyheads 0.000016061 3.16 9
 
 */
 
-export function weightFromSpeciesTotal(count: number, totalWeight: number ): number {
-    return totalWeight/count;
-}
+// export function weightFromSpeciesTotal(count: number, totalWeight: number ): number {
+//     return totalWeight/count;
+// }
 
-interface IWeightFromLength {
-    [key: string]: {a: number, b:number}
-}
+// interface IWeightFromLength {
+//     [key: string]: {a: number, b:number}
+// }
 
-export function weightFromLength(pacfinSpeciesCode: string, length: number, count?: number): string | number {
-    const values: IWeightFromLength = {
-        'PHLB': {a: 0.000009209, b: 3.24},
-        'DOVR': {a: 0.000008952, b: 3.2494},
-        'EGLS': {a: 0.000009216, b: 3.227938},
-        'PTRL': {a: 0.000004299, b: 3.49},
-        'ARTH': {a: 0.000009436, b: 3.2101},
-        'PCOD': {a: 0.000022937, b: 2.9919},
-        'SABL': {a: 0.000003927, b: 3.430072},
-        'PWHT': {a: 0.000011394, b: 3.060471},
-        'POP':  {a: 0.000019842, b: 3.133},
-        'BCAC': {a: 0.000035715, b: 2.881},
-        'WDOW': {a: 0.000036156, b: 2.942},
-        'DBRK': {a: 0.000065036, b: 2.824},
-        'CNRY': {a: 0.000111113, b: 2.664},
-        'SNOS': {a: 0.000042990, b: 2.927},
-        'YTRK': {a: 0.000079146, b: 2.745},
-        'YEYE': {a: 0.000016314, b: 3.222},
-        'CLPR': {a: 0.000016755, b: 3.12},
-        'SSPN': {a: 0.000008598, b: 3.357},
-        'LSPN': {a: 0.000016061, b: 3.16},
-        'CWCD': {a: 0.000022267, b: 3.093},
-        'LCOD': {a: 0.000006298, b: 3.30635},
-        'THDS': {a: 0.000016061, b: 3.16}
-    }
-    if (values[pacfinSpeciesCode.toUpperCase()]) {
-        const weight = Math.pow(length, values[pacfinSpeciesCode.toUpperCase()].b)
-        * values[pacfinSpeciesCode.toUpperCase()].a;
-        if (count) {
-            return weight * count;
-        } else {
-            return weight;
-        }
-    } else {
-        return 'species values unavailable.'
-    }
-}
+// export function weightFromLength(pacfinSpeciesCode: string, length: number, count?: number): string | number {
+//     const values: IWeightFromLength = {
+//         'PHLB': {a: 0.000009209, b: 3.24},
+//         'DOVR': {a: 0.000008952, b: 3.2494},
+//         'EGLS': {a: 0.000009216, b: 3.227938},
+//         'PTRL': {a: 0.000004299, b: 3.49},
+//         'ARTH': {a: 0.000009436, b: 3.2101},
+//         'PCOD': {a: 0.000022937, b: 2.9919},
+//         'SABL': {a: 0.000003927, b: 3.430072},
+//         'PWHT': {a: 0.000011394, b: 3.060471},
+//         'POP':  {a: 0.000019842, b: 3.133},
+//         'BCAC': {a: 0.000035715, b: 2.881},
+//         'WDOW': {a: 0.000036156, b: 2.942},
+//         'DBRK': {a: 0.000065036, b: 2.824},
+//         'CNRY': {a: 0.000111113, b: 2.664},
+//         'SNOS': {a: 0.000042990, b: 2.927},
+//         'YTRK': {a: 0.000079146, b: 2.745},
+//         'YEYE': {a: 0.000016314, b: 3.222},
+//         'CLPR': {a: 0.000016755, b: 3.12},
+//         'SSPN': {a: 0.000008598, b: 3.357},
+//         'LSPN': {a: 0.000016061, b: 3.16},
+//         'CWCD': {a: 0.000022267, b: 3.093},
+//         'LCOD': {a: 0.000006298, b: 3.30635},
+//         'THDS': {a: 0.000016061, b: 3.16}
+//     }
+//     if (values[pacfinSpeciesCode.toUpperCase()]) {
+//         const weight = Math.pow(length, values[pacfinSpeciesCode.toUpperCase()].b)
+//         * values[pacfinSpeciesCode.toUpperCase()].a;
+//         if (count) {
+//             return weight * count;
+//         } else {
+//             return weight;
+//         }
+//     } else {
+//         return 'species values unavailable.'
+//     }
+// }
 

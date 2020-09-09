@@ -32,12 +32,12 @@ export class unsortedCatch implements emExpansions {
                 haul.catch = [];
             }
             let haulUNSTLbs = 0;
-            for (const row of haul.catch) {
-                if (row.speciesCode && ['UNST', '999'].includes(row.speciesCode.toString())) {
-                    if (row.weight) {
-                        haulUNSTLbs += row.weight;
+            for (let i = haul.catch.length - 1; i >= 0; i--) {
+                if (haul.catch[i].speciesCode && ['UNST', '999'].includes(haul.catch[i].speciesCode!.toString())) {
+                    if (haul.catch[i].weight) {
+                        haulUNSTLbs += haul.catch[i].weight!;
                     }
-                    haul.catch.splice(haul.catch.indexOf(row), 1);
+                    haul.catch.splice(i, 1);
                 }
             }
 
