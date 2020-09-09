@@ -37,6 +37,7 @@ export interface Catches extends Base {
     reviewerName?: string;
     totalReviewTime?: string;
     hauls?: Haul[];
+    updatedBy?: string;
   }
 
   interface FishTicket {

@@ -16,11 +16,15 @@ export enum WeightType {
 
 export interface CatchResults extends Base {
     tripNum?: number;
+    createDate?: string;
+    updateDate?: string;
+    updatedBy?: string;
     logbookCatch?: Record[];
     thirdPartyReviewCatch?: Record[];
     nwfscAuditCatch?: Record[];
     debitSourceCatch?: DebitSourceRecord[];
     ifqTripReporting?: IfqTripLevelRecord[];
+    revisionHistory?: RevisionHistoryItem[];
 }
 
 interface CommonRecord {
@@ -57,4 +61,9 @@ interface IfqTripLevelRecord {
     ifqGrouping?: string;
     disposition?: Disposition;
     weight?: number;
+}
+
+interface RevisionHistoryItem {
+    oldVal?: any;
+    updateDate?: string;
 }
