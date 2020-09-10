@@ -25,3 +25,86 @@ Note that all flat rate DMRs are applied regardless of the condition of the fish
 applied even to fish which may be in parts or otherwise obviously dead.
 
 */
+import { logbookExpansion } from "../base/em-rule-base";
+import { Catches, Disposition, GearTypes } from '@boatnet/bn-models';
+import { get, set } from 'lodash';
+
+const jp = require('jsonpath');
+
+// from IFQ Business Rules
+const discardMortalityRatesMap = {
+    SABL: {
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: 20,
+        [GearTypes.HookAndLine]: 20,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+        [GearTypes.GroundfishTrawlGreaterThan8]: 50,
+    },
+    203: {
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: 20,
+        [GearTypes.HookAndLine]: 20,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+        [GearTypes.GroundfishTrawlGreaterThan8]: 50,
+    },
+    LCOD: {
+        [GearTypes.MidwaterTrawl]: 100,
+        [GearTypes.FishPot]: 7,
+        [GearTypes.HookAndLine]: 7,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+        [GearTypes.GroundfishTrawlGreaterThan8]: 50
+    },
+    603: {
+        [GearTypes.MidwaterTrawl]: 100,
+        [GearTypes.FishPot]: 7,
+        [GearTypes.HookAndLine]: 7,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+        [GearTypes.GroundfishTrawlGreaterThan8]: 50
+    },
+    PHLB: {
+        [GearTypes.MidwaterTrawl]: 100,
+        [GearTypes.FishPot]: 18,
+        [GearTypes.HookAndLine]: 18,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+       // [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+       // [GearTypes.GroundfishTrawlGreaterThan8]: 50
+    },
+    101: {
+        [GearTypes.MidwaterTrawl]: 100,
+        [GearTypes.FishPot]: 18,
+        [GearTypes.HookAndLine]: 18,
+        // VerticalHookAndLineGear??
+        // OtherHookAndLineGear??
+       // [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
+       // [GearTypes.GroundfishTrawlGreaterThan8]: 50
+    }
+}
+
+export class discardMortalityRates implements logbookExpansion {
+    logbookExpansion(logbook: Catches) : Catches {
+        let hauls = get(logbook, 'hauls', []);
+        for (let i = 0; i < hauls.length; i++) {
+            let catches = get(hauls[i], 'catch', []);
+            const gearType = get(hauls[i], 'gearTypeCode');
+            for (let j = 0; j < catches.length; j++) {
+                const catchVal = get(logbook, 'hauls[' + i + '].catch[' + j + ']');
+                const disposition = catchVal.disposition;
+                const speciesCode = catchVal.speciesCode;
+                if (disposition === Disposition.DISCARDED) {
+                    const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
+                    set(logbook, 'hauls[' + i + '].catch[' + j + '].weight', catchVal.weight * rate);
+                }
+            }
+        }
+        return logbook;
+    }
+}
