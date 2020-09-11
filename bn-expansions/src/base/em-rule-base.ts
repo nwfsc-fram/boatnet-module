@@ -4,7 +4,7 @@ import { Catches, FishTicketRow } from '@boatnet/bn-models';
 const jp = require('jsonpath');
 
 export interface ExpansionParameters {
-    currCatch?: Catches;
+    currCatch: Catches;
     logbook?: Catches;
     review?: Catches;
     audit?: Catches
