@@ -25,7 +25,7 @@ Note that all flat rate DMRs are applied regardless of the condition of the fish
 applied even to fish which may be in parts or otherwise obviously dead.
 
 */
-import { logbookExpansion } from "../base/em-rule-base";
+import { BaseExpansion, ExpansionParameters } from "../base/em-rule-base";
 import { Catches, Disposition, GearTypes } from '@boatnet/bn-models';
 import { get, set } from 'lodash';
 
@@ -37,8 +37,6 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 1,
         [GearTypes.FishPot]: 20,
         [GearTypes.HookAndLine]: 20,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
         [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
         [GearTypes.GroundfishTrawlGreaterThan8]: 50,
     },
@@ -46,8 +44,6 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 1,
         [GearTypes.FishPot]: 20,
         [GearTypes.HookAndLine]: 20,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
         [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
         [GearTypes.GroundfishTrawlGreaterThan8]: 50,
     },
@@ -55,8 +51,6 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 100,
         [GearTypes.FishPot]: 7,
         [GearTypes.HookAndLine]: 7,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
         [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
         [GearTypes.GroundfishTrawlGreaterThan8]: 50
     },
@@ -64,8 +58,6 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 100,
         [GearTypes.FishPot]: 7,
         [GearTypes.HookAndLine]: 7,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
         [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
         [GearTypes.GroundfishTrawlGreaterThan8]: 50
     },
@@ -73,8 +65,6 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 100,
         [GearTypes.FishPot]: 18,
         [GearTypes.HookAndLine]: 18,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
        // [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
        // [GearTypes.GroundfishTrawlGreaterThan8]: 50
     },
@@ -82,15 +72,14 @@ const discardMortalityRatesMap = {
         [GearTypes.MidwaterTrawl]: 100,
         [GearTypes.FishPot]: 18,
         [GearTypes.HookAndLine]: 18,
-        // VerticalHookAndLineGear??
-        // OtherHookAndLineGear??
        // [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
        // [GearTypes.GroundfishTrawlGreaterThan8]: 50
     }
 }
 
-export class discardMortalityRates implements logbookExpansion {
-    logbookExpansion(logbook: Catches) : Catches {
+export class discardMortalityRates implements BaseExpansion {
+    expand(params: ExpansionParameters) : Catches {
+        const logbook = params.logbook ? params.logbook : {};
         let hauls = get(logbook, 'hauls', []);
         for (let i = 0; i < hauls.length; i++) {
             let catches = get(hauls[i], 'catch', []);

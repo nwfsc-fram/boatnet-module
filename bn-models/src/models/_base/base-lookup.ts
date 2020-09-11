@@ -13,5 +13,11 @@ export interface BaseLookup extends Base  {
     isHakeSurvey?: boolean;
     isHookAndLineSurvey?: boolean;
     isCommon?: boolean;
-
+    legacy?: {
+        lookupVal?: string;
+        programId?: number;
+        lookupId?: number;
+        lookupType?: string;
+    };
+    isEM?: boolean;
 }

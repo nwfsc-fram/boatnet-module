@@ -27,12 +27,4 @@ export enum GearTypes {
 }
 
 export interface GearType extends BaseLookup {
-    legacy?: {
-        lookupVal?: string;
-        programId?: number;
-        lookupId?: number;
-        lookupType?: string;
-    };
-    isEM?: boolean;
-    lookupVal?: string;
 }
