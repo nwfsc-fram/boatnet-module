@@ -28,35 +28,33 @@ export class unsortedCatch implements emExpansions {
         }
 
         for (const haul of tripCatch.hauls!) {
-            if (!haul.catch) {
-                haul.catch = [];
-            }
-            let haulUNSTLbs = 0;
-            for (let i = haul.catch.length - 1; i >= 0; i--) {
-                if (haul.catch[i].speciesCode && ['UNST', '999'].includes(haul.catch[i].speciesCode!.toString())) {
-                    if (haul.catch[i].weight) {
-                        haulUNSTLbs += haul.catch[i].weight!;
+            if (haul.catch) {
+                let haulUNSTLbs = 0;
+                for (let i = haul.catch.length - 1; i >= 0; i--) {
+                    if (haul.catch[i].speciesCode && ['UNST', '999'].includes(haul.catch[i].speciesCode!.toString())) {
+                        if (haul.catch[i].weight) {
+                            haulUNSTLbs += haul.catch[i].weight!;
+                        }
+                        haul.catch.splice(i, 1);
                     }
-                    haul.catch.splice(i, 1);
+                }
+
+                if (haulUNSTLbs > 0) {
+                    for (const species of Object.keys(speciesWeights)) {
+                        const disposition: any = 'Discarded'
+                        haul.catch.push(
+                            {
+                                speciesCode: species,
+                                weight: (haulUNSTLbs * speciesWeights[species].percentOfTotal),
+                                calcWeightType: 'CalcField',
+                                disposition,
+                                comments: "calculated by unsorted catch (net bleed) expansion"
+                            }
+                        )
+                    }
                 }
             }
-
-            for (const species of Object.keys(speciesWeights)) {
-                const disposition: any = 'Discarded'
-                haul.catch.push(
-                    {
-                        speciesCode: species,
-                        weight: (haulUNSTLbs * speciesWeights[species].percentOfTotal),
-                        calcWeightType: 'CalcField',
-                        disposition,
-                        comments: "calculated by unsorted catch (net bleed) expansion"
-                    }
-                )
-            }
-
         }
-
-        console.log(tripCatch);
         return tripCatch;
     }
 }
