@@ -1,5 +1,4 @@
 import { BaseLookup } from '../_base';
-import { BoatnetDate } from '../_common';
 
 export const WeightMethodTypeName = 'weight-method';
 
@@ -18,16 +17,4 @@ export enum WeightMethodValue {
   actualWeightSubsample = 21
 }
 
-export interface WeightMethod extends BaseLookup {
-  // description?: string;
-
-  legacy?: {
-    lookupVal?: WeightMethodValue;
-    programId?: number;
-    active?: boolean;
-    sortOrder?: number;
-    lookupId?: number;
-    obsprodLoadDate?: BoatnetDate;
-    lookupType?: string;
-  };
-}
+export type WeightMethod = BaseLookup;

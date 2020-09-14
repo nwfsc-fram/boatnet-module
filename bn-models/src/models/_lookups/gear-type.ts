@@ -26,5 +26,4 @@ export enum GearTypes {
     LonglineSnap = "20"
 }
 
-export interface GearType extends BaseLookup {
-}
+export type GearType = BaseLookup;

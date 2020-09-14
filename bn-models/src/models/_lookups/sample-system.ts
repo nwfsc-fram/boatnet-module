@@ -1,9 +1,11 @@
-import { BaseLookup } from '../_base';
+import { BaseLookup, Legacy } from '../_base';
 
 export const SampleSystemTypeName = 'sample-system';
 
 export interface SampleSystem extends BaseLookup {
-  legacy?: {
-    sampleSystemCode?: number;
-  };
+  legacy?: SampleSystemLegacy;
+}
+
+interface SampleSystemLegacy extends Legacy {
+  sampleSystemCode?: number;
 }

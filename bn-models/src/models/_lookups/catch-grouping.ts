@@ -1,4 +1,4 @@
-import { BaseLookup } from '../_base';
+import { BaseLookup, Legacy } from '../_base';
 import { MarineDebris } from './marine-debris';
 import { TaxonomyAlias } from './taxonomy-alias';
 
@@ -24,11 +24,13 @@ export interface CatchGrouping extends BaseLookup {
   wcrIfqSpeciesGroupId?: number;
   isInactive?: boolean;
 
-  legacy?: {
-    // ETL Note - Only for multi-species catch categories
-    wcgopCatchCategoryCode?: string;
-    wcgopCatchCategoryId?: number;
-  };
+  // ETL Note - Only for multi-species catch categories
+  legacy?: CatchGroupingLegacy;
+}
+
+interface CatchGroupingLegacy extends Legacy {
+  wcgopCatchCategoryCode?: string;
+  wcgopCatchCategoryId?: number;
 }
 
 /*
