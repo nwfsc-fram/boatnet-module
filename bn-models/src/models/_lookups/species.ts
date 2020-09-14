@@ -1,4 +1,4 @@
-import { BaseLookup } from '../_base';
+import { BaseLookup, Legacy } from '../_base';
 import { BoatnetDate } from '../_common';
 import { SpeciesCategory } from './species-category';
 import { SpeciesSubCategory } from './species-sub-category';
@@ -10,9 +10,11 @@ export interface Species extends BaseLookup {
   commonName: string;
   pacfinCode?: string;
   isActive: boolean; // 0 if false, default to true, TODO confirm with Neil
+  legacy?: SpeciesLegacy;
+}
 
-  legacy?: {
-    raceCode?: string;
+interface SpeciesLegacy extends Legacy {
+  raceCode?: string;
     speciesCode?: string;
     speciesId?: number;
     speciesCategory?: SpeciesCategory;
@@ -21,5 +23,4 @@ export interface Species extends BaseLookup {
     bsSpecies?: boolean; // Y or NULL
     formRequired?: boolean; // Y or NULL
     obsprodLoadDate: BoatnetDate;
-  };
 }

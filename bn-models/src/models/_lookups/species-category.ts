@@ -15,14 +15,4 @@ export interface SpeciesCategory extends BaseLookup {
   // description?: string;
   taxonomy?: Taxonomy; // Beth to track down
   subCategories?: SpeciesSubCategory[]; // Beth to track down
-
-  legacy?: {
-    lookupVal?: number;
-    programId?: number;
-    active?: boolean;
-    sortOrder?: number;
-    lookupId?: number;
-    obsprodLoadDate?: BoatnetDate;
-    lookupType?: string;
-  };
 }

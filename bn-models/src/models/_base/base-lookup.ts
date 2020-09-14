@@ -1,5 +1,6 @@
 
 import { Base } from './base';
+import { BoatnetDate } from '../_common';
 
 export interface BaseLookup extends Base  {
 
@@ -13,11 +14,16 @@ export interface BaseLookup extends Base  {
     isHakeSurvey?: boolean;
     isHookAndLineSurvey?: boolean;
     isCommon?: boolean;
-    legacy?: {
-        lookupVal?: string;
-        programId?: number;
-        lookupId?: number;
-        lookupType?: string;
-    };
+    legacy?: Legacy;
     isEM?: boolean;
+}
+
+export interface Legacy {
+    lookupVal?: number;
+    active?: boolean;
+    programId?: number;
+    sortOrder?: number;
+    lookupId?: number;
+    obsprodLoadDate?: BoatnetDate;
+    lookupType?: string;
 }
