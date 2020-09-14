@@ -1,11 +1,11 @@
-import { emExpansions } from '../base/em-rule-base';
+import { BaseExpansion, ExpansionParameters } from '../base/em-rule-base';
 import { Catches, FishTicketRow } from '@boatnet/bn-models';
 import { flattenDeep, uniq, cloneDeep } from 'lodash';
 
-export class unsortedCatch implements emExpansions {
-    rulesExpansion(tripCatch: Catches, fishTickets: FishTicketRow[]): Catches {
-
-        tripCatch = cloneDeep(tripCatch);
+export class unsortedCatch implements BaseExpansion {
+    expand(params: ExpansionParameters): Catches {
+        const tripCatch = params.currCatch ? cloneDeep(params.currCatch) : {};
+        const fishTickets = params.fishTickets ? params.fishTickets : [];
 
         // get total catch weight from fish tickets
         let totalWeight = fishTickets.reduce((acc: number, val: any) => {

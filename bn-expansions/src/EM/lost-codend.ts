@@ -1,16 +1,17 @@
 import { Catches } from '@boatnet/bn-models';
-import { logbookExpansion, aggCatchBySpecies } from '../base/em-rule-base';
+import { BaseExpansion, aggCatchBySpecies, ExpansionParameters } from '../base/em-rule-base';
 import { flattenDeep, set } from 'lodash';
 import moment from 'moment';
 
 const jp = require('jsonpath');
 
-export class lostCodend implements logbookExpansion {
-    logbookExpansion(logbook: Catches): Catches {
-        const speciesWeights: any[] = aggCatchBySpecies(logbook);
-        const totalHours: number = getTotalHours(logbook);
+export class lostCodend implements BaseExpansion {
+    expand(params: ExpansionParameters): Catches {
+        const tripCatch = params.currCatch ? params.currCatch : {};
+        const speciesWeights: any[] = aggCatchBySpecies(tripCatch);
+        const totalHours: number = getTotalHours(tripCatch);
 
-        let hauls: any[] = jp.query(logbook, '$..hauls');
+        let hauls: any[] = jp.query(tripCatch, '$..hauls');
         hauls = flattenDeep(hauls);
         let haulIndex = 0;
 
@@ -28,11 +29,11 @@ export class lostCodend implements logbookExpansion {
                         weight
                     })
                 }
-                set(logbook, 'hauls[' + haulIndex + '].catch', catches);
+                set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);
             }
             haulIndex++;
         }
-        return logbook;
+        return tripCatch;
     }
 }
 

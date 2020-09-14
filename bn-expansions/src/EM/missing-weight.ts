@@ -1,10 +1,10 @@
-import { emExpansions } from '../base/em-rule-base';
+import { BaseExpansion, ExpansionParameters } from '../base/em-rule-base';
 import { Catches, FishTicketRow } from '@boatnet/bn-models';
 import { flattenDeep, uniq, cloneDeep } from 'lodash';
 const jp = require('jsonpath');
 
-export class missingWeight implements emExpansions {
-    rulesExpansion(tripCatch: Catches, fishTickets: FishTicketRow[], logbook: any=null): Catches {
+export class missingWeight implements BaseExpansion {
+    expand(params: ExpansionParameters): Catches {
 
         const equationValues: any = {
             'PHLB': {alpha: 0.000009209, beta: 3.24, citation: 'IPHC'},
@@ -47,7 +47,9 @@ export class missingWeight implements emExpansions {
             }
         }
 
-        tripCatch = cloneDeep(tripCatch);
+        const tripCatch = params.currCatch ? cloneDeep(params.currCatch) : {};
+        const fishTickets = params.fishTickets ? params.fishTickets : [];
+        const logbook = params.logbook ? params.logbook : {};
 
         // is tripCatch a logbook?
         const isLogbook: boolean = tripCatch.source === 'logbook';
