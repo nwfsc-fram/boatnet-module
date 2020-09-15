@@ -78,7 +78,7 @@ interface Catch {
   speciesCount?: number;
   calcWeightType?: string;
   length?: number;
-  timeOnDeck?: number;
+  timeOnDeck?: number; // minutes
   comments?: string;
   screenShotId?: string;
   screenShotDescription?: string;
