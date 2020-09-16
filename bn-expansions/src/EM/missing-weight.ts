@@ -36,8 +36,8 @@ export class missingWeight implements BaseExpansion {
         }
 
         const getTotalWeight = (speciesAverageWeight: any, missingWeightCatch: any) => {
-            if (speciesAverageWeight === "Insufficient Data") {
-                return "Insufficient Data";
+            if (typeof speciesAverageWeight === "string") {
+                return speciesAverageWeight;
             } else {
                 if (missingWeightCatch.speciesCount) {
                     return speciesAverageWeight * parseInt(missingWeightCatch.speciesCount, 10);
@@ -117,16 +117,16 @@ export class missingWeight implements BaseExpansion {
                                     speciesAverageWeight = equationValues[speciesCode].alpha * Math.pow(missingWeightCatch.length, equationValues[speciesCode].beta);
                                 } else {
                                     console.log("missing equation values for species");
-                                    speciesAverageWeight = "Insufficient Data";
+                                    speciesAverageWeight = "missing equation values for species: " + speciesCode;
                                 }
                                 break;
                             case(missingWeightCatch.speciesCount && !missingWeightCatch.length): // count but no length
                                 console.log("currently unable to handle a count with no length without retained fish ticket or logbook data");
-                                speciesAverageWeight = "Insufficient Data";
+                                speciesAverageWeight = "currently unable to handle a count with no length without retained fish ticket or logbook data";
                                 break;
                             default:
                                 console.log("this should not be possible");
-                                speciesAverageWeight = "Insufficient Data";
+                                speciesAverageWeight = "this should not be possible";
                                 break;
                         }
                         const speciesTotalWeight = getTotalWeight(speciesAverageWeight, missingWeightCatch);
