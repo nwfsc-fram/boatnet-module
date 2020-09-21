@@ -1,5 +1,5 @@
 import { BaseExpansion, ExpansionParameters } from '../base/em-rule-base';
-import { Catches, FishTicketRow } from '@boatnet/bn-models';
+import { Catches } from '@boatnet/bn-models';
 import { flattenDeep, uniq, cloneDeep } from 'lodash';
 const jp = require('jsonpath');
 
