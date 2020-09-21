@@ -1,6 +1,6 @@
 import { BaseExpansion, ExpansionParameters } from '../base/em-rule-base';
-import { Catches, FishTicketRow } from '@boatnet/bn-models';
-import { flattenDeep, uniq, cloneDeep } from 'lodash';
+import { Catches } from '@boatnet/bn-models';
+import { uniq, cloneDeep } from 'lodash';
 
 export class unsortedCatch implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
