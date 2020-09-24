@@ -3,34 +3,44 @@ import { flattenDeep, get, set } from 'lodash';
 import { groupingsToSpeciesDummyMap } from './helpers/maps';
 import { Catches, Disposition, sourceType } from '@boatnet/bn-models';
 
-const expansionCatchIds = ['5000']; //TODO maybe get this from some couch view or keep as a hardcoded value
+const dbConfig = require('../../dbConfig.json').dbConfig;
+const couchDB = require('nano')(dbConfig.login);
+const masterDev = couchDB.db.use('master-dev');
+
 const jp = require('jsonpath');
 
 export class selectiveDiscards implements BaseExpansion {
-    expand(params: ExpansionParameters): Catches {
+    async expand(params: ExpansionParameters): Promise<Catches> {
         const logbook = params.logbook ? params.logbook : {};
         const thirdPartyReview = params.currCatch ? params.currCatch : {};
 
         const logbookAggCatches: any[] = aggCatchBySpecies(logbook);
-        const ratioHolder = getRatiosForGroupings(logbookAggCatches, thirdPartyReview);
-        return applyRatios(logbook, thirdPartyReview, ratioHolder)
+        const ratioHolder = await getRatiosForGroupings(logbookAggCatches, thirdPartyReview);
+        return await applyRatios(logbook, thirdPartyReview, ratioHolder)
     }
 }
 
 // gets all groupings that need expanding and gets ratios for each grouping
-function getRatiosForGroupings(aggCatches: any[], review: Catches) {
+async function getRatiosForGroupings(aggCatches: any[], review: Catches) {
     let thirdPartyReviewCatches: any[] = jp.query(review, '$..catch');
     thirdPartyReviewCatches = flattenDeep(thirdPartyReviewCatches);
-    const expansionCatches = thirdPartyReviewCatches.filter((catchVal) => expansionCatchIds.includes(catchVal.speciesCode));
+
+    const mixedGroupings = await getMixedGroupingInfo();
+    const mixedGroupingKeys: string[] = mixedGroupings.keys;
+    const mixedGroupingDocs = mixedGroupings.docs;
+
+    const expansionCatches = thirdPartyReviewCatches.filter((catchVal) => mixedGroupingKeys.includes(catchVal.speciesCode));
     let ratioHolder = {};
 
     for (const expansionCatch of expansionCatches) {
         let groupingRatios = {}
         let initialValue = 0;
+        const row = 1;
         // reference map and get species in catch grouping
-        const speciesCodesInCatchGrouping: any[] = get(groupingsToSpeciesDummyMap, expansionCatch.speciesCode);
+        const mixedGroupingIndex = mixedGroupingKeys.indexOf(expansionCatch.speciesCode);
+        const speciesInExpansion: string[] = await getSpeciesCodesForGrouping(mixedGroupingDocs.rows[mixedGroupingIndex].doc.taxonomy.children, []);
         // get logbook entries for those species
-        const speciesInGroup: any[] = aggCatches.filter((catchVal) => speciesCodesInCatchGrouping.includes(catchVal.speciesCode));
+        const speciesInGroup: any[] = aggCatches.filter((catchVal) => speciesInExpansion.includes(catchVal.speciesCode));
         // get total weight
         let totalWeight = speciesInGroup.reduce((accumulator, currentValue) => {
             return accumulator + currentValue.weight
@@ -46,7 +56,7 @@ function getRatiosForGroupings(aggCatches: any[], review: Catches) {
 }
 
 // apply ratios to species haul by haul
-function applyRatios(logbook: Catches, review: Catches, ratioLookup: any) {
+async function applyRatios(logbook: Catches, review: Catches, ratioLookup: any) {
     let hauls = get(review, 'hauls', []);
 
     for (let i = 0; i < hauls.length; i++) {
@@ -55,7 +65,10 @@ function applyRatios(logbook: Catches, review: Catches, ratioLookup: any) {
 
         for (let j = 0; j < catches.length; j++) {
             const currSpeciesCode = get(catches[j], 'speciesCode', '');
-            if (expansionCatchIds.includes(currSpeciesCode)) {
+            const mixedGroupings = await getMixedGroupingInfo();
+            const mixedGroupingKeys: string[] = mixedGroupings.keys;
+
+            if (mixedGroupingKeys.includes(currSpeciesCode)) {
                 const ratio = get(ratioLookup, currSpeciesCode);
                 const logbookCatches = get(logbook, 'hauls[' + j + '].catch');
                 for (const logbookCatch of logbookCatches) {
@@ -79,3 +92,34 @@ function applyRatios(logbook: Catches, review: Catches, ratioLookup: any) {
     }
     return review;
 }
+
+async function getSpeciesCodesForGrouping(children: string[], speciesCodes: string[]) {
+    for (const child of children) {
+        const species = await masterDev.view('Taxonomy', 'taxonomy-alias-by-taxonomy-id',
+            { "include_docs": true, "key": child });
+        const result = species.rows[0].doc;
+
+        if (result.pacfinSpeciesCode) {
+            speciesCodes.push(result.pacfinSpeciesCode)
+        }
+        if (result.wcemSpeciesCode) {
+            speciesCodes.push(result.wcemSpeciesCode)
+        }
+        if (result.taxonomy && result.taxonomy.children) {
+            await getSpeciesCodesForGrouping(result.taxonomy.children, speciesCodes);
+        }
+    }
+    return speciesCodes;
+}
+
+async function getMixedGroupingInfo() {
+    const mixedGroupings = await masterDev.view('em-views', 'mixed-groupings', { include_docs: true });
+    let mixedGroupingKeys = jp.query(mixedGroupings, '$..key');
+    for (let i = 0; i < mixedGroupingKeys.length; i++) {
+        if (typeof mixedGroupingKeys[i] === 'number') {
+            mixedGroupingKeys[i] = mixedGroupingKeys[i].toString();
+        }
+    }
+    return { docs: mixedGroupings, keys: mixedGroupingKeys };
+}
+
