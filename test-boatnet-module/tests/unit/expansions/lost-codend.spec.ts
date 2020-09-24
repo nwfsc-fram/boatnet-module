@@ -1,5 +1,5 @@
 import { Catches, sourceType, Disposition } from '@boatnet/bn-models';
-import { lostCodend } from '@boatnet/bn-expansions';
+import { ExpansionParameters, lostCodend } from '@boatnet/bn-expansions';
 
 const logbook: Catches = {
     tripNum: 100198,
@@ -174,9 +174,10 @@ const expectedResult: Catches = {
 
 // TODO must commit my code first before writing the test
 describe('@boatnet/bn-expansions', () => {
-    it('selective discards test', () => {
+    it('selective discards test', async () => {
         const lostCodendObj = new lostCodend();
-        const result = lostCodendObj.logbookExpansion(logbook);
+        const expansionParams: ExpansionParameters = { currCatch: logbook };
+        const result = await lostCodendObj.expand(expansionParams);
         expect(result).toEqual(expectedResult);
     })
 })
