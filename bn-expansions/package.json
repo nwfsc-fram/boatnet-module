@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-expansions",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -21,6 +21,7 @@
     "jsonpath": "^1.0.2",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
+    "nano": "^8.2.2",
     "vue": "^2.6.6",
     "vuex": "^3.1.2"
   },
