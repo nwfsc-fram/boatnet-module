@@ -159,7 +159,6 @@ const expectedResult: Catches = {
     }]
 };
 
-// TODO must commit my code first before writing the test
 describe('@boatnet/bn-expansions', () => {
     it('selective discards test', async () => {
         const selectiveDiscard = new selectiveDiscards();

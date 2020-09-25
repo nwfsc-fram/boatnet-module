@@ -172,7 +172,6 @@ const expectedResult: Catches = {
     createdDate: "2020-08-25T13:56:33-07:00"
 };
 
-// TODO must commit my code first before writing the test
 describe('@boatnet/bn-expansions', () => {
     it('selective discards test', async () => {
         const lostCodendObj = new lostCodend();
