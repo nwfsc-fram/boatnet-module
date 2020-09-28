@@ -27,7 +27,7 @@ applied even to fish which may be in parts or otherwise obviously dead.
 */
 import { BaseExpansion, ExpansionParameters } from "../base/em-rule-base";
 import { Catches, Disposition, GearTypes } from '@boatnet/bn-models';
-import { get, set } from 'lodash';
+import { get, set, round } from 'lodash';
 
 const jp = require('jsonpath');
 
@@ -35,41 +35,41 @@ const jp = require('jsonpath');
 const discardMortalityRatesMap = {
     SABL: {
         [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: 20,
-        [GearTypes.HookAndLine]: 20,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
-        [GearTypes.GroundfishTrawlGreaterThan8]: 50,
+        [GearTypes.FishPot]: .2,
+        [GearTypes.HookAndLine]: .2,
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
+        [GearTypes.GroundfishTrawlGreaterThan8]: .5,
     },
     203: {
         [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: 20,
-        [GearTypes.HookAndLine]: 20,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
-        [GearTypes.GroundfishTrawlGreaterThan8]: 50,
+        [GearTypes.FishPot]: .2,
+        [GearTypes.HookAndLine]: .2,
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
+        [GearTypes.GroundfishTrawlGreaterThan8]: .5,
     },
     LCOD: {
-        [GearTypes.MidwaterTrawl]: 100,
-        [GearTypes.FishPot]: 7,
-        [GearTypes.HookAndLine]: 7,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
-        [GearTypes.GroundfishTrawlGreaterThan8]: 50
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: .07,
+        [GearTypes.HookAndLine]: .07,
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
+        [GearTypes.GroundfishTrawlGreaterThan8]: .5
     },
     603: {
-        [GearTypes.MidwaterTrawl]: 100,
-        [GearTypes.FishPot]: 7,
-        [GearTypes.HookAndLine]: 7,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: 50,
-        [GearTypes.GroundfishTrawlGreaterThan8]: 50
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: .07,
+        [GearTypes.HookAndLine]: .07,
+        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
+        [GearTypes.GroundfishTrawlGreaterThan8]: .5
     },
     PHLB: {
-        [GearTypes.MidwaterTrawl]: 100,
-        [GearTypes.FishPot]: 18,
-        [GearTypes.HookAndLine]: 18
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: .18,
+        [GearTypes.HookAndLine]: .18
     },
     101: {
-        [GearTypes.MidwaterTrawl]: 100,
-        [GearTypes.FishPot]: 18,
-        [GearTypes.HookAndLine]: 18
+        [GearTypes.MidwaterTrawl]: 1,
+        [GearTypes.FishPot]: .18,
+        [GearTypes.HookAndLine]: .18
     }
 }
 
@@ -86,12 +86,12 @@ export class discardMortalityRates implements BaseExpansion {
                 const speciesCode = catchVal.speciesCode;
                 if (disposition === Disposition.DISCARDED) {
                     let weight = 0;
-                    if ((speciesCode === 'PHLB' || speciesCode === 101) &&
+                    if ((speciesCode === 'PHLB' || speciesCode === '101') &&
                         (gearType === GearTypes.GroundfishTrawlFootropeLessThan8 || gearType === GearTypes.GroundfishTrawlGreaterThan8)) {
-                        weight = timeOnDeck(catchVal.timeOnDeck);
+                            weight = round(timeOnDeck(catchVal.timeOnDeck), 2);
                     } else {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
-                        weight = catchVal.weight * rate;
+                        weight = round(catchVal.weight * rate, 2);
                     }
                     set(currCatch, 'hauls[' + i + '].catch[' + j + '].weight', weight);
                 }

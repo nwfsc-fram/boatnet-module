@@ -93,12 +93,12 @@ export const review: Catches = {
         systemPerformance: 1,
         catchHandlingPerformance: 1,
         catch: [
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: '136',
-            weight: 500
-        }]
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: '136',
+                weight: 500
+            }]
     }]
 };
 
@@ -138,31 +138,41 @@ const expectedResult: Catches = {
         systemPerformance: 1,
         catchHandlingPerformance: 1,
         catch: [
-        {
-            disposition: Disposition.RETAINED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: 'LDAB',
-            weight: 300
-        },
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: 'PDAB',
-            weight: 240
-        },
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: 'SSDB',
-            weight: 60
-        }]
+            {
+                disposition: Disposition.RETAINED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'LDAB',
+                weight: 300
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'PDAB',
+                weight: 240
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'SSDB',
+                weight: 60
+            }]
     }]
 };
 
 describe('@boatnet/bn-expansions', () => {
     it('selective discards test', async () => {
         const selectiveDiscard = new selectiveDiscards();
-        const expansionParams: ExpansionParameters = { currCatch: review, logbook };
+        const mixedGroupings = {
+            "136": [
+                "LDAB",
+                "125",
+                "PDAB",
+                "137",
+                "SSDB",
+                "126"
+            ]
+        }
+        const expansionParams: ExpansionParameters = { currCatch: review, logbook, mixedGroupings };
         const result = await selectiveDiscard.expand(expansionParams);
         expect(result).toEqual(expectedResult);
     })
