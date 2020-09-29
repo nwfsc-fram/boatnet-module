@@ -98,6 +98,12 @@ export const review: Catches = {
                 fate: '11 Accidental, Incidental',
                 speciesCode: '136',
                 weight: 500
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: '136',
+                weight: 45
             }]
     }]
 };
