@@ -1,5 +1,6 @@
 import { Catches, sourceType, Disposition, GearTypes } from '@boatnet/bn-models';
 import { ExpansionParameters, discardMortalityRates } from '@boatnet/bn-expansions';
+import { get, round, set } from 'lodash';
 
 const logbook: Catches = {
     tripNum: 100198,
@@ -260,11 +261,25 @@ const expectedResult: Catches = {
     createdDate: "2020-08-25T13:56:33-07:00"
 };
 
+function roundWeight(catchObj: Catches) {
+    let hauls = get(catchObj, 'hauls', []);
+    for (let i = 0; i < hauls.length; i++) {
+        let catches = get(hauls[i], 'catch', []);
+        for (let j = 0; j < catches.length; j++) {
+            let weight = get(catches[j], 'weight', 0);
+            weight = round(weight, 2);
+            set(catchObj, 'hauls[' + i + '].catch[' + j + '].weight', weight);
+        }
+    }
+    return catchObj;
+}
+
 describe('@boatnet/bn-expansions', () => {
     it('discard mortality rates test', async () => {
         const discardMortalityRateObj = new discardMortalityRates();
         const expansionParams: ExpansionParameters = { currCatch: logbook };
-        const result = await discardMortalityRateObj.expand(expansionParams);
-        expect(result).toEqual(expectedResult);
+        let result = await discardMortalityRateObj.expand(expansionParams);
+        result = roundWeight(result);
+        const s = expect(result).toEqual(expectedResult);
     })
 })

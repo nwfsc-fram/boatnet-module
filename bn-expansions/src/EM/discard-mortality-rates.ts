@@ -88,10 +88,10 @@ export class discardMortalityRates implements BaseExpansion {
                     let weight = 0;
                     if ((speciesCode === 'PHLB' || speciesCode === '101') &&
                         (gearType === GearTypes.GroundfishTrawlFootropeLessThan8 || gearType === GearTypes.GroundfishTrawlGreaterThan8)) {
-                            weight = round(timeOnDeck(catchVal.timeOnDeck), 2);
+                            weight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
-                        weight = round(catchVal.weight * rate, 2);
+                        weight = catchVal.weight * rate;
                     }
                     set(currCatch, 'hauls[' + i + '].catch[' + j + '].weight', weight);
                 }
