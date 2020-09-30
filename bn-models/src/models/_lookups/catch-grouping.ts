@@ -24,6 +24,10 @@ export interface CatchGrouping extends BaseLookup {
   wcrIfqSpeciesGroupId?: number;
   isInactive?: boolean;
 
+  // CHANGES:
+  pacfinSpeciesCode?: string; // moved from taxonomy
+  wcgopSpeciesCode?: number;
+
   // ETL Note - Only for multi-species catch categories
   legacy?: CatchGroupingLegacy;
 }

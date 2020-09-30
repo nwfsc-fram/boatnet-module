@@ -39,17 +39,21 @@ export interface Taxonomy extends Base {
   itisTSN?: number;
   wormsAphiaId?: number;
 
-  isInactive: boolean;
-
   legacy?: {
     wcgopSpeciesId?: number; // primary key
-    wcgopSpeciesCode?: number; // 3-4 digit code, adopted from AFSC
-    wcgopCatchCategoryCode?: string; // ETL Note - only for single species catch category codes
     ashopSpeciesId?: number; // NORPAC ID
-    obsAnalystCode?: string; // ToDo - Kayleigh spreadsheet
-    edcCode?: number;
     dwId?: number[]; // multiple warehouse records may refer to the same
                      // taxonomy due to structural changes in taxonomy data from ITIS
     raceBaseCodeNW?: number; // AFSC RaceBase code + 1 digit
+
+    // changes:
+    // wcgopSpeciesCode?: number; // 3-4 digit code, adopted from AFSC
+    //      this is no longer in taxonomy, or in legacy, is actively used for EM purposes in taxonomy-alias
+    // wcgopCatchCategoryCode?: string; // ETL Note - only for single species catch category codes
+
+    // obsAnalystCode?: string; // ToDo - Kayleigh spreadsheet - remove
+    // edcCode?: number; - remove
+    
+    // look into items that are pacfin only
   };
 }
