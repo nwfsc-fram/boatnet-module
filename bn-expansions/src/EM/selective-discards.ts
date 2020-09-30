@@ -51,6 +51,7 @@ function getRatiosForGroupings(aggCatches: any[], review: Catches, mixedGrouping
 // apply ratios to species haul by haul
 function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, ratioLookup: any) {
     let hauls = get(review, 'hauls', []);
+    const mixedGroupingKeys: string[] = Object.keys(mixedGroupings);
 
     for (let i = 0; i < hauls.length; i++) {
         let catches = get(hauls[i], 'catch', []);
@@ -58,11 +59,11 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
 
         for (let j = 0; j < catches.length; j++) {
             const currSpeciesCode = get(catches[j], 'speciesCode', '');
-            const mixedGroupingKeys: string[] = Object.keys(mixedGroupings);
+            const currWeight = get(catches[j], 'weight', 0);
 
-            if (mixedGroupingKeys.includes(currSpeciesCode)) {
+            if (mixedGroupingKeys.includes(currSpeciesCode) && currWeight > 50) {
                 const ratio = get(ratioLookup, currSpeciesCode);
-                const logbookCatches = get(logbook, 'hauls[' + j + '].catch');
+                const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
                 for (const logbookCatch of logbookCatches) {
                     if (ratio[logbookCatch.speciesCode]) {
                         const expandedWeight = get(catches[j], 'weight', 0) * ratio[logbookCatch.speciesCode] + logbookCatch.weight;
@@ -76,6 +77,12 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                         });
                     }
                 }
+            } else if (mixedGroupingKeys.includes(currSpeciesCode) && currWeight < 50) {
+                // do nothing as specified in business rules
+                // If there are more than 50 pounds of discards of unidentified fish (fish that cannot be identified
+                // even to a group level) for a trip, the discards will be divided according to the ratio of fish on the
+                // fish ticket (i.e., the discard will be treated like a non-selective discard). If there are less than 50
+                // pounds, these discards will be dropped.
             } else {
                 expandedCatches.push(catches[j]);
             }
