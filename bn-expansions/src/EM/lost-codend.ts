@@ -8,31 +8,35 @@ const jp = require('jsonpath');
 export class lostCodend implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
         const tripCatch = params.currCatch ? params.currCatch : {};
-        const speciesWeights: any[] = aggCatchBySpecies(tripCatch);
+        const aggCatch: any[] = aggCatchBySpecies(tripCatch);
         const totalHours: number = getTotalHours(tripCatch);
 
         let hauls: any[] = jp.query(tripCatch, '$..hauls');
         hauls = flattenDeep(hauls);
-        let haulIndex = 0;
 
-        for (const haul of hauls) {
-            if (haul.isCodendLost) {
-                const catches: any = [];
-                const duration = getDuration(haul);
-                for (const speciesWeight of speciesWeights) {
-                    let ratio = speciesWeight.weight / totalHours;
+        for (let i = 0; i < hauls.length; i++) {
+            let catches = jp.query(tripCatch, '$..catch');
+            catches = flattenDeep(catches);
+            if (hauls[i].isCodendLost) {
+                catches = [];
+                const duration = getDuration(hauls[i]);
+                for (const aggSpecies of aggCatch) {
+                    let ratio = aggSpecies.weight / totalHours;
                     let weight = ratio * duration;
-                    weight = Math.round(weight);
-                    catches.push({
-                        disposition: speciesWeight.disposition,
-                        speciesCode: speciesWeight.speciesCode,
-                        weight
-                    })
+                    set(aggSpecies, 'weight', Math.round(weight));
+
+                    // expand count if priority or protected species
+                    if ((aggSpecies.isWcgopEmPriority || aggSpecies.isProtected) && aggSpecies.speciesCount) {
+                        let ratio = aggSpecies.speciesCount / totalHours;
+                        let count = ratio * duration;
+                        set(aggSpecies, 'speciesCount', Math.round(count));
+                    }
+                    catches.push(aggSpecies);
                 }
-                set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);
             }
-            haulIndex++;
+            hauls[i].catch = JSON.parse(JSON.stringify(catches));
         }
+        set(tripCatch, 'hauls', hauls);
         return tripCatch;
     }
 }

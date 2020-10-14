@@ -1,4 +1,4 @@
-import { flattenDeep, uniqBy } from 'lodash';
+import { flattenDeep, set, uniqBy } from 'lodash';
 import { Catches, FishTicketRow } from '@boatnet/bn-models';
 
 const jp = require('jsonpath');
@@ -13,24 +13,35 @@ export interface ExpansionParameters {
 }
 
 export interface BaseExpansion {
-    expand(params: ExpansionParameters) : Catches;
+    expand(params: ExpansionParameters): Catches;
 }
 
 export function aggCatchBySpecies(catchDoc: Catches) {
-    let aggCatch = [];
+    let aggCatch: any[] = [];
     let catches: any[] = jp.query(catchDoc, '$..catch');
     catches = flattenDeep(catches);
 
-    catches = uniqBy(catches, (catchVal) =>
+
+    const uniqCatches = uniqBy(catches, (catchVal: any) =>
         catchVal.speciesCode
     )
-    for (const species of catches) {
+
+    for (const species of uniqCatches) {
         let initWeight = 0;
+        let initCount = 0;
         const speciesCatch = catches.filter((catchVal) => catchVal.speciesCode === species.speciesCode);
+
         const totalWeight = speciesCatch.reduce((accumulator, currentValue) => {
             return accumulator + currentValue.weight
         }, initWeight);
-        aggCatch.push({ speciesCode: species.speciesCode, weight: totalWeight, disposition: species.disposition});
+        set(species, 'weight', totalWeight);
+
+        const totalCount = speciesCatch.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue.speciesCount
+        }, initCount);
+        set(species, 'speciesCount', totalCount);
+
+        aggCatch.push(species);
     }
     return aggCatch;
 }

@@ -27,7 +27,7 @@ export interface TaxonomyAlias extends BaseLookup {
   // CHANGES:
   isEmExpandable?: boolean;
   isProtected?: boolean;
-  isWcgopEmPriority ?: boolean;
+  isWcgopEmPriority?: boolean;
   pacfinSpeciesCode?: string; // moved from taxonomy
   commonNames?: string[]; 
   wcgopSpeciesCode?: number;

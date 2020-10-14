@@ -1,6 +1,6 @@
 import { BaseExpansion, aggCatchBySpecies, ExpansionParameters } from '../base/em-rule-base';
 import { flattenDeep, get, set } from 'lodash';
-import { Catches } from '@boatnet/bn-models';
+import { Catches, Catch } from '@boatnet/bn-models';
 const jp = require('jsonpath');
 
 export class selectiveDiscards implements BaseExpansion {
@@ -54,7 +54,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
     const mixedGroupingKeys: string[] = Object.keys(mixedGroupings);
 
     for (let i = 0; i < hauls.length; i++) {
-        let catches = get(hauls[i], 'catch', []);
+        let catches: Catch[] = get(hauls[i], 'catch', []);
         let expandedCatches: any[] = [];
 
         for (let j = 0; j < catches.length; j++) {
@@ -66,10 +66,21 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                 const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
                 for (const logbookCatch of logbookCatches) {
                     if (ratio[logbookCatch.speciesCode]) {
-                        const expandedWeight = get(catches[j], 'weight', 0) * ratio[logbookCatch.speciesCode] + logbookCatch.weight;
+                        console.log('found')
+                        console.log(JSON.stringify(logbookCatch));
+                        const expandedWeight = get(catches[j], 'weight', 0) * ratio[logbookCatch.speciesCode]
+                                                + logbookCatch.weight;
+                        let expandedCount;
+
+                        // expand count if priority or protected species
+                        if ((logbookCatch.isWcgopEmPriority || logbookCatch.isProtected) && logbookCatch.speciesCount) {
+                            expandedCount = get(catches[j], 'speciesCount', 0) * ratio[logbookCatch.speciesCode] 
+                                            + logbookCatch.speciesCount;
+                        }
                         expandedCatches.push({
                             disposition: logbookCatch.disposition,
                             fate: logbookCatch.fate,
+                            speciesCount: expandedCount,
                             // TODO this should be WCGOP species code.
                             // utilize some mapper to convert from pacfin to wcgop species code
                             speciesCode: logbookCatch.speciesCode,

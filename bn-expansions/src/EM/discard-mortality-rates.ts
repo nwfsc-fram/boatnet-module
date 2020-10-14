@@ -92,6 +92,12 @@ export class discardMortalityRates implements BaseExpansion {
                     } else {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
                         weight = catchVal.weight * rate;
+
+                        // expand count if priority or protected species
+                        if ((catchVal.isWcgopEmPriority || catchVal.isProtected) && catchVal.speciesCount) {
+                            let count = catchVal.speciesCount * rate;
+                            set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesCount', count);
+                        }
                     }
                     set(currCatch, 'hauls[' + i + '].catch[' + j + '].weight', weight);
                 }

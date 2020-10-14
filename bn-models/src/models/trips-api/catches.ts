@@ -69,7 +69,7 @@ interface Haul {
     catch?: Catch[];
 }
 
-interface Catch {
+export interface Catch {
   catchId?: number;
   disposition?: Disposition;
   fate?: string;
@@ -82,4 +82,6 @@ interface Catch {
   comments?: string;
   screenShotId?: string;
   screenShotDescription?: string;
+  isWcgopEmPriority?: boolean;
+  isProtected?: boolean;
 }
