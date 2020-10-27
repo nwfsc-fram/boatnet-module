@@ -38,6 +38,13 @@ export interface Catches extends Base {
     totalReviewTime?: string;
     hauls?: Haul[];
     updatedBy?: string;
+    errors?: Error[];
+  }
+
+  interface Error {
+    type: String,
+    haulNum: number,
+    catchId: String
   }
 
   interface FishTicket {
