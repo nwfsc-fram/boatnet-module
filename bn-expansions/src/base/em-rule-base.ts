@@ -9,6 +9,7 @@ export interface ExpansionParameters {
     review?: Catches;
     audit?: Catches
     fishTickets?: FishTicketRow[];
+    mixedGroupings?: any;
 }
 
 export interface BaseExpansion {

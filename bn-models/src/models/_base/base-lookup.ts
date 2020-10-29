@@ -13,9 +13,8 @@ export interface BaseLookup extends Base  {
     isTrawlSurvey?: boolean;
     isHakeSurvey?: boolean;
     isHookAndLineSurvey?: boolean;
-    isCommon?: boolean;
     legacy?: Legacy;
-    isEM?: boolean;
+    isEm?: boolean;
 }
 
 export interface Legacy {

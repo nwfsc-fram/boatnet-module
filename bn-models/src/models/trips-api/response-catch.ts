@@ -19,11 +19,20 @@ export interface CatchResults extends Base {
     createDate?: string;
     updateDate?: string;
     updatedBy?: string;
+
     logbookCatch?: Record[];
     thirdPartyReviewCatch?: Record[];
     nwfscAuditCatch?: Record[];
-    debitSourceCatch?: DebitSourceRecord[];
-    ifqTripReporting?: IfqTripLevelRecord[];
+
+    ifqLogbookHaulLevel?: DebitSourceRecord[];
+    ifqThirdPartyReviewHaulLevel?: DebitSourceRecord[];
+    ifqNwfscAuditHaulLevel?: DebitSourceRecord[];
+
+    ifqLogbookTripLevel?: DebitSourceRecord[];
+    ifqThirdPartyReviewTripLevel?: DebitSourceRecord[];
+    ifqNwfscAuditTripLevel?: DebitSourceRecord[];
+
+    ifqTripReporting?: IfqTripLevelRecord[]; // ifq aggregated trip
     revisionHistory?: RevisionHistoryItem[];
 }
 
@@ -37,7 +46,9 @@ interface CommonRecord {
 }
 
 interface Record extends CommonRecord {
-    speciesCode?: string;
+    wcgopSpeciesCode?: number;
+    pacfinSpeciesCode?: string;
+    docId?: string; // id of taxonomy-alias or catch-grouping. An identifier that can be used across program.
     calcWeightType?: string;
     expansionType?: ExpansionType;
     startDepth?: number;

@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-expansions",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/nwfsc-fram/boatnet-module.git"
   },
   "dependencies": {
-    "@boatnet/bn-models": "^0.3.5",
+    "@boatnet/bn-models": "^0.3.6",
     "@types/lodash": "^4.14.159",
     "core-js": "2",
     "davenport": "^2.8.2",
@@ -21,6 +21,7 @@
     "jsonpath": "^1.0.2",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
+    "nano": "^8.2.2",
     "vue": "^2.6.6",
     "vuex": "^3.1.2"
   },

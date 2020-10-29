@@ -19,10 +19,15 @@ export interface CatchGrouping extends BaseLookup {
   members?: TaxonomyAlias[] | MarineDebris[]; // Could be an empty member list (e.g. sharks)
   parentTaxonomy?: TaxonomyAlias;
   definition?: GroupDefinition;
+  isEmExpandable?: boolean;
 
   // managementArea: ManagementArea;
   wcrIfqSpeciesGroupId?: number;
   isInactive?: boolean;
+
+  // CHANGES:
+  pacfinSpeciesCode?: string; // moved from taxonomy
+  wcgopSpeciesCode?: number;
 
   // ETL Note - Only for multi-species catch categories
   legacy?: CatchGroupingLegacy;

@@ -1,5 +1,5 @@
 import { Catches, sourceType, Disposition } from '@boatnet/bn-models';
-import { selectiveDiscards } from '@boatnet/bn-expansions';
+import { ExpansionParameters, selectiveDiscards } from '@boatnet/bn-expansions';
 
 export const logbook: Catches = {
     tripNum: 100197,
@@ -39,19 +39,19 @@ export const logbook: Catches = {
         catch: [{
             disposition: Disposition.RETAINED,
             fate: '11 Accidental, Incidental',
-            speciesCode: 'PWHT',
-            weight: 300000
+            speciesCode: 'LDAB',
+            weight: 50
         },
         {
             disposition: Disposition.DISCARDED,
             fate: '11 Accidental, Incidental',
-            speciesCode: 'DOVR',
+            speciesCode: 'PDAB',
             weight: 40
         },
         {
             disposition: Disposition.DISCARDED,
             fate: '11 Accidental, Incidental',
-            speciesCode: 'EFLS',
+            speciesCode: 'SSDB',
             weight: 10
         }]
     }]
@@ -93,12 +93,18 @@ export const review: Catches = {
         systemPerformance: 1,
         catchHandlingPerformance: 1,
         catch: [
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: '5000',
-            weight: 500
-        }]
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: '136',
+                weight: 500
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: '136',
+                weight: 45
+            }]
     }]
 };
 
@@ -138,26 +144,42 @@ const expectedResult: Catches = {
         systemPerformance: 1,
         catchHandlingPerformance: 1,
         catch: [
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: 'DOVR',
-            weight: 440
-        },
-        {
-            disposition: Disposition.DISCARDED,
-            fate: '11 Accidental, Incidental',
-            speciesCode: 'EFLS',
-            weight: 110
-        }]
+            {
+                disposition: Disposition.RETAINED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'LDAB',
+                weight: 300
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'PDAB',
+                weight: 240
+            },
+            {
+                disposition: Disposition.DISCARDED,
+                fate: '11 Accidental, Incidental',
+                speciesCode: 'SSDB',
+                weight: 60
+            }]
     }]
 };
 
-// TODO must commit my code first before writing the test
 describe('@boatnet/bn-expansions', () => {
-    it('selective discards test', () => {
+    it('selective discards test', async () => {
         const selectiveDiscard = new selectiveDiscards();
-        const result = selectiveDiscard.rulesExpansion(logbook, review);
+        const mixedGroupings = {
+            "136": [
+                "LDAB",
+                "125",
+                "PDAB",
+                "137",
+                "SSDB",
+                "126"
+            ]
+        }
+        const expansionParams: ExpansionParameters = { currCatch: review, logbook, mixedGroupings };
+        const result = await selectiveDiscard.expand(expansionParams);
         expect(result).toEqual(expectedResult);
     })
 })
