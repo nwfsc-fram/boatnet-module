@@ -91,9 +91,9 @@ export class discardMortalityRates implements BaseExpansion {
                             weight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
-                        weight = catchVal.weight * rate;
+                        weight = catchVal.speciesWeight * rate;
                     }
-                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].weight', weight);
+                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesWeight', weight);
                 }
             }
         }

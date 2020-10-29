@@ -19,7 +19,7 @@ export class lostFixedGear implements BaseExpansion {
                     // sum the discarded and retained
                     const totalSpeciesWeight = haul.catch.reduce( (acc: number, val: any) => {
                         if (val.speciesCode === species) {
-                            return acc + val.weight;
+                            return acc + val.speciesWeight;
                         } else {
                             return acc
                         }
@@ -32,7 +32,7 @@ export class lostFixedGear implements BaseExpansion {
                     haul.catch.push({
                         disposition: Disposition.DISCARDED,
                         speciesCode,
-                        weight: speciesWeights[speciesCode] * parseInt(haul.gearLost),
+                        speciesWeight: speciesWeights[speciesCode] * parseInt(haul.gearLost),
                         calcWeightType: 'From Average Weight',
                         comments: 'Added by lost fixed gear expansion'
                     })
