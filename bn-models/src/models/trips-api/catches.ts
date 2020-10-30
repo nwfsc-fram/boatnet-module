@@ -81,10 +81,10 @@ interface Catch {
   disposition?: Disposition;
   fate?: string;
   speciesCode?: string;
-  weight?: number;
+  speciesWeight?: number;
   speciesCount?: number;
   calcWeightType?: string;
-  length?: number;
+  speciesLength?: number;
   timeOnDeck?: number; // minutes
   comments?: string;
   screenShotId?: string;

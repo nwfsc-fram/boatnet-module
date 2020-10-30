@@ -20,13 +20,13 @@ export class lostCodend implements BaseExpansion {
                 const catches: any = [];
                 const duration = getDuration(haul);
                 for (const speciesWeight of speciesWeights) {
-                    let ratio = speciesWeight.weight / totalHours;
+                    let ratio = speciesWeight.speciesWeight / totalHours;
                     let weight = ratio * duration;
                     weight = Math.round(weight);
                     catches.push({
                         disposition: speciesWeight.disposition,
                         speciesCode: speciesWeight.speciesCode,
-                        weight
+                        speciesWeight: weight
                     })
                 }
                 set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);

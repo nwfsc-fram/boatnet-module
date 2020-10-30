@@ -85,42 +85,42 @@ export class missingWeight implements BaseExpansion {
                 }
             }, 0)
             const speciesWeight = flattenedLbCatch.reduce( (acc: number, val: any) => {
-                if (val.speciesCode === species && val.disposition === 'Retained' && val.weight) {
-                    return acc + parseFloat(val.weight);
+                if (val.speciesCode === species && val.disposition === 'Retained' && val.speciesWeight) {
+                    return acc + parseFloat(val.speciesWeight);
                 } else {
                     return acc;
                 }
             }, 0)
-            lbRetainedSpeciesCountsWeights[species] = {count: speciesCount, weight: speciesWeight};
+            lbRetainedSpeciesCountsWeights[species] = {speciesCount, speciesWeight};
         }
 
         for (const haul of tripCatch.hauls!) {
             if (haul.catch) {
                 for (let i = haul.catch!.length - 1; i >= 0; i--) {
-                    if ((haul.catch[i].speciesCount || haul.catch[i].length) && !haul.catch[i].weight) {  // catch has a count and/or length, but no weight
+                    if ((haul.catch[i].speciesCount || haul.catch[i].speciesLength) && !haul.catch[i].speciesWeight) {  // catch has a count and/or length, but no weight
                         const missingWeightCatch: any = cloneDeep(haul.catch[i]);
                         const speciesCode = isLogbook ? haul.catch[i].speciesCode : wcgopCodeLookup[parseInt(haul.catch[i].speciesCode!)];
                         const haveSpeciesFtRetainedWeight: boolean = ftSpeciesWeights[speciesCode] ? true : false;
-                        const haveSpeciesLogbookRetainedCount: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].count ? true : false
-                        const haveSpeciesLogbookRetainedWeight: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].weight ? true : false
+                        const haveSpeciesLogbookRetainedCount: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].speciesCount ? true : false
+                        const haveSpeciesLogbookRetainedWeight: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].speciesWeight ? true : false
 
                         let speciesAverageWeight = null;
                         switch(true) {
                             case(haveSpeciesFtRetainedWeight && haveSpeciesLogbookRetainedCount):
-                                speciesAverageWeight = ftSpeciesWeights[speciesCode] / lbRetainedSpeciesCountsWeights[speciesCode].count;
+                                speciesAverageWeight = ftSpeciesWeights[speciesCode] / lbRetainedSpeciesCountsWeights[speciesCode].speciesCount;
                                 break;
                             case(haveSpeciesLogbookRetainedCount && haveSpeciesLogbookRetainedWeight):
-                                speciesAverageWeight = lbRetainedSpeciesCountsWeights[speciesCode].weight / lbRetainedSpeciesCountsWeights[speciesCode].count;
+                                speciesAverageWeight = lbRetainedSpeciesCountsWeights[speciesCode].speciesWeight / lbRetainedSpeciesCountsWeights[speciesCode].speciesCount;
                                 break;
-                            case(missingWeightCatch.length && missingWeightCatch.length !== ''): // have a length
+                            case(missingWeightCatch.speciesLength && missingWeightCatch.speciesLength !== ''): // have a length
                                 if (equationValues[speciesCode]) {
-                                    speciesAverageWeight = equationValues[speciesCode].alpha * Math.pow(missingWeightCatch.length, equationValues[speciesCode].beta);
+                                    speciesAverageWeight = equationValues[speciesCode].alpha * Math.pow(missingWeightCatch.speciesLength, equationValues[speciesCode].beta);
                                 } else {
                                     console.log("missing equation values for species");
                                     speciesAverageWeight = "missing equation values for species: " + speciesCode;
                                 }
                                 break;
-                            case(missingWeightCatch.speciesCount && !missingWeightCatch.length): // count but no length
+                            case(missingWeightCatch.speciesCount && !missingWeightCatch.speciesLength): // count but no length
                                 console.log("currently unable to handle a count with no length without retained fish ticket or logbook data");
                                 speciesAverageWeight = "currently unable to handle a count with no length without retained fish ticket or logbook data";
                                 break;
@@ -130,7 +130,7 @@ export class missingWeight implements BaseExpansion {
                                 break;
                         }
                         const speciesTotalWeight = getTotalWeight(speciesAverageWeight, missingWeightCatch);
-                        missingWeightCatch.weight = speciesTotalWeight;
+                        missingWeightCatch.speciesWeight = speciesTotalWeight;
                         missingWeightCatch.calcWeightType = "from length";
                         missingWeightCatch.comments = "calculated by missing weights expansion";
                         haul.catch.splice(i, 1, missingWeightCatch);
