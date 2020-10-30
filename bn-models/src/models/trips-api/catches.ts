@@ -42,9 +42,9 @@ export interface Catches extends Base {
   }
 
   interface Error {
-    type: String,
-    haulNum: number,
-    catchId: String
+    type: string;
+    haulNum: number;
+    catchId: string;
   }
 
   interface FishTicket {
