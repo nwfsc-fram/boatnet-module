@@ -8,31 +8,39 @@ const jp = require('jsonpath');
 export class lostCodend implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
         const tripCatch = params.currCatch ? params.currCatch : {};
-        const speciesWeights: any[] = aggCatchBySpecies(tripCatch);
+        const aggCatch: any[] = aggCatchBySpecies(tripCatch);
         const totalHours: number = getTotalHours(tripCatch);
 
         let hauls: any[] = jp.query(tripCatch, '$..hauls');
         hauls = flattenDeep(hauls);
-        let haulIndex = 0;
 
         for (const haul of hauls) {
             if (haul.isCodendLost) {
                 const catches: any = [];
                 const duration = getDuration(haul);
-                for (const speciesWeight of speciesWeights) {
-                    let ratio = speciesWeight.speciesWeight / totalHours;
-                    let weight = ratio * duration;
-                    weight = Math.round(weight);
+                for (const aggSpecies of aggCatch) {
+                    let ratio = aggSpecies.speciesWeight / totalHours;
+                    let speciesWeight = ratio * duration;
+                    speciesWeight = Math.round(weight);
+                    let speciesCount = 0;
+                  
+                  // expand count if priority or protected species
+                    if ((aggSpecies.isWcgopEmPriority || aggSpecies.isProtected) && aggSpecies.speciesCount) {
+                        let ratio = aggSpecies.speciesCount / totalHours;
+                        let count = ratio * duration;
+                        speciesCount = Math.round(count);
+                    }
                     catches.push({
-                        disposition: speciesWeight.disposition,
-                        speciesCode: speciesWeight.speciesCode,
-                        speciesWeight: weight
+                        disposition: aggSpecies.disposition,
+                        speciesCode: aggSpecies.speciesCode,
+                        speciesWeight,
+                        speciesCount
                     })
                 }
-                set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);
             }
-            haulIndex++;
+            hauls[i].catch = JSON.parse(JSON.stringify(catches));
         }
+        set(tripCatch, 'hauls', hauls);
         return tripCatch;
     }
 }
