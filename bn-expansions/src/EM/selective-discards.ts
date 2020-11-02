@@ -36,11 +36,11 @@ function getRatiosForGroupings(aggCatches: any[], review: Catches, mixedGrouping
         const speciesInGroup: any[] = aggCatches.filter((catchVal) => speciesInExpansion.includes(catchVal.speciesCode));
         // get total weight
         let totalWeight = speciesInGroup.reduce((accumulator, currentValue) => {
-            return accumulator + currentValue.weight
+            return accumulator + currentValue.speciesWeight
         }, initialValue);
         // set ratios
         for (const species of speciesInGroup) {
-            const ratio = species.weight / totalWeight;
+            const ratio = species.speciesWeight / totalWeight;
             set(groupingRatios, species.speciesCode, ratio);
         }
         set(ratioHolder, expansionCatch.speciesCode, groupingRatios);
@@ -59,20 +59,16 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
 
         for (let j = 0; j < catches.length; j++) {
             const currSpeciesCode = get(catches[j], 'speciesCode', '');
-            const currWeight = get(catches[j], 'weight', 0);
+            const currWeight = get(catches[j], 'speciesWeight', 0);
 
             if (mixedGroupingKeys.includes(currSpeciesCode) && currWeight > 50) {
                 const ratio = get(ratioLookup, currSpeciesCode);
                 const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
                 for (const logbookCatch of logbookCatches) {
                     if (ratio[logbookCatch.speciesCode]) {
-                        console.log('found')
-                        console.log(JSON.stringify(logbookCatch));
-                        const expandedWeight = get(catches[j], 'weight', 0) * ratio[logbookCatch.speciesCode]
-                                                + logbookCatch.weight;
-                        let expandedCount;
-
+                        const expandedWeight = get(catches[j], 'speceisWeight', 0) * ratio[logbookCatch.speciesCode] + logbookCatch.speciesWeight;
                         // expand count if priority or protected species
+                        let expandedCount;
                         if ((logbookCatch.isWcgopEmPriority || logbookCatch.isProtected) && logbookCatch.speciesCount) {
                             expandedCount = get(catches[j], 'speciesCount', 0) * ratio[logbookCatch.speciesCode] 
                                             + logbookCatch.speciesCount;
@@ -84,7 +80,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                             // TODO this should be WCGOP species code.
                             // utilize some mapper to convert from pacfin to wcgop species code
                             speciesCode: logbookCatch.speciesCode,
-                            weight: expandedWeight
+                            speciesWeight: expandedWeight
                         });
                     }
                 }

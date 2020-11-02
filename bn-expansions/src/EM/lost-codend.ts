@@ -14,24 +14,28 @@ export class lostCodend implements BaseExpansion {
         let hauls: any[] = jp.query(tripCatch, '$..hauls');
         hauls = flattenDeep(hauls);
 
-        for (let i = 0; i < hauls.length; i++) {
-            let catches = jp.query(tripCatch, '$..catch');
-            catches = flattenDeep(catches);
-            if (hauls[i].isCodendLost) {
-                catches = [];
-                const duration = getDuration(hauls[i]);
+        for (const haul of hauls) {
+            if (haul.isCodendLost) {
+                const catches: any = [];
+                const duration = getDuration(haul);
                 for (const aggSpecies of aggCatch) {
-                    let ratio = aggSpecies.weight / totalHours;
-                    let weight = ratio * duration;
-                    set(aggSpecies, 'weight', Math.round(weight));
-
-                    // expand count if priority or protected species
+                    let ratio = aggSpecies.speciesWeight / totalHours;
+                    let speciesWeight = ratio * duration;
+                    speciesWeight = Math.round(weight);
+                    let speciesCount = 0;
+                  
+                  // expand count if priority or protected species
                     if ((aggSpecies.isWcgopEmPriority || aggSpecies.isProtected) && aggSpecies.speciesCount) {
                         let ratio = aggSpecies.speciesCount / totalHours;
                         let count = ratio * duration;
-                        set(aggSpecies, 'speciesCount', Math.round(count));
+                        speciesCount = Math.round(count);
                     }
-                    catches.push(aggSpecies);
+                    catches.push({
+                        disposition: aggSpecies.disposition,
+                        speciesCode: aggSpecies.speciesCode,
+                        speciesWeight,
+                        speciesCount
+                    })
                 }
             }
             hauls[i].catch = JSON.parse(JSON.stringify(catches));

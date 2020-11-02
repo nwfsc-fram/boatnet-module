@@ -32,8 +32,8 @@ export class unsortedCatch implements BaseExpansion {
                 let haulUNSTLbs = 0;
                 for (let i = haul.catch.length - 1; i >= 0; i--) {
                     if (haul.catch[i].speciesCode && ['UNST', '999'].includes(haul.catch[i].speciesCode!.toString())) {
-                        if (haul.catch[i].weight) {
-                            haulUNSTLbs += haul.catch[i].weight!;
+                        if (haul.catch[i].speciesWeight) {
+                            haulUNSTLbs += haul.catch[i].speciesWeight!;
                         }
                         haul.catch.splice(i, 1);
                     }
@@ -45,7 +45,7 @@ export class unsortedCatch implements BaseExpansion {
                         haul.catch.push(
                             {
                                 speciesCode: species,
-                                weight: (haulUNSTLbs * speciesWeights[species].percentOfTotal),
+                                speciesWeight: (haulUNSTLbs * speciesWeights[species].percentOfTotal),
                                 calcWeightType: 'CalcField',
                                 disposition,
                                 comments: "calculated by unsorted catch (net bleed) expansion"

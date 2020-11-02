@@ -29,7 +29,7 @@ export interface TaxonomyAlias extends BaseLookup {
   isProtected?: boolean;
   isWcgopEmPriority?: boolean;
   pacfinSpeciesCode?: string; // moved from taxonomy
-  commonNames?: string[]; 
+  commonNames?: string[];
   wcgopSpeciesCode?: number;
 
   //lifestage?: Lifestage; // remove, will go into catch document as individual lookup
@@ -42,7 +42,7 @@ export interface TaxonomyAlias extends BaseLookup {
   //    no longer relevant, replaced with list of all possible aliases
 
   // QUESTION - What about those species that don't have a taxonomy?
-  //    for new species recognized by the NWFSC science teams not yet in itis, 
+  //    for new species recognized by the NWFSC science teams not yet in itis,
   //    new taxonomy documents will be created as place holders until further defined
 
 
