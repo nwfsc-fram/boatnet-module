@@ -13,6 +13,7 @@ export class lostCodend implements BaseExpansion {
 
         let hauls: any[] = jp.query(tripCatch, '$..hauls');
         hauls = flattenDeep(hauls);
+        let haulIndex = 0;
 
         for (const haul of hauls) {
             if (haul.isCodendLost) {
@@ -21,7 +22,7 @@ export class lostCodend implements BaseExpansion {
                 for (const aggSpecies of aggCatch) {
                     let ratio = aggSpecies.speciesWeight / totalHours;
                     let speciesWeight = ratio * duration;
-                    speciesWeight = Math.round(weight);
+                    speciesWeight = Math.round(speciesWeight);
                     let speciesCount = 0;
                   
                   // expand count if priority or protected species
@@ -37,8 +38,9 @@ export class lostCodend implements BaseExpansion {
                         speciesCount
                     })
                 }
+                set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);
             }
-            hauls[i].catch = JSON.parse(JSON.stringify(catches));
+            haulIndex++;
         }
         set(tripCatch, 'hauls', hauls);
         return tripCatch;
