@@ -8,6 +8,11 @@ export enum sourceType {
   nwfscAudit = 'nwfscAudit'
 }
 
+export enum errorType {
+  warning = 'warning',
+  showStopper = 'showStopper',
+}
+
 export interface Catches extends Base {
     tripNum?: number;
     source?: sourceType;
@@ -42,9 +47,11 @@ export interface Catches extends Base {
   }
 
   interface Error {
-    type: string;
-    haulNum: number;
-    catchId: string;
+    message?: string;
+    field?: string;
+    type?: errorType;
+    haulNum?: number;
+    catchId?: string;
   }
 
   interface FishTicket {
@@ -54,7 +61,6 @@ export interface Catches extends Base {
 
 interface Haul {
     haulNum?: number;
-    deliveryDate?: BoatnetDate;
     gearTypeCode?: string;
     gearPerSet?: number;
     gearLost?: number;
