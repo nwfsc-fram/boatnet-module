@@ -47,11 +47,11 @@ export interface Catches extends Base {
   }
 
   interface Error {
-    message: string;
-    field: string;
-    type: errorType;
-    haulNum: number;
-    catchId: string;
+    message?: string;
+    field?: string;
+    type?: errorType;
+    haulNum?: number;
+    catchId?: string;
   }
 
   interface FishTicket {
