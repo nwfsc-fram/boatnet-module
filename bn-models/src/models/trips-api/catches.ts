@@ -17,8 +17,7 @@ export interface Catches extends Base {
     tripNum?: number;
     source?: sourceType;
     logbookPageNumber?: number;
-    fisherySector: string;
-    fate?: number;
+    fisherySector?: string;
     year?: string;
     vesselName?: string;
     vesselNumber?: string;
