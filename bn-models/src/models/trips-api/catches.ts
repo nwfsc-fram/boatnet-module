@@ -39,6 +39,8 @@ export interface Catches extends Base {
     hauls?: Haul[];
     updatedBy?: string;
     errors?: Error[];
+    revision? : number;
+    history?: Catches[];
   }
 
   interface Error {
