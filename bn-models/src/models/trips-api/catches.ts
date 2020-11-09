@@ -88,7 +88,7 @@ export interface Catch {
   catchId?: number;
   disposition?: Disposition;
   fate?: string;
-  speciesCode?: string;
+  speciesCode?: string | number;
   speciesWeight?: number;
   speciesCount?: number;
   calcWeightType?: string;
