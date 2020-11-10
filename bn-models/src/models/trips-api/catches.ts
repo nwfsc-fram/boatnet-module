@@ -85,18 +85,16 @@ interface Haul {
 }
 
 export interface Catch {
-  catchId?: number;
-  disposition?: Disposition;
-  fate?: string;
-  speciesCode?: string | number;
-  speciesWeight?: number;
-  speciesCount?: number;
-  calcWeightType?: string;
-  speciesLength?: number;
-  timeOnDeck?: number; // minutes
-  comments?: string;
-  screenShotId?: string;
-  screenShotDescription?: string;
-  isWcgopEmPriority?: boolean;
-  isProtected?: boolean;
+  catchId?: number; // sequential catch index
+  disposition?: Disposition; // was catch discared or retained
+  fate?: string; // reason catch was discarded
+  speciesCode?: string | number; // if source == logbook, must be string (pacfin code), if source == thirdParty, must be a number (wcgop code)
+  speciesWeight?: number;  // weight in LBs
+  speciesCount?: number;  // count of catch
+  calcWeightType?: string; // = estimatedWeight when speciesWeight is supplied, otherwise indicates how speciesWeight was calculated.
+  speciesLength?: number;  // length of catch - only applicable if speciesCount <= 1
+  timeOnDeck?: number; // minutes catch was on deck - PHLB/101 (Pacific Halibut) only
+  comments?: string; // any comments relevant to catch species
+  isWcgopEmPriority?: boolean; // indicates a priority species - auto-populated by tripsApi
+  isProtected?: boolean; // indicates a protected species - auto-populated by tripsApi
 }
