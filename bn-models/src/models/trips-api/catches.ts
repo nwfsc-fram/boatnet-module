@@ -88,10 +88,12 @@ export interface Catch {
   catchId?: number; // sequential catch index
   disposition?: Disposition; // was catch discared or retained
   fate?: string; // reason catch was discarded
-  speciesCode?: string | number; // if source == logbook, must be string (pacfin code), if source == thirdParty, must be a number (wcgop code)
+  speciesCode?: string | number; // if source == logbook, must be string (pacfin code)
+                                 // if source == thirdParty, must be a number (wcgop code)
   speciesWeight?: number;  // weight in LBs
   speciesCount?: number;  // count of catch
-  calcWeightType?: string; // = estimatedWeight when speciesWeight is supplied, otherwise indicates how speciesWeight was calculated.
+  calcWeightType?: string; // = estimatedWeight when speciesWeight is supplied,
+                           // otherwise indicates how speciesWeight was calculated.
   speciesLength?: number;  // length of catch - only applicable if speciesCount <= 1
   timeOnDeck?: number; // minutes catch was on deck - PHLB/101 (Pacific Halibut) only
   comments?: string; // any comments relevant to catch species
