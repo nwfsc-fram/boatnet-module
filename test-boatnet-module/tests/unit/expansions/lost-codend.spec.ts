@@ -45,19 +45,19 @@ const logbook: Catches = {
                     disposition: Disposition.RETAINED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    weight: 300000
+                    speciesWeight: 300000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "DOVR",
-                    weight: 40
+                    speciesWeight: 40
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "EFLS",
-                    weight: 10
+                    speciesWeight: 10
                 }
             ]
         },
@@ -122,19 +122,19 @@ const expectedResult: Catches = {
                     disposition: Disposition.RETAINED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    weight: 300000
+                    speciesWeight: 300000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "DOVR",
-                    weight: 40
+                    speciesWeight: 40
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "EFLS",
-                    weight: 10
+                    speciesWeight: 10
                 }
             ]
         },
@@ -153,17 +153,20 @@ const expectedResult: Catches = {
                 {
                     disposition: Disposition.RETAINED,
                     speciesCode: "PWHT",
-                    weight: 225000
+                    speciesWeight: 225000,
+                    speciesCount: 0
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     speciesCode: "DOVR",
-                    weight: 30
+                    speciesWeight: 30,
+                    speciesCount: 0
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     speciesCode: "EFLS",
-                    weight: 8
+                    speciesWeight: 8,
+                    speciesCount: 0
                 }
             ]
         }

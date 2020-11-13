@@ -46,19 +46,19 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "SABL",
-                    weight: 1000
+                    speciesWeight: 1000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "LCOD",
-                    weight: 2000
+                    speciesWeight: 2000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PHLB",
-                    weight: 3000
+                    speciesWeight: 3000
                 }
             ]
         },
@@ -78,19 +78,19 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    weight: 4000
+                    speciesWeight: 4000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "603",
-                    weight: 5000
+                    speciesWeight: 5000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "101",
-                    weight: 6000
+                    speciesWeight: 6000
                 }
             ]
         },
@@ -110,13 +110,13 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    weight: 7000
+                    speciesWeight: 7000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "603",
-                    weight: 8000
+                    speciesWeight: 8000
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -175,19 +175,19 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "SABL",
-                    weight: 1000
+                    speciesWeight: 1000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "LCOD",
-                    weight: 2000
+                    speciesWeight: 2000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PHLB",
-                    weight: 3000
+                    speciesWeight: 3000
                 }
             ]
         },
@@ -207,19 +207,19 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    weight: 800
+                    speciesWeight: 800
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "603",
-                    weight: 350
+                    speciesWeight: 350
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "101",
-                    weight: 1080
+                    speciesWeight: 1080
                 }
             ]
         },
@@ -239,19 +239,19 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    weight: 3500
+                    speciesWeight: 3500
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "603",
-                    weight: 4000
+                    speciesWeight: 4000
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "101",
-                    weight: .9,
+                    speciesWeight: .9,
                     timeOnDeck: 9000
                 }
             ]
@@ -266,9 +266,9 @@ function roundWeight(catchObj: Catches) {
     for (let i = 0; i < hauls.length; i++) {
         let catches = get(hauls[i], 'catch', []);
         for (let j = 0; j < catches.length; j++) {
-            let weight = get(catches[j], 'weight', 0);
-            weight = round(weight, 2);
-            set(catchObj, 'hauls[' + i + '].catch[' + j + '].weight', weight);
+            let speciesWeight = get(catches[j], 'speciesWeight', 0);
+            speciesWeight = round(speciesWeight, 2);
+            set(catchObj, 'hauls[' + i + '].catch[' + j + '].speciesWeight', speciesWeight);
         }
     }
     return catchObj;

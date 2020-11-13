@@ -40,19 +40,19 @@ export const logbook: Catches = {
             disposition: Disposition.RETAINED,
             fate: '11 Accidental, Incidental',
             speciesCode: 'LDAB',
-            weight: 50
+            speciesWeight: 50
         },
         {
             disposition: Disposition.DISCARDED,
             fate: '11 Accidental, Incidental',
             speciesCode: 'PDAB',
-            weight: 40
+            speciesWeight: 40
         },
         {
             disposition: Disposition.DISCARDED,
             fate: '11 Accidental, Incidental',
             speciesCode: 'SSDB',
-            weight: 10
+            speciesWeight: 10
         }]
     }]
 };
@@ -97,13 +97,13 @@ export const review: Catches = {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: '136',
-                weight: 500
+                speciesWeight: 500
             },
             {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: '136',
-                weight: 45
+                speciesWeight: 45
             }]
     }]
 };
@@ -148,19 +148,22 @@ const expectedResult: Catches = {
                 disposition: Disposition.RETAINED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: 'LDAB',
-                weight: 300
+                speciesWeight: 300,
+                speciesCount: undefined
             },
             {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: 'PDAB',
-                weight: 240
+                speciesWeight: 240,
+                speciesCount: undefined
             },
             {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: 'SSDB',
-                weight: 60
+                speciesWeight: 60,
+                speciesCount: undefined
             }]
     }]
 };

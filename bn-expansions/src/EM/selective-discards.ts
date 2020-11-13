@@ -11,7 +11,7 @@ export class selectiveDiscards implements BaseExpansion {
 
         const logbookAggCatches: any[] = aggCatchBySpecies(logbook);
         const ratioHolder = getRatiosForGroupings(logbookAggCatches, thirdPartyReview, mixedGroupings);
-        return applyRatios(logbook, thirdPartyReview, mixedGroupings, ratioHolder)
+        return applyRatios(logbook, thirdPartyReview, mixedGroupings, ratioHolder);
     }
 }
 
@@ -30,7 +30,6 @@ function getRatiosForGroupings(aggCatches: any[], review: Catches, mixedGrouping
         let initialValue = 0;
         const row = 1;
         // reference map and get species in catch grouping
-        const mixedGroupingIndex = mixedGroupingKeys.indexOf(expansionCatch.speciesCode);
         const speciesInExpansion: string[] = mixedGroupings[expansionCatch.speciesCode];
         // get logbook entries for those species
         const speciesInGroup: any[] = aggCatches.filter((catchVal) => speciesInExpansion.includes(catchVal.speciesCode));
@@ -58,7 +57,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
         let expandedCatches: any[] = [];
 
         for (let j = 0; j < catches.length; j++) {
-            const currSpeciesCode = get(catches[j], 'speciesCode', '');
+            const currSpeciesCode: string  = get(catches[j], 'speciesCode', '').toString();
             const currWeight = get(catches[j], 'speciesWeight', 0);
 
             if (mixedGroupingKeys.includes(currSpeciesCode) && currWeight > 50) {
@@ -66,7 +65,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                 const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
                 for (const logbookCatch of logbookCatches) {
                     if (ratio[logbookCatch.speciesCode]) {
-                        const expandedWeight = get(catches[j], 'speceisWeight', 0) * ratio[logbookCatch.speciesCode] + logbookCatch.speciesWeight;
+                        const expandedWeight = get(catches[j], 'speciesWeight', 0) * ratio[logbookCatch.speciesCode] + logbookCatch.speciesWeight;
                         // expand count if priority or protected species
                         let expandedCount;
                         if ((logbookCatch.isWcgopEmPriority || logbookCatch.isProtected) && logbookCatch.speciesCount) {
