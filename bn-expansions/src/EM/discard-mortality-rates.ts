@@ -85,20 +85,20 @@ export class discardMortalityRates implements BaseExpansion {
                 const disposition = catchVal.disposition;
                 const speciesCode = catchVal.speciesCode;
                 if (disposition === Disposition.DISCARDED) {
-                    let weight = 0;
+                    let speciesWeight = 0;
                     if ((speciesCode === 'PHLB' || speciesCode === '101') &&
                         (gearType === GearTypes.GroundfishTrawlFootropeLessThan8 || gearType === GearTypes.GroundfishTrawlGreaterThan8)) {
-                            weight = timeOnDeck(catchVal.timeOnDeck);
+                            speciesWeight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
-                        weight = catchVal.speciesWeight * rate;
+                        speciesWeight = catchVal.speciesWeight * rate;
                         // expand count if priority or protected species
                         if ((catchVal.isWcgopEmPriority || catchVal.isProtected) && catchVal.speciesCount) {
                             let count = catchVal.speciesCount * rate;
                             set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesCount', count);
                         }
                     }
-                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesWeight', weight);
+                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesWeight', speciesWeight);
                 }
             }
         }

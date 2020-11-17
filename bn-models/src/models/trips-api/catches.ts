@@ -33,7 +33,8 @@ export interface Catches extends Base {
     tripNum?: number;
     source?: sourceType;
     logbookPageNumber?: number;
-    fisherySector?: string;
+    fisherySector?: string; // for review, accepted values: https://www.webapps.nwfsc.noaa.gov/trips/lookups#fishery-sector
+    fishery?: string; // for logbook, accepted values: https://www.webapps.nwfsc.noaa.gov/trips/lookups#fishery
     year?: string;
     vesselName?: string;
     vesselNumber?: string;

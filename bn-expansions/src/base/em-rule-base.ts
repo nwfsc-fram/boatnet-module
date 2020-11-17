@@ -18,7 +18,7 @@ export interface BaseExpansion {
 
 export function aggCatchBySpecies(catchDoc: Catches) {
     let aggCatch: any[] = [];
-    let catches: any[] = jp.query(catchDoc, '$..catch');
+    let catches: any[] = jp.query(catchDoc, '$.hauls..catch');
     catches = flattenDeep(catches);
 
 

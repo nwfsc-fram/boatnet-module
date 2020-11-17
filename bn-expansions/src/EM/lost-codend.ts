@@ -11,7 +11,7 @@ export class lostCodend implements BaseExpansion {
         const aggCatch: any[] = aggCatchBySpecies(tripCatch);
         const totalHours: number = getTotalHours(tripCatch);
 
-        let hauls: any[] = jp.query(tripCatch, '$..hauls');
+        let hauls: any[] = jp.query(tripCatch, '$.hauls');
         hauls = flattenDeep(hauls);
         let haulIndex = 0;
 
@@ -51,7 +51,7 @@ export class lostCodend implements BaseExpansion {
 function getTotalHours(logbook: Catches) {
     let initWeight = 0;
 
-    let hauls: any[] = jp.query(logbook, '$..hauls');
+    let hauls: any[] = jp.query(logbook, '$.hauls');
     hauls = flattenDeep(hauls);
     hauls = hauls.filter((haul) => !haul.isCodendLost);
 
