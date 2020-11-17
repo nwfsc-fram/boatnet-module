@@ -13,6 +13,22 @@ export enum errorType {
   showStopper = 'showStopper',
 }
 
+export enum gearType {
+  trawl = 'trawl',
+  hookAndLine = 'hook & line',
+  fishPot = 'fish pot',
+  longline = 'longline (snap)'
+}
+
+export enum netType {
+  bottomOrRollerTrawl = 'B',
+  danishOrScottishSeine = 'D',
+  selectiveFlatfishTrawl = 'F',
+  largeFootropeTrawl = 'L',
+  pelagicMidwaterTrawl = 'M',
+  smallFootropeTrawl = 'S'
+}
+
 export interface Catches extends Base {
     tripNum?: number;
     source?: sourceType;
@@ -63,10 +79,13 @@ export interface Catches extends Base {
 
 interface Haul {
     haulNum?: number;
-    gearTypeCode?: string;
-    gearPerSet?: number;
-    gearLost?: number;
-    avgHooksPerSeg?: number;
+    gear?: gearType;
+    netType?: netType;       // required if gear = 'trawl'
+    codendCapacity?: number; // required if gear = 'trawl'
+    isCodendLost?: boolean;  // required if gear = 'trawl'
+    gearPerSet?: number;     // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    gearLost?: number;       // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    avgHooksPerSeg?: number; // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
     startDateTime?: BoatnetDate;
     startDepth?: number;
     startLatitude?: number;
@@ -75,8 +94,6 @@ interface Haul {
     endDepth?: number;
     endLatitude?: number;
     endLongitude?: number;
-    codendCapacity?: number;
-    isCodendLost?: boolean;
     comments?: string;
     targetStrategy?: string;
     systemPerformance?: number;
