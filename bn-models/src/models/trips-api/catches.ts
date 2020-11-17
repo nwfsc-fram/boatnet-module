@@ -1,6 +1,8 @@
 import { Base } from '../_base/base';
 import { BoatnetDate } from '../_common/index';
-import { Disposition } from '../_common/enums'
+import { Disposition } from '../_common/enums';
+import { netTypeLookupValueEnum } from './net-type';
+import { gearTypeLookupValueEnum } from './gear';
 
 export enum sourceType {
   logbook = 'logbook',
@@ -11,22 +13,6 @@ export enum sourceType {
 export enum errorType {
   warning = 'warning',
   showStopper = 'showStopper',
-}
-
-export enum gearType {
-  trawl = 'trawl',
-  hookAndLine = 'hook & line',
-  fishPot = 'fish pot',
-  longline = 'longline (snap)'
-}
-
-export enum netType {
-  bottomOrRollerTrawl = 'B',
-  danishOrScottishSeine = 'D',
-  selectiveFlatfishTrawl = 'F',
-  largeFootropeTrawl = 'L',
-  pelagicMidwaterTrawl = 'M',
-  smallFootropeTrawl = 'S'
 }
 
 export interface Catches extends Base {
@@ -80,13 +66,13 @@ export interface Catches extends Base {
 
 interface Haul {
     haulNum?: number;
-    gear?: gearType;
-    netType?: netType;       // required if gear = 'trawl'
-    codendCapacity?: number; // required if gear = 'trawl'
-    isCodendLost?: boolean;  // required if gear = 'trawl'
-    gearPerSet?: number;     // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
-    gearLost?: number;       // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
-    avgHooksPerSeg?: number; // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    gear?: gearTypeLookupValueEnum;
+    netType?: netTypeLookupValueEnum; // required if gear = 'trawl'
+    codendCapacity?: number;          // required if gear = 'trawl'
+    isCodendLost?: boolean;           // required if gear = 'trawl'
+    gearPerSet?: number;              // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    gearLost?: number;                // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    avgHooksPerSeg?: number;          // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
     startDateTime?: BoatnetDate;
     startDepth?: number;
     startLatitude?: number;
