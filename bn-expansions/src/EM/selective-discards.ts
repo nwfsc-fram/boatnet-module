@@ -17,7 +17,7 @@ export class selectiveDiscards implements BaseExpansion {
 
 // gets all groupings that need expanding and gets ratios for each grouping
 function getRatiosForGroupings(aggCatches: any[], review: Catches, mixedGroupings: any) {
-    let thirdPartyReviewCatches: any[] = jp.query(review, '$..catch');
+    let thirdPartyReviewCatches: any[] = jp.query(review, '$.hauls..catch');
     thirdPartyReviewCatches = flattenDeep(thirdPartyReviewCatches);
 
     const mixedGroupingKeys: string[] = Object.keys(mixedGroupings);
