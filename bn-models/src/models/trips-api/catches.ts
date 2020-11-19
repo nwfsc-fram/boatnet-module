@@ -1,6 +1,8 @@
 import { Base } from '../_base/base';
 import { BoatnetDate } from '../_common/index';
-import { Disposition } from '../_common/enums'
+import { Disposition } from '../_common/enums';
+import { netTypeLookupValueEnum } from './net-type';
+import { gearTypeLookupValueEnum } from './gear';
 
 export enum sourceType {
   logbook = 'logbook',
@@ -64,10 +66,13 @@ export interface Catches extends Base {
 
 interface Haul {
     haulNum?: number;
-    gearTypeCode?: string;
-    gearPerSet?: number;
-    gearLost?: number;
-    avgHooksPerSeg?: number;
+    gear?: gearTypeLookupValueEnum;
+    netType?: netTypeLookupValueEnum; // required if gear = 'trawl'
+    codendCapacity?: number;          // required if gear = 'trawl'
+    isCodendLost?: boolean;           // required if gear = 'trawl'
+    gearPerSet?: number;              // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    gearLost?: number;                // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
+    avgHooksPerSeg?: number;          // required if gear = 'hook & line', 'fish pot', or 'longline (snap)'
     startDateTime?: BoatnetDate;
     startDepth?: number;
     startLatitude?: number;
@@ -76,8 +81,6 @@ interface Haul {
     endDepth?: number;
     endLatitude?: number;
     endLongitude?: number;
-    codendCapacity?: number;
-    isCodendLost?: boolean;
     comments?: string;
     targetStrategy?: string;
     systemPerformance?: number;
