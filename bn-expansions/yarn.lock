@@ -3,9 +3,9 @@
 
 
 "@boatnet/bn-models@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.4.1.tgz#ed9b498c34a3c7a45867e259d9529efc04a6a004"
-  integrity sha512-8hv+hkfAvQUd9zeO1mVdAtbNlHBZ+zEhv/3WLcUtzoZPAt7oL228onzjLZ6Pu6jyXPQ3vpgGi+eqLAJM4t5IzQ==
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.4.2.tgz#23ca2a910863700ba6e76145d766b048b2e04fb8"
+  integrity sha512-6ouMjqUVYp2WfSPFt6SDJXjfx85EREUvcJCbfY6gehgU+0elaOMsl4K/OyquOJEl/VSUy3WoT4jxOVWNNc5stQ==
   dependencies:
     geojson "^0.5.0"
 
@@ -175,9 +175,9 @@ debug@^2.2.0:
     ms "2.0.0"
 
 debug@^4.0.1, debug@^4.1.1:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
-  integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
+  integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
   dependencies:
     ms "2.1.2"
 
