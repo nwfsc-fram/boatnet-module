@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@boatnet/bn-models@^0.4.1":
+"@boatnet/bn-models@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@boatnet/bn-models/-/bn-models-0.4.2.tgz#23ca2a910863700ba6e76145d766b048b2e04fb8"
   integrity sha512-6ouMjqUVYp2WfSPFt6SDJXjfx85EREUvcJCbfY6gehgU+0elaOMsl4K/OyquOJEl/VSUy3WoT4jxOVWNNc5stQ==
