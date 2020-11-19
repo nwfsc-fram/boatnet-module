@@ -10,6 +10,7 @@ export interface ExpansionParameters {
     audit?: Catches
     fishTickets?: FishTicketRow[];
     mixedGroupings?: any;
+    speciesCodeLookup?: any;
 }
 
 export interface BaseExpansion {
