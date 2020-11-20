@@ -99,7 +99,7 @@ export class missingWeight implements BaseExpansion {
                 for (let i = haul.catch!.length - 1; i >= 0; i--) {
                     if ((haul.catch[i].speciesCount || haul.catch[i].speciesLength) && !haul.catch[i].speciesWeight) {  // catch has a count and/or length, but no weight
                         const missingWeightCatch: any = cloneDeep(haul.catch[i]);
-                        const speciesCode = isLogbook ? haul.catch[i].speciesCode : params.speciesCodeLookup[haul.catch[i].speciesCode!];
+                        const speciesCode = isLogbook ? haul.catch[i].speciesCode : params.speciesCodeLookup[haul.catch[i].speciesCode!].translatedCode;
                         const haveSpeciesFtRetainedWeight: boolean = ftSpeciesWeights[speciesCode] ? true : false;
                         const haveSpeciesLogbookRetainedCount: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].speciesCount ? true : false
                         const haveSpeciesLogbookRetainedWeight: boolean = lbRetainedSpeciesCountsWeights[speciesCode] && lbRetainedSpeciesCountsWeights[speciesCode].speciesWeight ? true : false
