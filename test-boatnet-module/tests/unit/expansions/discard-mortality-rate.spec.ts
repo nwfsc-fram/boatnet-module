@@ -2,6 +2,39 @@ import { Catches, sourceType, Disposition, GearTypes } from '@boatnet/bn-models'
 import { ExpansionParameters, discardMortalityRates } from '@boatnet/bn-expansions';
 import { get, round, set } from 'lodash';
 
+const speciesCodeLookup = {
+    SABL: {
+        translatedCode: 203,
+        isWcgopEmPriority: true,
+        isProtected: false
+    },
+    LCOD: {
+        translatedCode: 603,
+        isWcgopEmPriority: false,
+        isProtected: false
+    },
+    PHLB: {
+        translatedCode: 101,
+        isWcgopEmPriority: false,
+        isProtected: false
+    },
+    203: {
+        translatedCode: 'SABL',
+        isWcgopEmPriority: true,
+        isProtected: false
+    },
+    603: {
+        translatedCode: 'LCOD',
+        isWcgopEmPriority: false,
+        isProtected: false
+    },
+    101: {
+        translatedCode: 'PHLB',
+        isWcgopEmPriority: false,
+        isProtected: false
+    }
+}
+
 const logbook: Catches = {
     tripNum: 100198,
     source: sourceType.logbook,
@@ -46,7 +79,8 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "SABL",
-                    speciesWeight: 1000
+                    speciesWeight: 1000,
+                    speciesCount: 1
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -78,7 +112,8 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    speciesWeight: 4000
+                    speciesWeight: 4000,
+                    speciesCount: 10
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -110,7 +145,8 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    speciesWeight: 7000
+                    speciesWeight: 7000,
+                    speciesCount: 10
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -175,7 +211,8 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "SABL",
-                    speciesWeight: 1000
+                    speciesWeight: 1000,
+                    speciesCount: 1
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -207,7 +244,8 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    speciesWeight: 800
+                    speciesWeight: 800,
+                    speciesCount: 2
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -239,7 +277,8 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "203",
-                    speciesWeight: 3500
+                    speciesWeight: 3500,
+                    speciesCount: 5
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -277,7 +316,7 @@ function roundWeight(catchObj: Catches) {
 describe('@boatnet/bn-expansions', () => {
     it('discard mortality rates test', async () => {
         const discardMortalityRateObj = new discardMortalityRates();
-        const expansionParams: ExpansionParameters = { currCatch: logbook };
+        const expansionParams: ExpansionParameters = { currCatch: logbook, speciesCodeLookup };
         let result = await discardMortalityRateObj.expand(expansionParams);
         result = roundWeight(result);
         const s = expect(result).toEqual(expectedResult);

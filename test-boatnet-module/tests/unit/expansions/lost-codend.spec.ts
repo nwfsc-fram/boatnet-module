@@ -1,6 +1,24 @@
 import { Catches, sourceType, Disposition } from '@boatnet/bn-models';
 import { ExpansionParameters, lostCodend } from '@boatnet/bn-expansions';
 
+const speciesCodeLookup = {
+    PWHT: {
+        translatedCode: 101,
+        isWcgopEmPriority: true,
+        isProtected: false
+    },
+    DOVR: {
+        translatedCode: 107,
+        isWcgopEmPriority: false,
+        isProtected: false
+    },
+    EGLS: {
+        translatedCode: 108,
+        isWcgopEmPriority: false,
+        isProtected: false
+    }
+};
+
 const logbook: Catches = {
     tripNum: 100198,
     source: sourceType.logbook,
@@ -45,7 +63,8 @@ const logbook: Catches = {
                     disposition: Disposition.RETAINED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    speciesWeight: 300000
+                    speciesWeight: 300000,
+                    speciesCount: 12
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -56,7 +75,7 @@ const logbook: Catches = {
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
-                    speciesCode: "EFLS",
+                    speciesCode: "EGLS",
                     speciesWeight: 10
                 }
             ]
@@ -122,7 +141,8 @@ const expectedResult: Catches = {
                     disposition: Disposition.RETAINED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    speciesWeight: 300000
+                    speciesWeight: 300000,
+                    speciesCount: 12
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -133,7 +153,7 @@ const expectedResult: Catches = {
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
-                    speciesCode: "EFLS",
+                    speciesCode: "EGLS",
                     speciesWeight: 10
                 }
             ]
@@ -154,7 +174,7 @@ const expectedResult: Catches = {
                     disposition: Disposition.RETAINED,
                     speciesCode: "PWHT",
                     speciesWeight: 225000,
-                    speciesCount: 0
+                    speciesCount: 9
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -164,7 +184,7 @@ const expectedResult: Catches = {
                 },
                 {
                     disposition: Disposition.DISCARDED,
-                    speciesCode: "EFLS",
+                    speciesCode: "EGLS",
                     speciesWeight: 8,
                     speciesCount: 0
                 }
@@ -178,7 +198,7 @@ const expectedResult: Catches = {
 describe('@boatnet/bn-expansions', () => {
     it('selective discards test', async () => {
         const lostCodendObj = new lostCodend();
-        const expansionParams: ExpansionParameters = { currCatch: logbook };
+        const expansionParams: ExpansionParameters = { currCatch: logbook, speciesCodeLookup };
         const result = await lostCodendObj.expand(expansionParams);
         expect(result).toEqual(expectedResult);
     })

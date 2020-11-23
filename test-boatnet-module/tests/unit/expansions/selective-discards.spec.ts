@@ -40,13 +40,16 @@ export const logbook: Catches = {
             disposition: Disposition.RETAINED,
             fate: '11 Accidental, Incidental',
             speciesCode: 'LDAB',
-            speciesWeight: 50
+            speciesWeight: 50,
+            speciesCount: 12
+            
         },
         {
             disposition: Disposition.DISCARDED,
             fate: '11 Accidental, Incidental',
             speciesCode: 'PDAB',
-            speciesWeight: 40
+            speciesWeight: 40,
+            speciesCount: 8
         },
         {
             disposition: Disposition.DISCARDED,
@@ -97,7 +100,8 @@ export const review: Catches = {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: '136',
-                speciesWeight: 500
+                speciesWeight: 500,
+                speciesCount: 100
             },
             {
                 disposition: Disposition.DISCARDED,
@@ -149,14 +153,14 @@ const expectedResult: Catches = {
                 fate: '11 Accidental, Incidental',
                 speciesCode: 'LDAB',
                 speciesWeight: 300,
-                speciesCount: undefined
+                speciesCount: 72
             },
             {
                 disposition: Disposition.DISCARDED,
                 fate: '11 Accidental, Incidental',
                 speciesCode: 'PDAB',
                 speciesWeight: 240,
-                speciesCount: undefined
+                speciesCount: 48
             },
             {
                 disposition: Disposition.DISCARDED,
@@ -166,6 +170,24 @@ const expectedResult: Catches = {
                 speciesCount: undefined
             }]
     }]
+};
+
+const speciesCodeLookup = {
+    LDAB: {
+        translatedCode: 125,
+        isWcgopEmPriority: true,
+        isProtected: false
+    },
+    PDAB: {
+        translatedCode: 137,
+        isWcgopEmPriority: false,
+        isProtected: true
+    },
+    SSDB: {
+        translatedCode: 126,
+        isWcgopEmPriority: false,
+        isProtected: false
+    }
 };
 
 describe('@boatnet/bn-expansions', () => {
@@ -181,7 +203,7 @@ describe('@boatnet/bn-expansions', () => {
                 "126"
             ]
         }
-        const expansionParams: ExpansionParameters = { currCatch: review, logbook, mixedGroupings };
+        const expansionParams: ExpansionParameters = { currCatch: review, logbook, mixedGroupings, speciesCodeLookup };
         const result = await selectiveDiscard.expand(expansionParams);
         expect(result).toEqual(expectedResult);
     })
