@@ -131,7 +131,7 @@ const logbook: Catches = {
         },
         {
             haulNum: 3,
-            netType: netTypeLookupValueEnum.smallFootropeTrawl,
+            netType: netTypeLookupValueEnum.selectiveFlatfishTrawl,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,
@@ -263,7 +263,7 @@ const expectedResult: Catches = {
         },
         {
             haulNum: 3,
-            netType: netTypeLookupValueEnum.smallFootropeTrawl,
+            netType: netTypeLookupValueEnum.selectiveFlatfishTrawl,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,

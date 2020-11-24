@@ -27,7 +27,7 @@ applied even to fish which may be in parts or otherwise obviously dead.
 */
 import { BaseExpansion, ExpansionParameters } from "../base/em-rule-base";
 import { Catches, Disposition, gearTypeLookupValueEnum, netTypeLookupValueEnum } from '@boatnet/bn-models';
-import { get, set, round } from 'lodash';
+import { get, set, indexOf } from 'lodash';
 
 const jp = require('jsonpath');
 
@@ -85,6 +85,12 @@ export class discardMortalityRates implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
         const currCatch = params.currCatch ? params.currCatch : {};
         const speciesCodeLookup = params.speciesCodeLookup ? params.speciesCodeLookup : {};
+        const bottomTrawlTypes = [
+            netTypeLookupValueEnum.bottomOrRollerTrawl,
+            netTypeLookupValueEnum.selectiveFlatfishTrawl,
+            netTypeLookupValueEnum.largeFootropeTrawl,
+            netTypeLookupValueEnum.smallFootropeTrawl
+        ];
         let hauls = get(currCatch, 'hauls', []);
         for (let i = 0; i < hauls.length; i++) {
             let catches = get(hauls[i], 'catch', []);
@@ -96,9 +102,8 @@ export class discardMortalityRates implements BaseExpansion {
                 const speciesCode = catchVal.speciesCode;
                 if (disposition === Disposition.DISCARDED) {
                     let speciesWeight = 0;
-                    if ((speciesCode === 'PHLB' || speciesCode === '101') &&
-                        (netType === netTypeLookupValueEnum.smallFootropeTrawl || netType === netTypeLookupValueEnum.largeFootropeTrawl)) {
-                            speciesWeight = timeOnDeck(catchVal.timeOnDeck);
+                    if ((speciesCode === 'PHLB' || speciesCode === '101') && (indexOf(bottomTrawlTypes, netType) != -1)) {
+                        speciesWeight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
                         const lookupName = gearType ? gearType : netType;
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + lookupName + ']', 1);
