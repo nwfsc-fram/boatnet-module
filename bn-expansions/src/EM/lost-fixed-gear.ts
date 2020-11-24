@@ -9,12 +9,11 @@ export class lostFixedGear implements BaseExpansion {
 
         // for each haul - if gearLost > 0
         for (const haul of tripCatch.hauls) {
-            if (haul.gearLost) {console.log(parseInt(haul.gearLost))}
-            if (haul.catch) {console.log(haul.catch)}
             if (haul.gearLost && parseInt(haul.gearLost) > 0 && parseInt(haul.gearLost) < parseInt(haul.gearPerSet) && haul.catch && haul.catch.length > 0) {
                 // for each species in the haul
                 const speciesList: string[] = uniq(haul.catch.map( (row: any) => row.speciesCode));
                 const speciesWeights: any = {};
+                const speciesCounts: any = {};
                 for (const species of speciesList) {
                     // sum the discarded and retained
                     const totalSpeciesWeight = haul.catch.reduce( (acc: number, val: any) => {
@@ -23,9 +22,18 @@ export class lostFixedGear implements BaseExpansion {
                         } else {
                             return acc
                         }
-                    }, 0)
+                    }, 0);
                     // divide by the gearPerSet to get average LBS per gear (pot or hook)
                     speciesWeights[species] = totalSpeciesWeight / (haul.gearPerSet - parseInt(haul.gearLost));
+                    const totalCount = haul.catch.reduce((acc: number, val: any) => {
+                        if (val.speciesCode === species && val.speciesCount) {
+                            return acc + val.speciesCount;
+                        } else {
+                            return acc;
+                        }
+                    }, 0);
+                    // divide by the gearPerSet to get average count per gear (pot or hook)
+                    speciesCounts[species] = totalCount / (haul.gearPerSet - parseInt(haul.gearLost));
                 }
                 for (const speciesCode of Object.keys(speciesWeights)) {
                     // add a catch item with weight of (average LBS * gearLost) + calcWeightType of 'From Average Weight'
@@ -33,6 +41,7 @@ export class lostFixedGear implements BaseExpansion {
                         disposition: Disposition.DISCARDED,
                         speciesCode,
                         speciesWeight: speciesWeights[speciesCode] * parseInt(haul.gearLost),
+                        speciesCount: speciesCounts[speciesCode] ? speciesCounts[speciesCode] * parseInt(haul.gearLost) : 0,
                         calcWeightType: 'From Average Weight',
                         comments: 'Added by lost fixed gear expansion'
                     })

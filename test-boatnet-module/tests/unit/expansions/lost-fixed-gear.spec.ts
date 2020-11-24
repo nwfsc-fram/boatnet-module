@@ -47,13 +47,15 @@ const logbook: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    speciesWeight: 1000
+                    speciesWeight: 1000,
+                    speciesCount: 10
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "DOVR",
-                    speciesWeight: 2000
+                    speciesWeight: 2000,
+                    speciesCount: 20
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -114,13 +116,15 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "PWHT",
-                    speciesWeight: 1000
+                    speciesWeight: 1000,
+                    speciesCount: 10
                 },
                 {
                     disposition: Disposition.DISCARDED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: "DOVR",
-                    speciesWeight: 2000
+                    speciesWeight: 2000,
+                    speciesCount: 20
                 },
                 {
                     disposition: Disposition.DISCARDED,
@@ -132,6 +136,7 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     speciesCode: "PWHT",
                     speciesWeight: 2000,
+                    speciesCount: 20,
                     calcWeightType: 'From Average Weight',
                     comments: 'Added by lost fixed gear expansion'
                 },
@@ -139,6 +144,7 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     speciesCode: "DOVR",
                     speciesWeight: 4000,
+                    speciesCount: 40,
                     calcWeightType: 'From Average Weight',
                     comments: 'Added by lost fixed gear expansion'
                 },
@@ -146,6 +152,7 @@ const expectedResult: Catches = {
                     disposition: Disposition.DISCARDED,
                     speciesCode: "DCRB",
                     speciesWeight: 6000,
+                    speciesCount: 0,
                     calcWeightType: 'From Average Weight',
                     comments: 'Added by lost fixed gear expansion'
                 }

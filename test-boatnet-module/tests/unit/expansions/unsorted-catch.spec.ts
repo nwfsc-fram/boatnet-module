@@ -7,19 +7,22 @@ const fishTickets = [
         LANDED_WEIGHT_LBS: 81,
         CONDITION_CODE: "R",
         VESSEL_NUM: "CF3341ZY",
-        FTID: '123'
+        FTID: '123',
+        NUM_OF_FISH: 10
     }, {
         PACFIN_SPECIES_CODE: "LCOD",
         LANDED_WEIGHT_LBS: 242,
         CONDITION_CODE: "R",
         VESSEL_NUM: "CF3341ZY",
-        FTID: '123'
+        FTID: '123',
+        NUM_OF_FISH: 20
     }, {
         PACFIN_SPECIES_CODE: "VRML",
         LANDED_WEIGHT_LBS: 160,
         CONDITION_CODE: "R",
         VESSEL_NUM: "CF3341ZY",
-        FTID: '123'
+        FTID: '123',
+        NUM_OF_FISH: 0
     }
 ]
 
@@ -67,7 +70,8 @@ const logbook: Catches = {
                     disposition: Disposition.RETAINED,
                     fate: "11 Accidental, Incidental",
                     speciesCode: 999,
-                    speciesWeight: 1000
+                    speciesWeight: 1000,
+                    speciesCount: 100
                 }
             ]
         }
@@ -121,21 +125,24 @@ const expectedResult: Catches = {
                     comments: "calculated by unsorted catch (net bleed) expansion",
                     disposition: Disposition.DISCARDED,
                     speciesCode: "CNRY",
-                    speciesWeight: 167.70186335403727
+                    speciesWeight: 167.70186335403727,
+                    speciesCount: 33
                 },
                 {
                     calcWeightType: "CalcField",
                     comments: "calculated by unsorted catch (net bleed) expansion",
                     disposition: Disposition.DISCARDED,
                     speciesCode: "LCOD",
-                    speciesWeight: 501.0351966873706
+                    speciesWeight: 501.0351966873706,
+                    speciesCount: 66
                 },
                 {
                     calcWeightType: "CalcField",
                     comments: "calculated by unsorted catch (net bleed) expansion",
                     disposition: Disposition.DISCARDED,
                     speciesCode: "VRML",
-                    speciesWeight: 331.26293995859214
+                    speciesWeight: 331.26293995859214,
+                    speciesCount: 0
                 }
             ]
         }

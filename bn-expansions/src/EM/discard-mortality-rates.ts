@@ -76,6 +76,7 @@ const discardMortalityRatesMap = {
 export class discardMortalityRates implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
         const currCatch = params.currCatch ? params.currCatch : {};
+        const speciesCodeLookup = params.speciesCodeLookup ? params.speciesCodeLookup : {};
         let hauls = get(currCatch, 'hauls', []);
         for (let i = 0; i < hauls.length; i++) {
             let catches = get(hauls[i], 'catch', []);
@@ -93,7 +94,7 @@ export class discardMortalityRates implements BaseExpansion {
                         const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
                         speciesWeight = catchVal.speciesWeight * rate;
                         // expand count if priority or protected species
-                        if ((catchVal.isWcgopEmPriority || catchVal.isProtected) && catchVal.speciesCount) {
+                        if ((speciesCodeLookup[speciesCode].isWcgopEmPriority || speciesCodeLookup[speciesCode].isProtected) && catchVal.speciesCount) {
                             let count = catchVal.speciesCount * rate;
                             set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesCount', count);
                         }
