@@ -196,7 +196,7 @@ const expectedResult: Catches = {
 };
 
 describe('@boatnet/bn-expansions', () => {
-    it('selective discards test', async () => {
+    it('lost codend', async () => {
         const lostCodendObj = new lostCodend();
         const expansionParams: ExpansionParameters = { currCatch: logbook, speciesCodeLookup };
         const result = await lostCodendObj.expand(expansionParams);
