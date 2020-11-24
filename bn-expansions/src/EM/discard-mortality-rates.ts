@@ -39,6 +39,8 @@ const discardMortalityRatesMap = {
         [gearTypeLookupValueEnum.hookAndLine]: .2,
         [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
         [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     203: {
         [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
@@ -46,20 +48,26 @@ const discardMortalityRatesMap = {
         [gearTypeLookupValueEnum.hookAndLine]: .2,
         [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
         [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     LCOD: {
         [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
         [gearTypeLookupValueEnum.fishPot]: .07,
         [gearTypeLookupValueEnum.hookAndLine]: .07,
         [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
-        [netTypeLookupValueEnum.largeFootropeTrawl]: .5
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     603: {
         [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
         [gearTypeLookupValueEnum.fishPot]: .07,
         [gearTypeLookupValueEnum.hookAndLine]: .07,
         [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
-        [netTypeLookupValueEnum.largeFootropeTrawl]: .5
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     PHLB: {
         [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
