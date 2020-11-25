@@ -26,50 +26,58 @@ applied even to fish which may be in parts or otherwise obviously dead.
 
 */
 import { BaseExpansion, ExpansionParameters } from "../base/em-rule-base";
-import { Catches, Disposition, GearTypes } from '@boatnet/bn-models';
-import { get, set, round } from 'lodash';
+import { Catches, Disposition, gearTypeLookupValueEnum, netTypeLookupValueEnum } from '@boatnet/bn-models';
+import { get, set, indexOf } from 'lodash';
 
 const jp = require('jsonpath');
 
 // from IFQ Business Rules
 const discardMortalityRatesMap = {
     SABL: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .2,
-        [GearTypes.HookAndLine]: .2,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
-        [GearTypes.GroundfishTrawlGreaterThan8]: .5,
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .2,
+        [gearTypeLookupValueEnum.hookAndLine]: .2,
+        [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     203: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .2,
-        [GearTypes.HookAndLine]: .2,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
-        [GearTypes.GroundfishTrawlGreaterThan8]: .5,
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .2,
+        [gearTypeLookupValueEnum.hookAndLine]: .2,
+        [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     LCOD: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .07,
-        [GearTypes.HookAndLine]: .07,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
-        [GearTypes.GroundfishTrawlGreaterThan8]: .5
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .07,
+        [gearTypeLookupValueEnum.hookAndLine]: .07,
+        [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     603: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .07,
-        [GearTypes.HookAndLine]: .07,
-        [GearTypes.GroundfishTrawlFootropeLessThan8]: .5,
-        [GearTypes.GroundfishTrawlGreaterThan8]: .5
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .07,
+        [gearTypeLookupValueEnum.hookAndLine]: .07,
+        [netTypeLookupValueEnum.smallFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.largeFootropeTrawl]: .5,
+        [netTypeLookupValueEnum.selectiveFlatfishTrawl]: .5,
+        [netTypeLookupValueEnum.bottomOrRollerTrawl]: .5
     },
     PHLB: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .18,
-        [GearTypes.HookAndLine]: .18
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .18,
+        [gearTypeLookupValueEnum.hookAndLine]: .18
     },
     101: {
-        [GearTypes.MidwaterTrawl]: 1,
-        [GearTypes.FishPot]: .18,
-        [GearTypes.HookAndLine]: .18
+        [netTypeLookupValueEnum.pelagicMidwaterTrawl]: 1,
+        [gearTypeLookupValueEnum.fishPot]: .18,
+        [gearTypeLookupValueEnum.hookAndLine]: .18
     }
 }
 
@@ -77,21 +85,28 @@ export class discardMortalityRates implements BaseExpansion {
     expand(params: ExpansionParameters): Catches {
         const currCatch = params.currCatch ? params.currCatch : {};
         const speciesCodeLookup = params.speciesCodeLookup ? params.speciesCodeLookup : {};
+        const bottomTrawlTypes = [
+            netTypeLookupValueEnum.bottomOrRollerTrawl,
+            netTypeLookupValueEnum.selectiveFlatfishTrawl,
+            netTypeLookupValueEnum.largeFootropeTrawl,
+            netTypeLookupValueEnum.smallFootropeTrawl
+        ];
         let hauls = get(currCatch, 'hauls', []);
         for (let i = 0; i < hauls.length; i++) {
             let catches = get(hauls[i], 'catch', []);
-            const gearType = get(hauls[i], 'gearTypeCode');
+            const gearType = get(hauls[i], 'gear');
+            const netType = get(hauls[i], 'netType');
             for (let j = 0; j < catches.length; j++) {
                 const catchVal = get(currCatch, 'hauls[' + i + '].catch[' + j + ']');
                 const disposition = catchVal.disposition;
                 const speciesCode = catchVal.speciesCode;
                 if (disposition === Disposition.DISCARDED) {
                     let speciesWeight = 0;
-                    if ((speciesCode === 'PHLB' || speciesCode === '101') &&
-                        (gearType === GearTypes.GroundfishTrawlFootropeLessThan8 || gearType === GearTypes.GroundfishTrawlGreaterThan8)) {
-                            speciesWeight = timeOnDeck(catchVal.timeOnDeck);
+                    if ((speciesCode === 'PHLB' || speciesCode === '101') && (indexOf(bottomTrawlTypes, netType) != -1)) {
+                        speciesWeight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
-                        const rate = get(discardMortalityRatesMap, speciesCode + '[' + gearType + ']', 1);
+                        const lookupName = gearType ? gearType : netType;
+                        const rate = get(discardMortalityRatesMap, speciesCode + '[' + lookupName + ']', 1);
                         speciesWeight = catchVal.speciesWeight * rate;
                         // expand count if priority or protected species
                         if ((speciesCodeLookup[speciesCode].isWcgopEmPriority || speciesCodeLookup[speciesCode].isProtected) && catchVal.speciesCount) {

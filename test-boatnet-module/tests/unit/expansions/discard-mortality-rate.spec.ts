@@ -1,4 +1,4 @@
-import { Catches, sourceType, Disposition, GearTypes } from '@boatnet/bn-models';
+import { Catches, sourceType, Disposition, gearTypeLookupValueEnum, netTypeLookupValueEnum } from '@boatnet/bn-models';
 import { ExpansionParameters, discardMortalityRates } from '@boatnet/bn-expansions';
 import { get, round, set } from 'lodash';
 
@@ -64,7 +64,7 @@ const logbook: Catches = {
     hauls: [
         {
             haulNum: 1,
-            gearTypeCode: GearTypes.MidwaterTrawl,
+            netType: netTypeLookupValueEnum.pelagicMidwaterTrawl,
             startDateTime: "2020-07-31T09:00:47Z",
             startLatitude: 40.424292,
             startLongitude: -123.801898,
@@ -98,7 +98,7 @@ const logbook: Catches = {
         },
         {
             haulNum: 2,
-            gearTypeCode: GearTypes.FishPot,
+            gear: gearTypeLookupValueEnum.fishPot,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,
@@ -131,7 +131,7 @@ const logbook: Catches = {
         },
         {
             haulNum: 3,
-            gearTypeCode: GearTypes.GroundfishTrawlFootropeLessThan8,
+            netType: netTypeLookupValueEnum.selectiveFlatfishTrawl,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,
@@ -196,7 +196,7 @@ const expectedResult: Catches = {
     hauls: [
         {
             haulNum: 1,
-            gearTypeCode: GearTypes.MidwaterTrawl,
+            netType: netTypeLookupValueEnum.pelagicMidwaterTrawl,
             startDateTime: "2020-07-31T09:00:47Z",
             startLatitude: 40.424292,
             startLongitude: -123.801898,
@@ -230,7 +230,7 @@ const expectedResult: Catches = {
         },
         {
             haulNum: 2,
-            gearTypeCode: GearTypes.FishPot,
+            gear: gearTypeLookupValueEnum.fishPot,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,
@@ -263,7 +263,7 @@ const expectedResult: Catches = {
         },
         {
             haulNum: 3,
-            gearTypeCode: GearTypes.GroundfishTrawlFootropeLessThan8,
+            netType: netTypeLookupValueEnum.selectiveFlatfishTrawl,
             startDateTime: "2020-07-31T14:00:47Z",
             startLatitude: 41.2,
             startLongitude: -124.2,
