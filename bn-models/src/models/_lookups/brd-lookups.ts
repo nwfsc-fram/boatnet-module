@@ -40,19 +40,25 @@ export interface BrdLight {
   };
 }
 
+// This devices has openings allowing certain species to escape
+// while other pass through the net into the codend.
 export interface BrdEscapement {
-  targets?: Species[] | BrdTarget[];
-  locations?: BrdLocation[];
-  isIlluminated?: boolean;
+  targets?: Species[] | BrdTarget[]; // species BRD intends to exclude
+  locations?: BrdLocation[]; // where holes/windows are found
+  isIlluminated?: boolean; // lights used on or near the opening?
 }
 
+// Grates/grids used to sort fish. Required in Pink Shrimp fishery
+// to reduce rockfish bycatch. Also working on designs to exclude salmon,
+// pacific halibut, and other speices in trawl fisheries.
 export interface BrdSortingGrateGrid {
   // TODO May be required to collect
-  targets?: Species[] | BrdTarget[];
-  locations?: BrdLocation[];
-  isIlluminated?: boolean;
+  targets?: Species[] | BrdTarget[]; // species BRD indends to exclude
+  locations?: BrdLocation[]; // where sorting grids placed
+  isIlluminated?: boolean; // lights used on or near the opening of the grates escapement hole
 }
 
+// Allows smaller fish to escape when codend is stretched
 export interface BrdModifiedCodendMesh {
   targets?: Species[] | BrdTarget[];
   meshType?: BrdMeshType[];

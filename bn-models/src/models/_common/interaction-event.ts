@@ -26,6 +26,10 @@ declare type VesselActivity = string; // TODO ASHOP Lookup: Fishing, Processing,
 
 export const InteractionEventTypeName = 'interaction-event';
 
+/**
+ * An alteration to the behavior of a single speices due to the presence of a ship
+ * and the outcome of that interaction.
+ */
 export interface InteractionEvent extends Base {
   operations?: CouchID[];
   catchSpecies?: CouchID[]; // tied to Species Comp/ Specimen Record

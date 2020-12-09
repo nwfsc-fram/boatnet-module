@@ -28,6 +28,9 @@ interface GearPresentComment {
 
 export declare const SightingEventTypeName = 'sighting-event';
 
+/**
+ * Has no discernible impact on the the animal(s) behavior
+ */
 export interface SightingEvent extends Base {
   species?: TaxonomyAlias;
   operationIDs?: CouchID[];

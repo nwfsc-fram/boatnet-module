@@ -1,3 +1,5 @@
+// Defining common enums used across programs
+
 export enum Ternary {
     True = 'Y',
     False = 'N',
@@ -9,11 +11,13 @@ export enum MonitoringSystem {
     Observer = 'OBSERVER'
 }
 
+// scores trips and hauls in debriefer tool
 export enum Score {
     PASS = 'PASS',
     FAIL = 'FAIL'
   }
 
+// catch disposition
 export enum Disposition {
     RETAINED = 'Retained',
     DISCARDED = 'Discarded'
