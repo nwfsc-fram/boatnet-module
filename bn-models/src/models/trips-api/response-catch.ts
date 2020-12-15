@@ -4,12 +4,16 @@ import { BoatnetDate } from '../_common/index';
 
 export const ResponseCatchTypeName = 'trip-expansions';
 
-export enum ExpansionType {
+enum ExpansionType {
+    discardMortalityRate = 'discardMortalityRate',
+    lostCodend = 'lostcodend',
+    lostFixedGear = 'lostFixedGear',
+    missingWeight = 'missingWeights',
     selectiveDiscards = 'selectiveDiscards',
-    lostcodend = 'lostcodend'
+    unsortedCatch = 'unsortedCatch',
 }
 
-export enum WeightType {
+enum WeightType {
     expansion = 'expasion',
     none = 'none'
 }
@@ -20,19 +24,28 @@ export interface CatchResults extends Base {
     updateDate?: string;
     updatedBy?: string;
 
+    // list of catch records
     logbookCatch?: Record[];
     thirdPartyReviewCatch?: Record[];
     nwfscAuditCatch?: Record[];
-
+    
+    // list of IFQ groupings aggregated at the haul level
+    // filter out non IFQ groupings
+    // example record: { ifqGrouping, disposition, weight, haulNum } 
     ifqLogbookHaulLevel?: DebitSourceRecord[];
     ifqThirdPartyReviewHaulLevel?: DebitSourceRecord[];
     ifqNwfscAuditHaulLevel?: DebitSourceRecord[];
 
+    // IFQ species aggregated at the trip level
     ifqLogbookTripLevel?: DebitSourceRecord[];
     ifqThirdPartyReviewTripLevel?: DebitSourceRecord[];
     ifqNwfscAuditTripLevel?: DebitSourceRecord[];
 
-    ifqTripReporting?: IfqTripLevelRecord[]; // ifq aggregated trip
+    // combines IFQ records from logbook and third party review
+    // this is what is passed to SDM to debit accounts
+    ifqTripReporting?: IfqTripLevelRecord[];
+
+    // change log
     revisionHistory?: RevisionHistoryItem[];
 }
 
@@ -46,8 +59,8 @@ interface CommonRecord {
 }
 
 interface Record extends CommonRecord {
-    wcgopSpeciesCode?: number;
-    pacfinSpeciesCode?: string;
+    wcgopSpeciesCode?: number; // number code
+    pacfinSpeciesCode?: string; // 4 letter string code, doesn't exist for all species
     docId?: string; // id of taxonomy-alias or catch-grouping. An identifier that can be used across program.
     calcWeightType?: string;
     expansionType?: ExpansionType;

@@ -1,11 +1,8 @@
 // Unique fields of WCGOP trips
 import { BaseTrip } from '../_base/base-trip';
 import {
-  Certificate,
-  BoatnetDate,
   SightingEvent,
   InteractionEvent,
-  Waiver
 } from '../_common/index';
 
 import { WcgopFishTicket } from './index';
@@ -13,6 +10,7 @@ import { BrdConfiguration } from '../_common/brd-configuration';
 import { PersonAlias, Fishery, FirstReceiver, VesselLogbookType,
   TripStatus, GearType, Program } from '../_lookups/index';
 import { Score } from '../_common/enums';
+import { WcgopHlfcConfiguration } from './wcgop-hlfc-configuration';
 
 export const WcgopTripTypeName = 'wcgop-trip';
 
@@ -33,9 +31,16 @@ export interface WcgopTrip extends BaseTrip {
   debriefer?: PersonAlias;
   isSelected?: boolean;
 
-  sightingEvents?: SightingEvent[];
-  interactionEvents?: InteractionEvent[]; // TODO
-  brd?: BrdConfiguration[];
+  // Marine mammals, sea birds, and turtles with an emphasis placed on rare/endangered spcies
+  // Stored at trip level since these events can occur in between operations
+  sightingEvents?: SightingEvent[]; // no impact on animal's behavior
+  interactionEvents?: InteractionEvent[]; // ship's presence causes an animal to change it's behavior
+
+  brd?: BrdConfiguration[]; // List of bycatch reduction devices.
+                            // Currently this is entered as a seperate form and stored
+                            // in its own table. In the new model we are adding this as
+                            // a trip level field.
+  hlfc?: WcgopHlfcConfiguration; // hook and line field configuration
 
   fishTickets?: WcgopFishTicket[];
   certificates?: Certificate[]; // Permits and Licenses

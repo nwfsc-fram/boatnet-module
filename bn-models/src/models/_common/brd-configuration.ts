@@ -17,6 +17,13 @@ import {
 } from '../_lookups/brd-lookups';
 
 export const BrdConfigurationTypeName = 'brd-configuration';
+
+/**
+ * Document various by catch reduction devices used in trawl fisheries.
+ * This data helps fishery managers evaluate the effectiveness 
+ * of various by catch reduction devices.
+ */
+
 export interface BrdConfiguration extends Base {
   operations?: CouchID[];
 
