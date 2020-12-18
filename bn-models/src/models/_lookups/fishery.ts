@@ -47,8 +47,6 @@ import { FisherySector } from './fishery-sector';
 
 // TODO Full implementation
 export const FisheryTypeName = 'fishery';
-export type Sector = object; // sector lookups
-export type GovernmentOrganization = string;
 
 export enum governmentOrganization {
   noaaFisheries = 'NOAA Fisheries',
