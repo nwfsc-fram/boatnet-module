@@ -1,7 +1,7 @@
 import { BaseLookup } from '../_base';
 import { BoatnetDate, CouchID} from '../_common';
 import { Fishery, Vessel, Organization, Person } from '../_lookups';
-import { GovernmentOrganization } from './fishery';
+import { governmentOrganization } from './fishery';
 
 declare type PermitOrganization = string; // NOAA Fisheres, WDFW, ODFW, CDFW
 
@@ -44,7 +44,7 @@ Our permits approach:  consume all of the active and inactive
 */
 
 export interface Permit extends BaseLookup {
-    permitOrganization: GovernmentOrganization;
+    permitOrganization: governmentOrganization;
     fishery: Fishery;  // Federal, State, IPHC
     permitNumber?: string; // ODFW = Number
 

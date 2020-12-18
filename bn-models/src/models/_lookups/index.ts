@@ -20,6 +20,7 @@ export * from './em-efp';
 export * from './em-hardware';
 export * from './first-receiver';
 export * from './fishery';
+export * from './fishery-sector';
 export * from './fishing-area';
 export * from './gear-performance';
 export * from './gear-type';

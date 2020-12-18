@@ -4,7 +4,6 @@ export * from './catches';
 export * from './em-source';
 export * from './fate';
 export * from './fish-ticket-row';
-export * from './fishery-sector';
 export * from './gear';
 export * from './image-upload-reason';
 export * from './net-type';

@@ -1,5 +1,9 @@
 import { Base } from '../_base/base';
 
+export const TripsName = 'trips-api';
+export enum Status {
+    cancelled = "cancelled"
+  }
 export interface Trips extends Base {
     tripId?: number;
     vesselId?: string;
@@ -11,4 +15,5 @@ export interface Trips extends Base {
     fishery?: string;
     permits?: string[];
     captain?: string;
+    status?: Status;
   }
