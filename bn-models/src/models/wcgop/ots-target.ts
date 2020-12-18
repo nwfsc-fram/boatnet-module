@@ -1,12 +1,24 @@
+/*
+
+  OTS (Observer Trip Selection) is boatnet functionality to determine trip-by-trip observer coverage selection.
+  If a trip meets certain criteria, and a random number falls within a certain range, the trip will be selected
+  for observer coverage, and the vessel will be required to take an observer on the trip.  OTS-targets define
+  the fishery and other target info used to determine observer coverage for a given trip.  All ots-targets are
+  scoped to at least a fishery, and if they exist, fishery sectors.  They may be further scoped to a specific vessel
+  or port group.
+
+*/
+
 import { Base } from '../_base';
-import { Fishery } from '../_lookups';
+import { Fishery, FisherySector } from '../_lookups';
 import { BoatnetDate, CouchID } from '../_common';
 import { Vessel } from '../_lookups';
 
 export const OTSTargetTypeName = 'ots-target';
 
 export interface OTSTarget extends Base {
-  fishery: string; // target is specific to a fishery, and may be scoped to a vessel or portGroup
+  fishery: Fishery; // target is specific to a fishery, and may be scoped to a vessel or portGroup
+  fisherySector?: FisherySector // target is specific to a fishery-sector, if the fishery has sectors
   targetType: string;  // fishery, vessel, or portGroup
   targetVessel?: Vessel; // used if targetType is 'vessel'
   targetPortGroup?: any; // used if targetType is 'portGroup'

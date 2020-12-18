@@ -1,3 +1,12 @@
+/*
+
+    A person-alias document (which contains minimal PII) is a way of refencing a person doc
+    (which contains significant PII).  By using the person-alias, the mobile browser does not
+    contain the user's PII.  document also contains the appilcation roles that determine
+    a user's access to sections of boatnet apps.
+
+*/
+
 import { BaseLookup } from '../_base';
 import { CouchID } from '../_common';
 

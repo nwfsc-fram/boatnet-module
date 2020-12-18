@@ -1,61 +1,10 @@
-import { BaseLookup } from '../_base';
-
-// TODO Full implementation
-export const FisheryTypeName = 'fishery';
-export type Sector = object; // sector lookups
-export type GovernmentOrganization = string;
-
-export interface Fishery extends BaseLookup {
-  // description?: string;
-  // lookupValue?: string;
-  organization?: GovernmentOrganization; // NOAA Fisheries, ODFW, WDFW, CDFW, IPHC
-
-  // isActive?: boolean;
-  // isEm?: boolean;  // vessel is participating in the fishery using EM gear
-  isIfq?: boolean;
-  isEfp?: boolean; // is a pilot program
-  isOpenAccess?: boolean; // does not require a permit to fish
-  isLimitedEntry?: boolean; // restricted access
-  isFederal?: boolean; // permit is federal
-  isState?: boolean; // permit is state
-
-  sectors?: Sector[]; // valid sector options for the fishery
-
-  // legacy?: {
-  //   lookupVal?: number;
-  //   programId?: number;
-  //   ...
-  // };
-}
-
 /*
 
-  {
-    description: 'LE Sable Fixed Gear EM',
-    lookupValue: 'LE Sable Fixed Gear EM',
-    organization: 'NOAA Fisheries',
-    isActive: true,
-    isEm: true,
-    isIfq: true,
-    isEfp: false,
-    isFederal: true,
-    isLimitedEntry: true,
-    sectors: [{description: 'Tier fishery (1, 2, 3)'}, {description: 'Zero Tier'}],
-    legacy: {
-      lookupVal: "2",
-      programId: 1,
-      lookupId: 586,
-      lookupType: "FISHERY"
-    }
-  }
-
-*/
-
-
-
-/* Notes from Will - where do these belong?
-
   Fisheries
+
+  Lookup describing a distinct fishery, with booleans denoting which programs use the lookup,
+  whether the fishery is permitted, etc.
+
   ETL from OBSPROD.LOOKUPS.LOOKUP_TYPE = FISHERIES and ACTIVE IS NULL
 
   Permits exists for a given, single Fishery
@@ -90,4 +39,67 @@ export interface Fishery extends BaseLookup {
     -- Minor Shelf Rockfish
     -- Yellowtail Rockfish
     -- etc.
+
+*/
+
+import { BaseLookup } from '../_base';
+import { FisherySector } from './fishery-sector';
+
+// TODO Full implementation
+export const FisheryTypeName = 'fishery';
+export type Sector = object; // sector lookups
+export type GovernmentOrganization = string;
+
+export enum governmentOrganization {
+  noaaFisheries = 'NOAA Fisheries',
+  odfw = 'ODFW',
+  wdfw = 'WDFW',
+  cdfw = 'CDFW',
+  iphc = 'IPHC'
+}
+
+export interface Fishery extends BaseLookup {
+  // description?: string;
+  // lookupValue?: string;
+  organization?: governmentOrganization;
+
+  // isActive?: boolean;
+  // isEm?: boolean;  // vessel is participating in the fishery using EM gear
+  isIfq?: boolean;
+  isEfp?: boolean; // is a pilot program
+  isOpenAccess?: boolean; // does not require a permit to fish
+  isLimitedEntry?: boolean; // restricted access
+  isFederal?: boolean; // permit is federal
+  isState?: boolean; // permit is state
+
+  sectors?: FisherySector[]; // array of all valid sectors (if any) for the fishery
+
+  // legacy?: {
+  //   lookupVal?: number;
+  //   programId?: number;
+  //   ...
+  // };
+}
+
+/*
+
+  {
+    description: 'LE Sable Fixed Gear EM',
+    lookupValue: 'LE Sable Fixed Gear EM',
+    organization: 'NOAA Fisheries',
+    isActive: true,
+    isEm: true,
+    isIfq: true,
+    isEfp: false,
+    isFederal: true,
+    isLimitedEntry: true,
+    sectors: [{description: 'Tier fishery (1, 2, 3)'}, {description: 'Zero Tier'}],
+    legacy: {
+      lookupVal: "2",
+      programId: 1,
+      lookupId: 586,
+      lookupType: "FISHERY"
+    }
+  }
+
 */
