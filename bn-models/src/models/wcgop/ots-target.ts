@@ -18,7 +18,7 @@ export const OTSTargetTypeName = 'ots-target';
 
 export interface OTSTarget extends Base {
   fishery: Fishery; // target is specific to a fishery, and may be scoped to a vessel or portGroup
-  fisherySector?: FisherySector // target is specific to a fishery-sector, if the fishery has sectors
+  fisherySector?: FisherySector; // target is specific to a fishery-sector, if the fishery has sectors
   targetType: string;  // fishery, vessel, or portGroup
   targetVessel?: Vessel; // used if targetType is 'vessel'
   targetPortGroup?: any; // used if targetType is 'portGroup'

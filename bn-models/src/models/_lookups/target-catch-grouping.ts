@@ -12,6 +12,6 @@ their membership not being populated.  Program specific attributes may be added 
 */
 
 export interface TargetCatchGrouping extends CatchGrouping {
-    // no unique attributes, yet.
+    isWcgopTarget?: boolean;
 }
 
