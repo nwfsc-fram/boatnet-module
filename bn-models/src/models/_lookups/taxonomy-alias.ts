@@ -28,6 +28,7 @@ export interface TaxonomyAlias extends BaseLookup {
   isEmExpandable?: boolean;
   isProtected?: boolean;
   isWcgopEmPriority?: boolean;
+  isTargetStrategy?: boolean;  // is taxonomy-alias used as a 'target strategy' on logbooks.
   pacfinSpeciesCode?: string; // moved from taxonomy
   commonNames?: string[];
   wcgopSpeciesCode?: number;
