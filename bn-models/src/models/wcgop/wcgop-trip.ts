@@ -23,6 +23,7 @@ import {
 } from '../_common/index';
 
 import { WcgopFishTicket } from './index';
+import { BoatnetDate, Waiver, Certificate } from '../_common/index';
 import { BrdConfiguration } from '../_common/brd-configuration';
 import { PersonAlias, Fishery, FirstReceiver, VesselLogbookType,
   TripStatus, GearType, Program } from '../_lookups/index';

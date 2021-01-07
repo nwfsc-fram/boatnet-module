@@ -56,10 +56,12 @@ declare type ProductDeliveryState = any; // TODO Lookup
 // TODO: Create both WCGOP Trawl and Fixed Gear haul types?
 export interface WcgopOperation extends BaseOperation {
   // NOTE: no attributes imported from BaseOperations; everything passed from Base
-  biolist?: number; // randomly selected list of protocols for biospecimens (Trawl: 1-3, random; FG: 4/5, based on depth)
+  biolist?: number; // randomly selected list of protocols for biospecimens
+                    // (Trawl: 1-3, random; FG: 4/5, based on depth)
   catches?: WcgopCatch[]; // subdocs w. whats caught; stores taxonomy, weights, counts, biospecs, dissections etc
   operationNum?: number; // sequential, ordered based on retrieval time of haul/set
-  locations?: FishingLocation[]; // lat/lon/depth/time; typically two locations (gear set and gear picked up), FG sets may have more
+  locations?: FishingLocation[]; // lat/lon/depth/time; typically two locations (gear set and gear picked up),
+                                 // FG sets may have more
   observerTotalCatch?: {
     // observers rough haul weight; not an expanded value, anecdotal
     measurement?: Measurement; // weight and units (always in lbs)
