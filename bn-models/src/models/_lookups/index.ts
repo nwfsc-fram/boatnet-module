@@ -55,6 +55,7 @@ export * from './species-category';
 export * from './species-sub-category';
 export * from './species';
 export * from './specimen-tag';
+export * from './target-catch-grouping';
 export * from './taxonomy';
 export * from './taxonomy-alias';
 export * from './third-party-reviewer';

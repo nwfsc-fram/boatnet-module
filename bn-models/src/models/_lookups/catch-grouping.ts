@@ -20,6 +20,7 @@ export interface CatchGrouping extends BaseLookup {
   parentTaxonomy?: TaxonomyAlias;
   definition?: GroupDefinition;
   isEmExpandable?: boolean;
+  isTargetStrategy?: boolean;  // is grouping used as a 'target strategy' on logbooks.
 
   // managementArea: ManagementArea;
   wcrIfqSpeciesGroupId?: number;
