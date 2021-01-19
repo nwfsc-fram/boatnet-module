@@ -131,8 +131,8 @@ export class missingWeight implements BaseExpansion {
                         }
                         const speciesTotalWeight = getTotalWeight(speciesAverageWeight, missingWeightCatch);
                         missingWeightCatch.speciesWeight = speciesTotalWeight;
-                        missingWeightCatch.calcWeightType = "from length";
-                        missingWeightCatch.comments = "calculated by missing weights expansion";
+                        missingWeightCatch.calcWeightType = "From Length";
+                        missingWeightCatch.comments = "Calculated by missing weights expansion";
                         haul.catch.splice(i, 1, missingWeightCatch);
                     }
                 }

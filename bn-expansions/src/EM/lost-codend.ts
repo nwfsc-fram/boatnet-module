@@ -30,8 +30,8 @@ export class lostCodend implements BaseExpansion {
                     let speciesCount = 0;
 
                     // expand count if priority or protected species
-                    if (speciesCodeLookup[speciesCode] && 
-                        (speciesCodeLookup[speciesCode].isWcgopEmPriority || speciesCodeLookup[speciesCode].isProtected) && 
+                    if (speciesCodeLookup[speciesCode] &&
+                        (speciesCodeLookup[speciesCode].isWcgopEmPriority || speciesCodeLookup[speciesCode].isProtected) &&
                         aggSpecies.speciesCount
                     ) {
                         const countRatio = aggSpecies.speciesCount / totalHours;
@@ -42,7 +42,9 @@ export class lostCodend implements BaseExpansion {
                         disposition: aggSpecies.disposition,
                         speciesCode,
                         speciesWeight,
-                        speciesCount
+                        speciesCount,
+                        comments: 'Added by lost codend expansion',
+                        calcWeightType: 'Calculated Field'
                     })
                 }
                 set(tripCatch, 'hauls[' + haulIndex + '].catch', catches);
