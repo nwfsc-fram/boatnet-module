@@ -85,7 +85,9 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                             // TODO this should be WCGOP species code.
                             // utilize some mapper to convert from pacfin to wcgop species code
                             speciesCode,
-                            speciesWeight: expandedWeight
+                            speciesWeight: expandedWeight,
+                            comments: 'Added by selective discards expansion',
+                            calcWeightType: 'Calculated Field'
                         });
                     }
                 }
