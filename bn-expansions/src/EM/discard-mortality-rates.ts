@@ -115,7 +115,10 @@ export class discardMortalityRates implements BaseExpansion {
                         }
                     }
                     set(currCatch, 'hauls[' + i + '].catch[' + j + '].speciesWeight', speciesWeight);
-                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].comments', 'Weight from dmw expansion');
+                    set(currCatch, 'hauls[' + i + '].catch[' + j + '].comments',
+                        currCatch.hauls![i].catch![i].comments ?
+                        currCatch.hauls![i].catch![i].comments + ', Weight changed by dmw expansion' :
+                        'Weight added by dmw expansion');
                     set(currCatch, 'hauls[' + i + '].catch[' + j + '].calcWeightType', 'Calculated Field');
                 }
             }

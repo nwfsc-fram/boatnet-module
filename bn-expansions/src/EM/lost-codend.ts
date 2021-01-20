@@ -43,7 +43,7 @@ export class lostCodend implements BaseExpansion {
                         speciesCode,
                         speciesWeight,
                         speciesCount,
-                        comments: 'Added by lost codend expansion',
+                        comments: 'Weight added by lost codend expansion',
                         calcWeightType: 'Calculated Field'
                     })
                 }

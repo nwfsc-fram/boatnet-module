@@ -75,7 +75,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                         // expand count if priority or protected species
                         let expandedCount;
                         if ((speciesCodeLookup[speciesCode].isWcgopEmPriority || speciesCodeLookup[speciesCode].isProtected) && logbookCatch.speciesCount) {
-                            expandedCount = get(catches[j], 'speciesCount', 0) * ratio[logbookCatch.speciesCode].count 
+                            expandedCount = get(catches[j], 'speciesCount', 0) * ratio[logbookCatch.speciesCode].count
                                             + logbookCatch.speciesCount;
                         }
                         expandedCatches.push({
@@ -86,7 +86,7 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                             // utilize some mapper to convert from pacfin to wcgop species code
                             speciesCode,
                             speciesWeight: expandedWeight,
-                            comments: 'Added by selective discards expansion',
+                            comments: logbookCatch.comments ? logbookCatch.comments + ', Weight changed by selective discards expansion' : 'Weight added by selective discards expansion',
                             calcWeightType: 'Calculated Field'
                         });
                     }
