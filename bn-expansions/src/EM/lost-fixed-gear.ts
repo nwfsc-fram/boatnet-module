@@ -43,7 +43,7 @@ export class lostFixedGear implements BaseExpansion {
                         speciesWeight: speciesWeights[speciesCode] * parseInt(haul.gearLost),
                         speciesCount: speciesCounts[speciesCode] ? speciesCounts[speciesCode] * parseInt(haul.gearLost) : 0,
                         calcWeightType: 'From Average Weight',
-                        comments: 'Added by lost fixed gear expansion'
+                        comments: 'Weight added by lost fixed gear expansion'
                     })
                 }
             } else if (

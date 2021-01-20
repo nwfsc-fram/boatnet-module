@@ -69,7 +69,7 @@ export class unsortedCatch implements BaseExpansion {
                                 speciesCount: haulUNSTCnt ? Math.floor(haulUNSTCnt * speciesCounts[species].percentOfTotalCount) : 0,
                                 calcWeightType: 'Calculated Field',
                                 disposition,
-                                comments: "Calculated by unsorted catch (net bleed) expansion"
+                                comments: "Weight calculated by unsorted catch (net bleed) expansion"
                             }
                         )
                     }
