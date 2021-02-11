@@ -22,7 +22,7 @@ interface WcgopError {
     observer?: string; // firstName + lastName?  or should we store the observer object from the trip?
     status?: StatusType; // user selectable
     notes?: string; // user editable
-    severity?: string; // set by rules engine
+    severity?: Severity; // set by rules engine
     dateFixed?: BoatnetDate; // equivalent of obsprod 'RESOLVED_DATE'
     operationId?: CouchID; // equivalent of obsprod 'FISHING_ACTIVITY_ID'
     operationNum?: number; // sequential haul number - do we need to store this?
