@@ -37,6 +37,9 @@ interface WcgopError {
     errorItem?: string;  // still valid, or should description store a complete summary of the error?
     fishTicketNumber?: string; // error needs to store PACFIN fish ticket numbert to look up fish ticket
                                // couch does not store fish ticket info.
+    legacy: {
+        tripCheck?: number;
+    }
   }
 
   export enum StatusType {
