@@ -9,3 +9,4 @@ export * from './wcgop-hlfc-configuration';
 export * from './wcgop-operation';
 export * from './wcgop-specimen';
 export * from './wcgop-trip';
+export * from './wcgop-trip-error';
