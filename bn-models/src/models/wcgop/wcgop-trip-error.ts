@@ -38,7 +38,7 @@ export interface WcgopError {
     fishTicketNumber?: string; // error needs to store PACFIN fish ticket numbert to look up fish ticket
                                // couch does not store fish ticket info.
     legacy?: {
-        tripCheck?: number;
+        checkCode?: number;
     };
   }
 
