@@ -16,7 +16,7 @@ export interface WcgopTripError extends Base {
     errors?: WcgopError[];
 }
 
-interface WcgopError {
+export interface WcgopError {
     description?: string;
     dateCreated?: BoatnetDate;  // should this exist on the individual error ?
     observer?: string; // firstName + lastName?  or should we store the observer object from the trip?
@@ -37,7 +37,7 @@ interface WcgopError {
     errorItem?: string;  // still valid, or should description store a complete summary of the error?
     fishTicketNumber?: string; // error needs to store PACFIN fish ticket numbert to look up fish ticket
                                // couch does not store fish ticket info.
-    legacy: {
+    legacy?: {
         tripCheck?: number;
     };
   }
