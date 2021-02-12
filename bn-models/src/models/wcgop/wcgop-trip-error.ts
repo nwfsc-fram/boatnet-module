@@ -39,7 +39,7 @@ interface WcgopError {
                                // couch does not store fish ticket info.
     legacy: {
         tripCheck?: number;
-    }
+    };
   }
 
   export enum StatusType {
