@@ -23,7 +23,7 @@ export interface DcsRow extends Base {
     afiFlag?: AfiFlag;
     afiDate?: BoatnetDate;
     observerNotes?: string;
-};
+}
 
 export enum TripLevel {
     trip = 'Trip',
@@ -37,13 +37,13 @@ export enum TripLevel {
     mmsbt = 'MMSBT',
     pst = 'PST',
     spid = 'SPID'
-  };
+  }
 
 export enum CollectionMethod {
     optecs = "OPTECS",
     deckForm = "Deck Form",
     hybrid = "hybrid"
-};
+}
 
 export enum DcsErrorType {
     cl = 'Calcs',
@@ -56,10 +56,10 @@ export enum DcsErrorType {
     ss = 'Sample Size',
     op = 'OPTECS',
     z = 'Repeating'
-};
+}
 
 export enum AfiFlag {
     improvement = 'Improvement',
     requirement = 'Requirement',
     task = 'Task'
-};
+}
