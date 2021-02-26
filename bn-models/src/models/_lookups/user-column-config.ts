@@ -5,12 +5,12 @@ export const userColumnConfigType = 'column-config';
  * Each file represents a profile for a user. It stores
  * the column configuration for the debriefer tool including
  * column order and width.
- * Docs are stored in the obs_web/column-config view 
+ * Docs are stored in the obs_web/column-config view
  */
 
 export interface ColumnConfig extends BaseLookup {
-    personDocId: string, // unique id from person.ts file
-    columnConfig: any // specifies config for different table types
+    personDocId: string; // unique id from person.ts file
+    columnConfig: any; // specifies config for different table types
 }
 
 /**
