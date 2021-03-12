@@ -20,6 +20,7 @@ export interface DcsRow extends Base {
     issue?: string;
     dcsErrorType?: DcsErrorType;
     isResolved?: boolean;
+    isHidden?: boolean;
     afiFlag?: AfiFlag;
     afiDate?: BoatnetDate;
     observerNotes?: string;
@@ -61,5 +62,6 @@ export enum DcsErrorType {
 export enum AfiFlag {
     improvement = 'Improvement',
     requirement = 'Requirement',
-    task = 'Task'
+    task = 'Task',
+    pending = 'Pending'
 }
