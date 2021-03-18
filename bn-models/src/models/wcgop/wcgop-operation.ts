@@ -43,7 +43,7 @@ TODO
 */
 import { BaseOperation } from '../_base/base-operation';
 import { Measurement, BoatnetDate, CouchID } from '../_common/index';
-import { WcgopCatch } from './wcgop-catch';
+import { DispWMGroup } from './disp-wm-group';
 import { WeightMethod, GearType, GearPerformance } from '../_lookups';
 import { FishingLocation } from '../_common/fishing-location';
 import { Score } from '../_common/enums';
@@ -58,7 +58,7 @@ export interface WcgopOperation extends BaseOperation {
   // NOTE: no attributes imported from BaseOperations; everything passed from Base
   biolist?: number; // randomly selected list of protocols for biospecimens
                     // (Trawl: 1-3, random; FG: 4/5, based on depth)
-  catches?: WcgopCatch[]; // subdocs w. whats caught; stores taxonomy, weights, counts, biospecs, dissections etc
+  catches?: DispWMGroup[]; // disposition, weight method interface - contains catch array
   operationNum?: number; // sequential, ordered based on retrieval time of haul/set
   locations?: FishingLocation[]; // lat/lon/depth/time; typically two locations (gear set and gear picked up),
                                  // FG sets may have more
