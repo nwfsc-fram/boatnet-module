@@ -3,7 +3,7 @@ import { Base } from '../_base/index';
 import { CatchDisposition, WeightMethod } from '../_lookups';
 import { Measurement, BoatnetDate } from '../_common';
 import { WcgopDiscardReason } from './wcgop-discard-reason';
-import { WcgopCatchNew } from './wcgop-catch-new';
+import { WcgopCatch } from './wcgop-catch';
 import { WcgopExpansions } from './wcgop-expansions';
 
 export const DispWMGroupTypeName = 'disp-wm-group';
@@ -18,7 +18,7 @@ export interface DispWMGroup extends Base {
 
     ratio?: number; // decimal representation
 
-    catchItems: WcgopCatchNew[];
+    catchItems: WcgopCatch[];
 
     legacy?: {
         catchCategoryId?: number;

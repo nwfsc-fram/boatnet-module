@@ -1,4 +1,5 @@
 export * from './dcsRow';
+export * from './disp-wm-group';
 export * from './observer-activity';
 export * from './ots-target';
 export * from './trip-selection';
