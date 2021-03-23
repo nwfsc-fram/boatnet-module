@@ -2,6 +2,8 @@ export * from './calc-weight-type';
 export * from './catch-handling-performance';
 export * from './catches';
 export * from './em-source';
+export * from './em-haul-review-selection';
+export * from './em-review-selection-rate';
 export * from './fate';
 export * from './fish-ticket-row';
 export * from './gear';
