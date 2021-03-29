@@ -1,3 +1,5 @@
+export * from './assessment-answer-set';
+export * from './assessment-question';
 export * from './basket';
 export * from './biostructure';
 export * from './boatnet-date';
