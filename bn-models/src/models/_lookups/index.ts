@@ -1,3 +1,5 @@
+export * from './assessment-answer-set';
+export * from './assessment-question';
 export * from './beaufort';
 export * from './behavior';
 export * from './biospecimen-sample-method';
