@@ -24,6 +24,7 @@ export interface DcsRow extends Base {
     afiFlag?: AfiFlag;
     afiDate?: BoatnetDate;
     observerNotes?: string;
+    tripReturnDate?: BoatnetDate;
 }
 
 export enum TripLevel {
