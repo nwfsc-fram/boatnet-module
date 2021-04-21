@@ -21,6 +21,7 @@ import { BoatnetDate } from '../_common/index';
  */
 
 export const ResponseCatchTypeName = 'trip-expansions';
+export const MinimalResponseCatchTypeName = 'minimal-trip-expansions';
 
 enum ExpansionType {
     discardMortalityRate = 'discardMortalityRate',
