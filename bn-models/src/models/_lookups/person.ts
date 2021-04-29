@@ -90,6 +90,7 @@ export interface Person extends BaseLookup {
   isActive?: boolean;
   activeVessel?: Vessel;
   isLegacy?: boolean;
+  providerAssociations?: string[];
 
   legacy?: {
     PersonId?: number;
