@@ -57,8 +57,10 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
     let hauls = get(review, 'hauls', []);
     const mixedGroupingKeys: string[] = Object.keys(mixedGroupings);
 
-    for (let i = 0; i < hauls.length; i++) {
-        let catches: Catch[] = get(hauls[i], 'catch', []);
+    // for (let i = 0; i < hauls.length; i++) {
+    for (let haul of hauls) {
+        let catches: Catch[] = get(haul, 'catch', []);
+        // let catches: Catch[] = get(hauls[i], 'catch', []);
         let expandedCatches: any[] = [];
 
         for (let j = 0; j < catches.length; j++) {
@@ -67,9 +69,11 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
 
             if (mixedGroupingKeys.includes(currSpeciesCode) && currWeight > 50) {
                 const ratio = get(ratioLookup, currSpeciesCode);
-                const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
+                const logbookHaul = logbook!.hauls!.find( (lbHaul: any) => lbHaul.haulNum === haul.haulNum )
+                const logbookCatches: Catches[] = get(logbookHaul, 'catch', [])
+                // const logbookCatches = get(logbook, 'hauls[' + i + '].catch');
                 for (const logbookCatch of logbookCatches) {
-                    const speciesCode = logbookCatch.speciesCode;
+                    const speciesCode= logbookCatch.speciesCode;
                     if (ratio[speciesCode]) {
                         const expandedWeight = get(catches[j], 'speciesWeight', 0) * ratio[logbookCatch.speciesCode].weight + logbookCatch.speciesWeight;
                         // expand count if priority or protected species
@@ -101,7 +105,9 @@ function applyRatios(logbook: Catches, review: Catches, mixedGroupings: any, rat
                 expandedCatches.push(catches[j]);
             }
         }
-        set(review, 'hauls[' + i + '].catch', expandedCatches);
+        const haulIndex = hauls.findIndex( (row: any) => row.haulNum === haul.haulNum );
+        set(review, 'hauls[' + haulIndex + '].catch', expandedCatches);
+        // set(review, 'hauls[' + i + '].catch', expandedCatches);
     }
     return review;
 }
