@@ -19,6 +19,7 @@ export interface PersonAlias extends BaseLookup {
     userName?: string; // email address (minus noaa.gov for noaa, includes @domain.something for external)
     roles?: string[]; // observer, captain, observer-staff, delegate, etc.
     debriefer?: CouchID;
+    providerAssociations?: string[];
     // isActive: boolean
     // isWcgop: boolean
     // isAshop: boolean
@@ -38,6 +39,7 @@ export interface PersonAlias extends BaseLookup {
                 "staff",
                 "observer"
             ],
-            debriefer: "5qd01c3b39ff036c69rd288d3e2c2582"
+            debriefer: "5qd01c3b39ff036c69rd288d3e2c2582",
+            providerAssociations: ["Salt Water", "Archipeligo (AMR)"];
         }
     */
