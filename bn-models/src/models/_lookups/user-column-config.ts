@@ -1,5 +1,5 @@
 import { BaseLookup } from '../_base';
-export const userColumnConfigType = 'column-config';
+export const userColumnConfigType = 'debriefer-config';
 
 /**
  * Each file represents a profile for a user. It stores
@@ -11,6 +11,8 @@ export const userColumnConfigType = 'column-config';
 export interface ColumnConfig extends BaseLookup {
     personDocId: string; // unique id from person.ts file
     columnConfig: any; // specifies config for different table types
+    displayCodes: boolean; // determines whether to show codes or string descriptions in the debriefer module
+    program: string; // wcgop or ashop
 }
 
 /**
