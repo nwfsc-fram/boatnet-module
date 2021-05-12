@@ -64,5 +64,6 @@ export enum AfiFlag {
     improvement = 'Improvement',
     requirement = 'Requirement',
     task = 'Task',
-    pending = 'Pending'
+    pending = 'Pending',
+    completed = 'Completed'
 }
