@@ -47,6 +47,52 @@ class AuthService {
     });
   }
 
+  public async sendPasswordResetEmail(username: string, appName: string, resetURL: string, newResetURL: string) {
+    const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
+    const comments = "";
+    const appShortName = "OBSERVER";
+    const result = "";
+    const userResponse = await axios
+      .put(apiUrl + '/api/v1/send-email', { username, comments, appName, appShortName,
+        resetURL, newResetURL, result })
+      .catch((err: any) => {
+        if (err.response && err.response.status === 401) {
+          console.error('[Auth Service]', err.response);
+          throw new Error(err.response.data.message);
+        }
+      });
+  }
+
+  public async resetPassword(username: string, oldPw: string, newPw: string,
+    confirmedNewPw: string, appShortName: string) {
+    const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
+    const userResponse = await axios
+      .put(apiUrl + '/api/v1/password', { username, oldPw, newPw, confirmedNewPw, appShortName })
+      .catch((err: any) => {
+        if (err.response && err.response.status === 401) {
+          console.error('[Auth Service]', err.response);
+          throw new Error(err.response.data.message);
+        } else if (err.response && err.response.status === 404) {
+          throw new Error(err.response.data.message);
+        }
+        // Else - possibly offline - Continue
+      });
+      console.log('resulttt')
+
+      console.log(userResponse)
+      // if successful send confirmation email
+     /* const comments = "password reset successfully";
+      const emailResponse = await axios
+        .put(apiUrl + '/api/v1/send-confirmation-email', { username, comments, appName, result: "" })
+        .catch((err: any) => {
+          if (err.response && err.response.status === 401) {
+            console.error('[Auth Service]', err.response);
+            throw new Error(err.response.data.message);
+          }
+          // Else - possibly offline - Continue
+        });*/
+  }
+
   public async login(username: string, password: string): Promise<BoatnetUser> {
     const pubKey = await this.getPubKey();
     const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
