@@ -47,6 +47,39 @@ class AuthService {
     });
   }
 
+  public async sendPasswordResetEmail(username: string, appName: string,
+    appShortName: string, resetURL: string, newResetURL: string) {
+
+    const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
+    const comments = "";
+    const result = "";
+    const userResponse = await axios
+      .put(apiUrl + '/api/v1/send-email', { username, comments, appName, appShortName,
+        resetURL, newResetURL, result })
+      .catch((err: any) => {
+        if (err.response && err.response.status === 401) {
+          console.error('[Auth Service]', err.response);
+          throw new Error(err.response.data.message);
+        }
+      });
+  }
+
+  public async resetPassword(username: string, newPw: string,
+    confirmedNewPw: string, appShortName: string, sessionKey: string, appName: string) {
+    const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
+    const userResponse = await axios
+      .put(apiUrl + '/api/v1/password', { username, newPw, confirmedNewPw, appShortName, sessionKey, appName })
+      .catch((err: any) => {
+        if (err.response && err.response.status === 401) {
+          console.error('[Auth Service]', err.response);
+          throw new Error(err.response.data.message);
+        } else if (err.response && err.response.status === 404) {
+          throw new Error(err.response.data.message);
+        }
+        // Else - possibly offline - Continue
+      });
+  }
+
   public async login(username: string, password: string): Promise<BoatnetUser> {
     const pubKey = await this.getPubKey();
     const apiUrl = this.dbConfig && this.dbConfig.apiUrl ? this.dbConfig.apiUrl : '';
