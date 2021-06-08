@@ -1,8 +1,6 @@
 import { Base } from '../_base';
-import { WaiverType, Fishery, Port, Vessel, Permit, Media } from '../_lookups';
+import { WaiverType, WaiverReason, Fishery, Port, Vessel, Permit, Media } from '../_lookups';
 import { BoatnetDate } from './boatnet-date';
-
-declare type WaiverReason = string; // TODO Lookup
 
 export const WaiverTypeName = 'waiver';
 

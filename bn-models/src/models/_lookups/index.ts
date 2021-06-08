@@ -70,5 +70,6 @@ export * from './vessel-status';
 export * from './vessel-type';
 export * from './vessel';
 export * from './viability';
+export * from './waiver-reason';
 export * from './waiver-type';
 export * from './weight-method';
