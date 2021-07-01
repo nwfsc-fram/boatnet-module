@@ -3,6 +3,7 @@ export * from './assessment-question';
 export * from './assessment-sections';
 export * from './beaufort';
 export * from './behavior';
+export * from './biospecies-location';
 export * from './biospecimen-sample-method';
 export * from './biostructure-type';
 export * from './bird-band';
