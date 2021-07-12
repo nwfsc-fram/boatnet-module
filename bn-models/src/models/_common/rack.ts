@@ -1,14 +1,19 @@
 import { Base } from '../_base/base';
-import { BiospeciesLocation } from '../_lookups'
+import { BiospeciesLocation, BiostructureType } from '../_lookups'
 
 export const RackType = 'rack';
 
 export interface Rack extends Base {
   rackId?: number;
   rackName?: string;
-  dissectionType?: string;
+  dissectionType?: BiostructureType;
   rackLocation?: BiospeciesLocation;
-  speciesId?: number;
+  speciesId?: RackSpecies;
   rackColumns?: number;
   rackRows?: number;
+}
+interface RackSpecies {
+  _id?: string;
+  commonNames?: string[];
+  wcgopSpeciesId?: number;
 }

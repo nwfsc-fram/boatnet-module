@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-models",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "lib/index.js",
   "types": "lib",
   "scripts": {
