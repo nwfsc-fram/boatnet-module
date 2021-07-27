@@ -102,7 +102,7 @@ export class discardMortalityRates implements BaseExpansion {
                 const speciesCode = catchVal.speciesCode;
                 if (disposition === Disposition.DISCARDED) {
                     let speciesWeight = 0;
-                    if ((speciesCode === 'PHLB' || speciesCode === '101') && (indexOf(bottomTrawlTypes, netType) != -1)) {
+                    if ((speciesCode === 'PHLB' || speciesCode === 101) && (indexOf(bottomTrawlTypes, netType) != -1)) {
                         speciesWeight = timeOnDeck(catchVal.timeOnDeck);
                     } else {
                         const lookupName = gearType ? gearType : netType;
