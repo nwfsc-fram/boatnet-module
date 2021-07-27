@@ -48,7 +48,7 @@ export class unsortedCatch implements BaseExpansion {
                 let haulUNSTLbs = 0;
                 let haulUNSTCnt = 0;
                 for (let i = haul.catch.length - 1; i >= 0; i--) {
-                    if (haul.catch[i].speciesCode && ['UNST', 999].includes(haul.catch[i].speciesCode!.toString())) {
+                    if (haul.catch[i].speciesCode && ['UNST', '999'].includes(haul.catch[i].speciesCode!.toString())) {
                         if (haul.catch[i].speciesWeight) {
                             haulUNSTLbs += haul.catch[i].speciesWeight!;
                         }
