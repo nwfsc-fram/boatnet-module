@@ -72,7 +72,7 @@ export class missingWeight implements BaseExpansion {
         }
 
         // get total retained count and weight per species from logbook
-        let flattenedLbCatch: any[] = jp.query(logbook, '$..catch');
+        let flattenedLbCatch: any[] = jp.query(logbook, '$.hauls[*].catch');
         flattenedLbCatch = flattenDeep(flattenedLbCatch);
         const lbSpecies = uniq(flattenedLbCatch.map( (row: any) => row.speciesCode));
         const lbRetainedSpeciesCountsWeights: any = {};
