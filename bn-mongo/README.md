@@ -1,17 +1,9 @@
 # bn-test-example
 
-A sample typescript-based boatnet module for testing.
+Makes calls to mongo currently located in the TripsAPI
 
 ## Installation
 
 ```
-npm install @boatnet/bn-test-example
-```
-
-## Example source:
-
-```
-import { test } from '@boatnet/bn-test-example'
-
-test('testing');
+npm install @boatnet/bn-mongo
 ```
