@@ -6,6 +6,7 @@ export * from './certificate';
 export * from './change-log';
 export * from './couch-id';
 export * from './enums';
+export * from './evaluation-periods';
 export * from './excursion-plan';
 export * from './fishing-location';
 export * from './ifq-grouping';
