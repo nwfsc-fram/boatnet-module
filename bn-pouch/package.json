@@ -20,7 +20,7 @@
     "@boatnet/bn-auth": "^0.1.18",
     "@boatnet/bn-couch": "^0.1.7",
     "@boatnet/bn-util": "^0.1.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.2",
     "core-js": "2",
     "crypto-js": "^3.1.9-1",
     "davenport": "^2.8.2",
