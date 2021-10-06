@@ -25,10 +25,9 @@ export class OracleClient {
         this.token = token;
     }
 
-    getData(url: string, token: string, query: string, params: any[], database: database) {
-        console.log(url)
+    getData(query: string, params: any[], database: database) {
         return new Promise( (resolve, reject) => {
-            const queryUrl = url + '/getOracleData';
+            const queryUrl = this.url + '/getOracleData';
             const payload: any = {
                 query,
                 params,
@@ -39,7 +38,7 @@ export class OracleClient {
                     url: queryUrl,
                     json: true,
                     headers: {
-                        'authorization': 'Token ' + token,
+                        'authorization': 'Token ' + this.token,
                         'Content-Type': 'application/json'
                     },
                     body: payload
