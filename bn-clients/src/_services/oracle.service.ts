@@ -1,4 +1,5 @@
 import request from 'request';
+import { Base } from './base';
 
 export enum database {
     PACFIN = 'pacfin',
@@ -6,23 +7,13 @@ export enum database {
     VMS = 'vms'
   }
 
-export class OracleClient {
+class OracleClient extends Base {
     url: string = '';
     token: string = '';
 
     constructor() {
+        super();
         console.log('Oracle client created')
-    }
-
-    /**
-     * Should be called from the application code to pass in the user auth token and url.
-     * Currently this is called from the login page of obs-web.
-     * @param url 
-     * @param token 
-     */
-    connect(url: string, token: string) {
-        this.url = url;
-        this.token = token;
     }
 
     getData(query: string, params: any[], database: database) {
