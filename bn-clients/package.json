@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-clients",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Test library for boatnet.",
   "main": "lib/index.js",
   "types": "lib",
@@ -17,9 +17,12 @@
   "devDependencies": {
     "@types/node": "^16.6.2",
     "@types/request": "^2.48.7",
-    "typescript": "^3.7.2"
+    "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@boatnet/bn-auth": "^0.1.19"
+    "@boatnet/bn-auth": "^0.1.19",
+    "core-js": "^3.18.2",
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2"
   }
 }
