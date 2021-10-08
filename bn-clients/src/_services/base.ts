@@ -1,6 +1,9 @@
+import { ClientCredentials } from "..";
+
 export class Base {
     url: string = '';
     token: string = '';
+    isConnected: boolean = false;
 
     constructor() {
     }
@@ -11,8 +14,13 @@ export class Base {
      * @param url 
      * @param token 
      */
-     connect(url: string, token: string) {
-        this.url = url;
-        this.token = token;
+     connect(credentials: ClientCredentials) {
+        this.isConnected = true;
+        this.url = credentials.url;
+        this.token = credentials.token;
+    }
+
+    isClientConnected() {
+        return this.isConnected;
     }
 }
