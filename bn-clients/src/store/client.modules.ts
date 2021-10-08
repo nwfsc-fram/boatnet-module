@@ -48,7 +48,7 @@ const mutations: MutationTree<ClientInfoState> = {
     if (!newState.oracleCredentials) {
       throw new Error('Please log out and back in for oracleDB connection.');
     } else {
-        mongoService.connect(newState.oracleCredentials);
+        oracleClient.connect(newState.oracleCredentials);
     }
   },  
 };
