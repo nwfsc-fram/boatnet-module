@@ -40,9 +40,6 @@ export class BaseLookupInfo extends Base {
             }
         } 
         options = orderBy(options, 'label');
-        console.log('heyyyyyy')
-        console.log('options')
-        console.log(options)
         return options;
       }
 }

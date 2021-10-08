@@ -45,8 +45,6 @@ const mutations: MutationTree<ClientInfoState> = {
     newState.oracleCredentials = credentials;
   },
   oracleReconnectRequest(newState: ClientInfoState) {
-    console.log('oracle reconnect')
-    console.log(newState)
     if (!newState.oracleCredentials) {
       throw new Error('Please log out and back in for oracleDB connection.');
     } else {
