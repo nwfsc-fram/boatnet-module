@@ -6,10 +6,6 @@ import { Client } from 'davenport';
 import moment from 'moment';
 
 class WcgopTripImpl extends Base {
-    constructor(type: string) {
-        super(type);
-    }
-
     async getTripsByEvaluationPeriod(evaluationPeriod: EvaluationPeriods) {
         if (this.type === 'mongo') {
             const queryParams = {
@@ -63,4 +59,4 @@ class WcgopTripImpl extends Base {
     }
 }
 
-export const wcgopTripImpll = new WcgopTripImpl('mongo');
+export const wcgopTripImpll = new WcgopTripImpl();

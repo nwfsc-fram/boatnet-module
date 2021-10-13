@@ -1,6 +1,7 @@
 import { couchService } from "@boatnet/bn-couch";
 import { mongoService } from '@boatnet/bn-clients';
 import { oracleClient } from '@boatnet/bn-clients';
+import { defaultDB } from './dbConfig'
 
 export enum ClientType {
     Mongo = 'mongo',
@@ -14,8 +15,8 @@ export abstract class Base {
     mongoClient: any;
     oracleClient: any;
 
-    constructor(type: string) {
-        this.type = type;
+    constructor() {
+        this.type = defaultDB;
         if (couchService.isConnected) {
             this.couchClient = couchService.masterDB;
         }

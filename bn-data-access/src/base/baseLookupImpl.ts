@@ -1,17 +1,14 @@
-import { get, orderBy } from 'lodash';
+import { get, orderBy, toUpper } from 'lodash';
 import { Base, ClientType } from './base';
 import { database } from '@boatnet/bn-clients';
 
 export class BaseLookupInfo extends Base {
-    constructor(type: string) {
-        super(type);
-    }
-
-    async getLookups(program: string, type: string, displayName: string, value: string, displayCode?: string, showCodes?: boolean) {
+    async getLookups(program: string, type: string, displayName: string, value: string, db?: ClientType, displayCode?: string, showCodes?: boolean) {
         let options: any[] = [];
         let queryResults: any = [];
+        const dbType = db ? db : this.type;
 
-        if (this.type === ClientType.Mongo) {
+        if (dbType === ClientType.Mongo) {
             queryResults = await this.mongoClient.read('boatnetdb', 'lookups', { "type": type });
             for (const option of queryResults) {
                 options.push({
@@ -19,7 +16,7 @@ export class BaseLookupInfo extends Base {
                     value: value ? get(option, value) : option
                 });
             }
-        } else if (this.type === ClientType.Couch) {
+        } else if (dbType === ClientType.Couch) {
             const optionsList: any = await this.couchClient.viewWithDocs('obs_web', program + '-' + type, { key: type});
             for (const option of optionsList.rows) {
                 options.push({
@@ -27,9 +24,9 @@ export class BaseLookupInfo extends Base {
                     value: get(option, value)
                 });
             }
-        } else if (this.type === ClientType.Oracle) {
+        } else if (dbType === ClientType.Oracle) {
             const query = "select * from lookups where lookup_type =: type";
-            const params = [type];
+            const params = [toUpper(type)];
 
             const result =  await this.oracleClient.getData(query, params, database.OBSPROD);
             for (const option of result.rows) {
@@ -44,4 +41,4 @@ export class BaseLookupInfo extends Base {
       }
 }
 
-export const baseLookupInfo = new BaseLookupInfo(ClientType.Oracle);
+export const baseLookupInfo = new BaseLookupInfo();
