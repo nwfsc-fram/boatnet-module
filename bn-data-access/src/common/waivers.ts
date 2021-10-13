@@ -7,7 +7,7 @@ export class Waivers extends Base {
         //TODO impl
     }
 
-    async getByIdAndYear(year: string, id?: string, db?: ClientType) {
+    async getByIdAndYear(year: string, db?: ClientType, id?: string) {
         let waivers: any[] = [];
         const dbType = db ? db : this.type;
 
@@ -54,6 +54,7 @@ export class Waivers extends Base {
                 });
 
         } else if (dbType === ClientType.Oracle) {
+            console.log('oralce')
             let query = '';
             let params = []
             if (id) {
