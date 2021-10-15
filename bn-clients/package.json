@@ -1,0 +1,28 @@
+{
+  "name": "@boatnet/bn-clients",
+  "version": "1.0.4",
+  "description": "Test library for boatnet.",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "FRAM Data Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwfsc-fram/boatnet-module.git"
+  },
+  "devDependencies": {
+    "@types/node": "^16.6.2",
+    "@types/request": "^2.48.7",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@boatnet/bn-auth": "^0.1.19",
+    "core-js": "^3.18.2",
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2"
+  }
+}
