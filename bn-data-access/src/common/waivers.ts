@@ -3,8 +3,15 @@ import { database } from '@boatnet/bn-clients';
 import { couchService } from '@boatnet/bn-couch';
 
 export class Waivers extends Base {
-    async getById(id: string) {
-        //TODO impl
+    async getById(id: string, db?: ClientType) {
+        const dbType = db ? db : this.type;
+        if (dbType === ClientType.Mongo) {
+            this.mongoClient.getDocById('boatnetdb', 'waivers', id);
+        } else if (dbType === ClientType.Couch) {
+            // Couch Impl
+        } else if (dbType === ClientType.Oracle) {
+            // Oracle Impl
+        }
     }
 
     async getByIdAndYear(year: string, db?: ClientType, id?: string) {
