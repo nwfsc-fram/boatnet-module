@@ -136,9 +136,9 @@ class MongoService extends Base{
     // )
     // console.log(getManyResult)
 
-    mongoWrite(documents: object[]) {
+    mongoWrite(database: string, collection: string, documents: object[]) {
         return new Promise( (resolve, reject) => {
-            const queryUrl = this.url;
+            const queryUrl = this.url + '/write/' + database + '/' + collection;
             request.post(
                 {
                     url: queryUrl,
@@ -158,9 +158,9 @@ class MongoService extends Base{
         });
     }
 
-    mongoUpdate(document: any) {
+    mongoUpdate(database: string, collection: string, document: any) {
         return new Promise( (resolve, reject) => {
-            const queryUrl = this.url;
+            const queryUrl = this.url + '/update/' + database + '/' + collection;
             request.put(
                 {
                     url: queryUrl,
