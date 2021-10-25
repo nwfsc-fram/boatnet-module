@@ -3,9 +3,9 @@ import { database } from '@boatnet/bn-clients';
 import { couchService } from '@boatnet/bn-couch';
 
 export class Waivers extends Base {
-    async getById(id: string) {
-        //TODO impl
-    }
+    async getWaiverById(id: string, db?: ClientType) {
+        return await this.getById(id, 'waivers', db);
+     }
 
     async getByIdAndYear(year: string, db?: ClientType, id?: string) {
         let waivers: any[] = [];
@@ -106,8 +106,8 @@ export class Waivers extends Base {
         }
     }
 
-    async save(doc: any, dbClient: string) {
-        // TODO impl
+    async saveWaiver(doc: any, db?: ClientType) {
+        await this.save('waivers', doc, db);
     }
 }
 
