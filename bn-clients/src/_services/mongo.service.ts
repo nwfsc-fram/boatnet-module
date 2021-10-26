@@ -53,7 +53,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
-    async mongoAggregate(database: any, collection: string, pipeline: any) {
+    async aggregate(database: any, collection: string, pipeline: any) {
         const body: any = {
             database,
             collection,
@@ -63,7 +63,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
-    async mongoGetOne(database: any, collection: string, id: string) {
+    async getOne(database: any, collection: string, id: string) {
         const body: any = {
             database,
             collection,
@@ -75,7 +75,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
-    async mongoGetMany(database: any, collection: string, ids: string[]) {
+    async getMany(database: any, collection: string, ids: string[]) {
         const body: any = {
             database,
             collection,
@@ -87,7 +87,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
-    async mongoWrite(database: string, collection: string, documents: object[]) {
+    async write(database: string, collection: string, documents: object[]) {
         const body: any = {
             database,
             collection,
@@ -99,7 +99,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getWriteURL(), body);
     }
 
-    async mongoUpdate(database: string, collection: string, document: any) {
+    async update(database: string, collection: string, document: any) {
         const body: any = {
             database,
             collection,
@@ -111,7 +111,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getWriteURL(), body);
     }
 
-    async mongoDelete(database: string, collection: string, document: any) {
+    async delete(database: string, collection: string, document: any) {
         const body: any = {
             database,
             collection,
