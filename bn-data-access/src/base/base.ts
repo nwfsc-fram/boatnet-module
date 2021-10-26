@@ -42,7 +42,7 @@ export abstract class Base {
             return await this.mongoClient.read('boatnetdb', collection, queryOptions);
         } catch (error){
             console.log(error);
-        }    
+        }
     }
 
     async fetchFromCouch(view: string, val?: string, limit?: number, descending?: boolean) {

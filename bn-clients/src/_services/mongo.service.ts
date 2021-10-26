@@ -10,196 +10,117 @@ class MongoService extends Base{
         console.log('Mongo service created')
     }
 
-    read(database: string, collection: string, query: any, options?: any) {
+    getReadURL() {
+        return this.url + '/mongoRead';
+    }
+
+    getWriteURL() {
+        return this.url + '/mongoWrite';
+    }
+
+    async queryAPI(url: string, body: any) {
         return new Promise( (resolve, reject) => {
-            const queryOptions = options ? options : {};
-            const payload: any = {
+            request.post(
+                {
+                    url,
+                    json: true,
+                    headers: {
+                        'authorization': 'Token ' + this.token,
+                        'Content-Type': 'application/json'
+                    },
+                    body
+                }, (err: any, response: any, body: any) => {
+                    if (!err && response.statusCode === 200) {
+                        resolve(body);
+                    } else {
+                        reject(body);
+                    }
+                }
+            );
+        })
+    }
+
+    async read(database: string, collection: string, query: any, options?: any) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'find',
+            payload: {
                 query,
-                options: queryOptions
-            };
-            const queryUrl = this.url + '/' + database + '/' + collection;
-            request.post(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        'authorization': 'Token ' + this.token,
-                        'Content-Type': 'application/json'
-                    },
-                    body: payload
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+                options
+            }
+        };
+        return await this.queryAPI(this.getReadURL(), body);
     }
 
-    mongoAggregate(database: any, collection: string, pipeline: any) {
-        return new Promise( (resolve, reject) => {
-            const payload = {pipeline};
-            const queryUrl = this.url + '/aggregate/' + database + '/' + collection;
-            request.post(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        'authorization': 'Token ' + this.token,
-                        'Content-Type': 'application/json'
-                    },
-                    body: payload
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoAggregate(database: any, collection: string, pipeline: any) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'aggregation',
+            payload: pipeline
+        };
+        return await this.queryAPI(this.getReadURL(), body);
     }
 
-    // example query:
-    // const result = await mongoAggregate(
-    //     'boatnetdb',
-    //     'lookups.beauforts',
-    //     [
-    //         {$match: {isActive: true}},
-    //         {$limit: 3}
-    //     ]
-    // );
-    // console.log(result);
-
-    mongoGetOne(database: any, collection: string, id: string) {
-        return new Promise( (resolve, reject) => {
-            const queryUrl = this.url + '/get/' + database + '/' + collection + '/' + id;
-            request.get(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        'authorization': 'Token ' + this.token,
-                        'Content-Type': 'application/json'
-                    }
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoGetOne(database: any, collection: string, id: string) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'getOneById',
+            payload: {
+                id
+            }
+        };
+        return await this.queryAPI(this.getReadURL(), body);
     }
 
-    // example query:
-    // const getOneResult = await mongoGetOne(
-    //     'boatnetdb',
-    //     'trips_api.trips',
-    //     "612515f92feb772abc836e6c"
-    // )
-    // console.log(getOneResult);
-
-    mongoGetMany(database: any, collection: string, ids: string[]) {
-        return new Promise( (resolve, reject) => {
-            const queryUrl = this.url + '/getMany/' + database + '/' + collection + '/';
-            request.post(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        'authorization': 'Token ' + this.token,
-                        'Content-Type': 'application/json'
-                    },
-                    body: {
-                        ids
-                    }
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoGetMany(database: any, collection: string, ids: string[]) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'getManyById',
+            payload: {
+                ids
+            }
+        }
+        return await this.queryAPI(this.getReadURL(), body);
     }
 
-    // example query:
-    // const getManyResult = await mongoGetMany(
-    //     'boatnetdb',
-    //     'trips_api.trips',
-    //     ["612515f92feb772abc836e6c"]
-    // )
-    // console.log(getManyResult)
-
-    mongoWrite(database: string, collection: string, documents: object[]) {
-        return new Promise( (resolve, reject) => {
-            const queryUrl = this.url + '/write/' + database + '/' + collection;
-            request.post(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        authorization: 'Token ' + this.token
-                    },
-                    body: documents
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoWrite(database: string, collection: string, documents: object[]) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'insert',
+            payload: {
+                documents
+            }
+        }
+        return await this.queryAPI(this.getWriteURL(), body);
     }
 
-    mongoUpdate(database: string, collection: string, document: any) {
-        return new Promise( (resolve, reject) => {
-            const queryUrl = this.url + '/update/' + database + '/' + collection;
-            request.put(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        authorization: 'Token ' + this.token
-                    },
-                    body: document
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoUpdate(database: string, collection: string, document: any) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'update',
+            payload: {
+                document
+            }
+        }
+        return await this.queryAPI(this.getWriteURL(), body);
     }
 
-    mongoDelete(document: any) {
-        return new Promise( (resolve, reject) => {
-            const queryUrl = this.url;
-            request.delete(
-                {
-                    url: queryUrl,
-                    json: true,
-                    headers: {
-                        authorization: 'Token ' + this.token
-                    },
-                    body: document
-                }, (err: any, response: any, body: any) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
-                    } else {
-                        reject(body);
-                    }
-                }
-            );
-        });
+    async mongoDelete(database: string, collection: string, document: any) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'delete',
+            payload: {
+                document
+            }
+        }
+        return await this.queryAPI(this.getWriteURL(), body);
     }
 }
 
