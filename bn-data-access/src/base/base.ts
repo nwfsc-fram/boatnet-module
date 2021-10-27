@@ -112,8 +112,29 @@ export abstract class Base {
         }
         return document;
     }
+
+    async update(collection: string, document: any, db?: ClientType) {
+        const dbType = db ? db : this.type;
+
+        if (dbType === ClientType.Mongo) {
+            try {
+                this.mongoClient.update('boatnetdb', collection, document);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            try {
+                const result = this.couchClient.post(document);
+                document._id = result.id;
+                document._rev = result.rev;
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        return document;
+    }
 	
-	  async getById(id: string, collection: string, db?: ClientType) {
+	async getById(id: string, collection: string, db?: ClientType) {
         const dbType = db ? db : this.type;
         let result = [];
 
