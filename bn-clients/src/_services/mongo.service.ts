@@ -87,7 +87,7 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
-    async write(database: string, collection: string, documents: object[]) {
+    async insert(database: string, collection: string, documents: object[]) {
         const body: any = {
             database,
             collection,
