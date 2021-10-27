@@ -1,13 +1,13 @@
 import { Base, ClientType } from '../base/base';
 import { database } from '@boatnet/bn-clients';
-import { couchService } from '@boatnet/bn-couch';
+import moment from 'moment';
 
 export class Waivers extends Base {
-    async getWaiverById(id: string, db?: ClientType) {
+    public async getWaiverById(id: string, db?: ClientType) {
         return await this.getById(id, 'waivers', db);
-     }
+    }
 
-    async getByIdAndYear(year: string, db?: ClientType, id?: string) {
+    public async getByIdAndYear(year: string, db?: ClientType, id?: string) {
         let waivers: any[] = [];
         const dbType = db ? db : this.type;
 
@@ -28,9 +28,7 @@ export class Waivers extends Base {
                 waivers.push(this.formatDoc(waiver));
             }
         } else if (dbType === ClientType.Couch) {
-            const moment = require('moment');
-            const masterDev = couchService.masterDB;
-            const waiversQuery = await masterDev.view(
+            const waiversQuery = await this.couchClient.view(
                 'obs_web', 
                 'waiverId',
                 {"reduce": false, "descending": true, include_docs: true}
@@ -85,9 +83,25 @@ export class Waivers extends Base {
             }
         } 
         return waivers;
-      }
+    }
 
-      formatDoc(doc: any) {
+    public async saveWaiver(doc: any[], db?: ClientType) {
+        return await this.save('waivers', doc, db);
+    }
+
+    public async updateWaiver(waiver: any, updatedBy: string, db?: ClientType) {
+        waiver.updateDate = moment().format();
+        waiver.updatedBy = updatedBy;
+        const previous = await this.getWaiverById(waiver._id);
+        delete previous.changeLog;
+        if (!waiver.changeLog) {
+            waiver.changeLog = [];
+        }
+        waiver.changeLog.push(previous);
+        return await this.update('waivers', waiver, db);
+    }
+
+      private formatDoc(doc: any) {
         return {
             waiverId: doc.waiverId,
             startDate: doc.startDate,
@@ -104,10 +118,6 @@ export class Waivers extends Base {
             notes: doc.notes,
             source: 'BOATNET'
         }
-    }
-
-    async saveWaiver(doc: any, db?: ClientType) {
-        await this.save('waivers', doc, db);
     }
 }
 
