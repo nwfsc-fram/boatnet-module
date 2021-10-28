@@ -87,6 +87,20 @@ class MongoService extends Base{
         return await this.queryAPI(this.getReadURL(), body);
     }
 
+    async getDistinct(database: any, collection: string, field: string, query?: any, options?: any) {
+        const body: any = {
+            database,
+            collection,
+            operation: 'getDistinct',
+            payload: {
+                field,
+                query,
+                options
+            }
+        }
+        return await this.queryAPI(this.getReadURL(), body);
+    }
+
     async insert(database: string, collection: string, documents: object[]) {
         const body: any = {
             database,
