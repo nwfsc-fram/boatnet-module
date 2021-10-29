@@ -39,7 +39,7 @@ export class BaseLookupInfo extends Base {
             for (const option of optionsList.rows) {
                 options.push({
                     label: showCodes && displayCode ? get(option.doc, displayCode, '') : get(option.doc, displayName),
-                    value: get(option, value)
+                    value: value ? get(option, value) : option.doc
                 });
             }
         } else if (dbType === ClientType.Oracle) {
