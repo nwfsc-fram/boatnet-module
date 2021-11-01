@@ -52,7 +52,6 @@ export class Waivers extends Base {
                 });
 
         } else if (dbType === ClientType.Oracle) {
-            console.log('oralce')
             let query = '';
             let params = []
             if (id) {
@@ -103,6 +102,7 @@ export class Waivers extends Base {
 
       private formatDoc(doc: any) {
         return {
+            _id: doc._id,
             waiverId: doc.waiverId,
             startDate: doc.startDate,
             endDate: doc.endDate,

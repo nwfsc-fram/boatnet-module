@@ -1,6 +1,6 @@
 {
   "name": "@boatnet/bn-data-access",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Test library for boatnet.",
   "main": "lib/index.js",
   "types": "lib",
