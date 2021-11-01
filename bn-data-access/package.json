@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@boatnet/bn-auth": "^0.1.19",
-    "@boatnet/bn-clients": "^1.0.8",
+    "@boatnet/bn-clients": "^1.0.9",
     "@boatnet/bn-couch": "^0.1.8",
     "@boatnet/bn-models": "^0.6.4",
     "@types/geojson": "^7946.0.8",
