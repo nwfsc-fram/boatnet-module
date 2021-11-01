@@ -4,7 +4,7 @@ import { database } from '@boatnet/bn-clients';
 
 export class BaseLookupInfo extends Base {
     /**
-     * 
+     *
      * @param program program type
      *  eg: wcgop, ashop, em
      * @param type doc type we want to get from lookups
@@ -39,7 +39,7 @@ export class BaseLookupInfo extends Base {
             for (const option of optionsList.rows) {
                 options.push({
                     label: showCodes && displayCode ? get(option.doc, displayCode, '') : get(option.doc, displayName),
-                    value: get(option, value)
+                    value: value ? get(option, value) : option.doc
                 });
             }
         } else if (dbType === ClientType.Oracle) {
@@ -59,6 +59,46 @@ export class BaseLookupInfo extends Base {
         options = sortBy(options, [function(obj: any) { return obj.label.toLowerCase()}]);
         return options;
       }
+
+      async getFullLookups(type: string, db: ClientType) {
+        let options: any[] = [];
+        let queryResults: any = [];
+        const dbType = db ? db : this.type;
+
+        if (dbType === ClientType.Mongo) {
+            options = await this.mongoClient.read('boatnetdb', 'lookups', { "type": type });
+            console.log(options);
+        } else if (dbType === ClientType.Couch) {
+            const optionsList: any = await this.couchClient.viewWithDocs('obs_web', 'all_doc_types', { key: type, reduce: false});
+            options = optionsList.rows.map( (row: any) => row.doc);
+        } else if (dbType === ClientType.Oracle) {
+            const query = "select * from lookups where lookup_type =: type";
+            const params = [toUpper(type)];
+
+            const result =  await this.oracleClient.getData(query, params, database.OBSPROD);
+            options = result.rows;
+        }
+        return options;
+      }
+
+    async getTypes(db: ClientType) {
+        let types: string[] =[];
+        const dbType = db ? db : this.type;
+
+        if (dbType === ClientType.Mongo) {
+            types = await this.mongoClient.getDistinct('boatnetdb', 'lookups', 'type');
+        } else if (dbType === ClientType.Couch) {
+            const typesList: any = await this.couchClient.view('obs_web', 'all_doc_types', {reduce: true,
+                group_level: 1});
+            types = typesList.rows.map( (row: any) => row.key);
+        } else if (dbType === ClientType.Oracle) {
+            const query = "SELECT DISTINCT(LOOKUP_TYPE) FROM LOOKUPS";
+
+            const result =  await this.oracleClient.getData(query, [], database.OBSPROD);
+            types = result.rows;
+        }
+        return types;
+    }
 }
 
 export const baseLookupInfo = new BaseLookupInfo();
