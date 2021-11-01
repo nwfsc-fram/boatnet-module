@@ -30,6 +30,7 @@ export abstract class Base {
     oracleClient: any;
 
     constructor() {
+        console.log('is connected ' + couchService.isConnected)
         if (couchService.isConnected) {
             this.couchClient = couchService.masterDB;
         }
@@ -97,7 +98,7 @@ export abstract class Base {
 
         if (dbType === ClientType.Mongo) {
             try {
-                this.mongoClient.mongoWrite('boatnetdb', collection, [document]);
+                this.mongoClient.insert('boatnetdb', collection, [document]);
             } catch (error) {
                 console.log(error);
             }
@@ -140,7 +141,8 @@ export abstract class Base {
 
         if (dbType === ClientType.Mongo) {
             try {
-                result = await this.mongoClient.mongoGetOne('boatnetdb', collection, id);
+                result = await this.mongoClient.getOne('boatnetdb', collection, id);
+                result = result[0];
             } catch (error) {
                 console.log(error);
             }
